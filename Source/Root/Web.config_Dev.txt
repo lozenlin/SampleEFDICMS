@@ -13,9 +13,9 @@
     <add key="LangNoZHTW" value="1"/>
     <add key="LangNoEN" value="2"/>
     <add key="AttRootDir" value="Attachments/"/>
-    <add key="WebsiteUrl" value="http://SampleEFCMS.dev.com"/>
-    <add key="BackendUrl" value="http://SampleEFCMS.dev.com/Management"/>
-    <add key="BackendSsoAuthenticatorUrl" value="http://SampleEFCMS.dev.com/Management/Services/GetCurrentAccount.ashx"/>
+    <add key="WebsiteUrl" value="http://SampleEFDICMS.dev.com"/>
+    <add key="BackendUrl" value="http://SampleEFDICMS.dev.com/Management"/>
+    <add key="BackendSsoAuthenticatorUrl" value="http://SampleEFDICMS.dev.com/Management/Services/GetCurrentAccount.ashx"/>
     <!-- AesKeyOfFP, AesKeyOfBP, AesIV: each one requires 16 letters -->
     <add key="AesKeyOfFP" value="YourKeyYourKeyYo"/>
     <add key="AesKeyOfBP" value="YourKeyYourKeyYo"/>
@@ -23,7 +23,7 @@
     <!-- IsForceUseSSL: true, false; Forces websites to use https -->
     <add key="IsForceUseSSL" value="false"/>
     <!-- Email -->
-    <add key="ServiceEmail" value="SampleEFCMS@aa.a"/>
+    <add key="ServiceEmail" value="SampleEFDICMS@aa.a"/>
     <add key="SmtpServer" value="127.0.0.1"/>
     <!-- SmtpAccount: empty string means anonymous user -->
     <add key="SmtpAccount" value=""/>
@@ -41,7 +41,7 @@
   <!-- 避免子應用程式的 web.config 繼承, 用 location 包起來 -->
   <location path="." inheritInChildApplications="false">
     <connectionStrings>
-      <add name="CmsContext" connectionString="metadata=res://*/Model.Cms.csdl|res://*/Model.Cms.ssdl|res://*/Model.Cms.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\sqlexpress2012;initial catalog=SampleEFCMS;user id=cmsDev;password=yourpassword;MultipleActiveResultSets=True;App=SampleEFCMS&quot;" providerName="System.Data.EntityClient" />
+      <add name="CmsContext" connectionString="metadata=res://*/Model.Cms.csdl|res://*/Model.Cms.ssdl|res://*/Model.Cms.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\sqlexpress2012;initial catalog=SampleEFDICMS;user id=cmsDev;password=yourpassword;MultipleActiveResultSets=True;App=SampleEFDICMS&quot;" providerName="System.Data.EntityClient" />
     </connectionStrings>
   </location>
   <!--

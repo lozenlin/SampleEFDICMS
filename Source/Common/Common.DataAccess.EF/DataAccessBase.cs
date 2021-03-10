@@ -1,6 +1,6 @@
 ﻿// ===============================================================================
-// DataAccessBase of SampleEFCMS
-// https://github.com/lozenlin/SampleEFCMS
+// DataAccessBase of SampleEFDICMS
+// https://github.com/lozenlin/SampleEFDICMS
 //
 // DataAccessBase.cs
 //

@@ -1,5 +1,5 @@
 ﻿-- Employee and Authority SP, DB Functions
--- use SampleEFCMS
+-- use SampleEFDICMS
 go
 
 

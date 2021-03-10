@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Common.DataAccess.EF")]
-[assembly: AssemblyCopyright("Copyright ©  2019, based on SampleEFCMS Common.DataAccess.EF v1.3")]
+[assembly: AssemblyCopyright("Copyright ©  2019, based on SampleEFDICMS Common.DataAccess.EF v1.3")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

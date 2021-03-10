@@ -478,7 +478,7 @@ public partial class Article_Config : System.Web.UI.Page
                 if (chkUpdateSearchDataSource.Checked)
                 {
                     // call sql server agent job
-                    //bool jobResult = artPub.CallSqlServerAgentJob("Update SampleEFCMS SearchDataSource");
+                    //bool jobResult = artPub.CallSqlServerAgentJob("Update SampleEFDICMS SearchDataSource");
 
                     // sp
                     artPub.BuildSearchDataSource("");

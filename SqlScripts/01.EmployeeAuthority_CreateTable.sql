@@ -1,5 +1,5 @@
 ﻿-- Employee and Authority tables
--- use SampleEFCMS
+-- use SampleEFDICMS
 go
 
 ----------------------------------------------------------------------------

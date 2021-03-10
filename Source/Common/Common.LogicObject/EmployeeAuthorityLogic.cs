@@ -1,6 +1,6 @@
 ﻿// ===============================================================================
-// EmployeeAuthorityLogic of SampleEFCMS
-// https://github.com/lozenlin/SampleEFCMS
+// EmployeeAuthorityLogic of SampleEFDICMS
+// https://github.com/lozenlin/SampleEFDICMS
 //
 // EmployeeAuthorityLogic.cs
 //

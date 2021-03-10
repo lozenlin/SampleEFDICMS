@@ -1,6 +1,6 @@
 ﻿// ===============================================================================
-// EmployeeAuthorityDataAccess of SampleEFCMS
-// https://github.com/lozenlin/SampleEFCMS
+// EmployeeAuthorityDataAccess of SampleEFDICMS
+// https://github.com/lozenlin/SampleEFDICMS
 //
 // EmployeeAuthorityDataAccess.cs
 //

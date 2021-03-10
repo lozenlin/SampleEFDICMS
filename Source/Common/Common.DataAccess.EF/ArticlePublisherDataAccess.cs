@@ -1,6 +1,6 @@
 ﻿// ===============================================================================
-// ArticlePublisherDataAccess of SampleEFCMS
-// https://github.com/lozenlin/SampleEFCMS
+// ArticlePublisherDataAccess of SampleEFDICMS
+// https://github.com/lozenlin/SampleEFDICMS
 //
 // ArticlePublisherDataAccess.cs
 //

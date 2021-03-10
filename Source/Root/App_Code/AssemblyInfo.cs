@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("SampleEFCMS Demo")]
-[assembly: AssemblyProduct("SampleEFCMS Demo")]
+[assembly: AssemblyTitle("SampleEFDICMS Demo")]
+[assembly: AssemblyProduct("SampleEFDICMS Demo")]
 [assembly: AssemblyCopyright("Copyright ©  2019, based on SampleCMS Root v1.0")]
 [assembly: AssemblyVersion("1.1.0.*")]
 

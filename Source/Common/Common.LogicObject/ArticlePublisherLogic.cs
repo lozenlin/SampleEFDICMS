@@ -1,6 +1,6 @@
 ﻿// ===============================================================================
-// ArticlePublisherLogic of SampleEFCMS
-// https://github.com/lozenlin/SampleEFCMS
+// ArticlePublisherLogic of SampleEFDICMS
+// https://github.com/lozenlin/SampleEFDICMS
 //
 // ArticlePublisherLogic.cs
 //

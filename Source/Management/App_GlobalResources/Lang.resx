@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BackStageName" xml:space="preserve">
-    <value>SampleEFCMS 後端管理</value>
-    <comment>SampleEFCMS 後端管理</comment>
+    <value>SampleEFDICMS 後端管理</value>
+    <comment>SampleEFDICMS 後端管理</comment>
   </data>
   <data name="BackStageNameShort" xml:space="preserve">
-    <value>SampleEFCMS 後端管理</value>
-    <comment>SampleEFCMS</comment>
+    <value>SampleEFDICMS 後端管理</value>
+    <comment>SampleEFDICMS</comment>
   </data>
   <data name="Login_Subtitle" xml:space="preserve">
     <value>使用者登入</value>
@@ -1170,8 +1170,8 @@
     <comment>請將圖示檔案放至網站目錄[ BPimages/icon ]中</comment>
   </data>
   <data name="Operation_txtLinkUrl_Notice" xml:space="preserve">
-    <value>．{website_url} = 帶入前台完整網址. e.g., http://SampleEFCMS.dev.com &lt;br /&gt;．{backend_url} = 帶入後台完整網址. e.g., https://SampleEFCMS.dev.com/Management</value>
-    <comment>．{website_url} = 帶入前台完整網址. e.g., http://SampleEFCMS.dev.com &lt;br /&gt;．{backend_url} = 帶入後台完整網址. e.g., https://SampleEFCMS.dev.com/Management</comment>
+    <value>．{website_url} = 帶入前台完整網址. e.g., http://SampleEFDICMS.dev.com &lt;br /&gt;．{backend_url} = 帶入後台完整網址. e.g., https://SampleEFDICMS.dev.com/Management</value>
+    <comment>．{website_url} = 帶入前台完整網址. e.g., http://SampleEFDICMS.dev.com &lt;br /&gt;．{backend_url} = 帶入後台完整網址. e.g., https://SampleEFDICMS.dev.com/Management</comment>
   </data>
   <data name="Operation_chkIsNewWindow" xml:space="preserve">
     <value>開啟在新視窗</value>
@@ -1926,12 +1926,12 @@
     <comment>身分 "guest" 不允許使用本功能</comment>
   </data>
   <data name="WebsiteName" xml:space="preserve">
-    <value>SampleEFCMS 前台展示</value>
-    <comment>SampleEFCMS 前台展示</comment>
+    <value>SampleEFDICMS 前台展示</value>
+    <comment>SampleEFDICMS 前台展示</comment>
   </data>
   <data name="WebsiteNameShort" xml:space="preserve">
-    <value>SampleEFCMS</value>
-    <comment>SampleEFCMS</comment>
+    <value>SampleEFDICMS</value>
+    <comment>SampleEFDICMS</comment>
   </data>
   <data name="Login_lblBackTo" xml:space="preserve">
     <value>回到</value>

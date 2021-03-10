@@ -1,5 +1,5 @@
 ﻿-- Article publisher SP, DB Functions
--- use SampleEFCMS
+-- use SampleEFDICMS
 go
 
 -- db functions

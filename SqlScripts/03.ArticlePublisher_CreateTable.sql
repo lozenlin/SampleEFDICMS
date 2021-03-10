@@ -1,5 +1,5 @@
 ﻿-- Article Publisher tables
--- use SampleEFCMS
+-- use SampleEFDICMS
 go
 
 ----------------------------------------------------------------------------

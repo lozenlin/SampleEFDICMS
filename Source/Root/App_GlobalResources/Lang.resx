@@ -108,12 +108,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="WebsiteName" xml:space="preserve">
-    <value>SampleEFCMS 前台展示</value>
-    <comment>SampleEFCMS 前台展示</comment>
+    <value>SampleEFDICMS 前台展示</value>
+    <comment>SampleEFDICMS 前台展示</comment>
   </data>
   <data name="WebsiteNameShort" xml:space="preserve">
-    <value>SampleEFCMS</value>
-    <comment>SampleEFCMS</comment>
+    <value>SampleEFDICMS</value>
+    <comment>SampleEFDICMS</comment>
   </data>
   <data name="Pager_btnPrevious" xml:space="preserve">
     <value>上一頁</value>
