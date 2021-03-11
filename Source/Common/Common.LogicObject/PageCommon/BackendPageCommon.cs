@@ -250,6 +250,9 @@ namespace Common.LogicObject
         public BackendPageCommon(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
             : base(context, viewState)
         {
+            if (empAuthDao == null)
+                throw new ArgumentNullException("empAuthDao");
+
             this.empAuthDao = empAuthDao;
         }
 
@@ -274,12 +277,8 @@ namespace Common.LogicObject
             //用共用元件類別名稱取得後端作業選項資訊
             OperationOpInfo opInfo = null;
 
-            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
-            {
-                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                opInfo = empAuthDao.GetOperationOpInfoByCommonClass(commonClass);
-                string dbErrMsg = empAuthDao.GetErrMsg();
-            }
+            opInfo = empAuthDao.GetOperationOpInfoByCommonClass(commonClass);
+            string dbErrMsg = empAuthDao.GetErrMsg();
 
             if (opInfo != null)
             {
@@ -635,24 +634,20 @@ namespace Common.LogicObject
             if (!isTopPageOfOperation)
             {
                 // get owner info for config-form
-                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
+                string empAccount = empAuthDao.GetEmployeeAccountOfId(qsEmpId);
+                string dbErrMsg = empAuthDao.GetErrMsg();
+
+                if (!string.IsNullOrEmpty(empAccount))
                 {
-                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                    string empAccount = empAuthDao.GetEmployeeAccountOfId(qsEmpId);
-                    string dbErrMsg = empAuthDao.GetErrMsg();
+                    accountOfData = empAccount;
 
-                    if (!string.IsNullOrEmpty(empAccount))
+                    EmployeeForBackend empData = empAuthDao.GetEmployeeDataForBackend(empAccount);
+                    dbErrMsg = empAuthDao.GetErrMsg();
+
+                    if (empData != null)
                     {
-                        accountOfData = empAccount;
-
-                        EmployeeForBackend empData = empAuthDao.GetEmployeeDataForBackend(empAccount);
-                        dbErrMsg = empAuthDao.GetErrMsg();
-
-                        if (empData != null)
-                        {
-                            authAndOwner.OwnerAccountOfDataExamined = empData.OwnerAccount;
-                            authAndOwner.OwnerDeptIdOfDataExamined = empData.OwnerDeptId;
-                        }
+                        authAndOwner.OwnerAccountOfDataExamined = empData.OwnerAccount;
+                        authAndOwner.OwnerDeptIdOfDataExamined = empData.OwnerDeptId;
                     }
                 }
             }
@@ -748,12 +743,8 @@ namespace Common.LogicObject
                 // get owner info for config-form
                 EmployeeRoleForBackend empRole = null;
 
-                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
-                {
-                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                    empRole = empAuthDao.GetEmployeeRoleDataForBackend(qsRoleId);
-                    string dbErrMsg = empAuthDao.GetErrMsg();
-                }
+                empRole = empAuthDao.GetEmployeeRoleDataForBackend(qsRoleId);
+                string dbErrMsg = empAuthDao.GetErrMsg();
 
                 if (empRole != null)
                 {
@@ -800,18 +791,13 @@ namespace Common.LogicObject
             if (!isTopPageOfOperation)
             {
                 // get owner info for config-form
-                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
+                DepartmentForBackend dept = empAuthDao.GetDepartmentDataForBackend(qsId);
+                string dbErrMsg = empAuthDao.GetErrMsg();
+
+                if (dept != null)
                 {
-                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                    DepartmentForBackend dept = empAuthDao.GetDepartmentDataForBackend(qsId);
-                    string dbErrMsg = empAuthDao.GetErrMsg();
-
-                    if (dept != null)
-                    {
-                        authAndOwner.OwnerAccountOfDataExamined = dept.PostAccount ?? "";
-                        authAndOwner.OwnerDeptIdOfDataExamined = dept.PostDeptId;
-                    }
-
+                    authAndOwner.OwnerAccountOfDataExamined = dept.PostAccount ?? "";
+                    authAndOwner.OwnerDeptIdOfDataExamined = dept.PostDeptId;
                 }
             }
 
@@ -976,12 +962,15 @@ namespace Common.LogicObject
     [Description("後台網站架構管理頁的共用元件")]
     public class ArticleCommonOfBackend : BackendPageCommon
     {
-        protected IArticlePublisherDataAccess artPubDao;
+        protected ArticlePublisherLogic artPub;
 
-        public ArticleCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
+        public ArticleCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
             : base(context, viewState, empAuthDao)
         {
-            this.artPubDao = artPubDao;
+            if (artPub == null)
+                throw new ArgumentNullException("artPub");
+
+            this.artPub = artPub;
         }
 
         #region qs:=QueryString, se:=Session, vs:=ViewState, co:=Cookie
@@ -1032,12 +1021,8 @@ namespace Common.LogicObject
                 // get article info
                 ArticleForBackend article = null;
 
-                using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-                {
-                    IArticlePublisherDataAccess artPubDao = _artPubDao;
-                    article = artPubDao.GetArticleDataForBackend(curArticleId);
-                    string dbErrMsg = artPubDao.GetErrMsg();
-                }
+                article = artPub.GetArticleDataForBackend(curArticleId);
+                //string dbErrMsg = artPub.GetDbErrMsg();
 
                 if (article != null)
                 {
@@ -1065,12 +1050,8 @@ namespace Common.LogicObject
                     linkUrl = string.Format("Article-Node.aspx?artid={0}", curArticleId);
                     OperationOpInfo opInfo = null;
 
-                    using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
-                    {
-                        IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                        opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(linkUrl);
-                        string dbErrMsg = empAuthDao.GetErrMsg();
-                    }
+                    opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(linkUrl);
+                    //string dbErrMsg = empAuthDao.GetErrMsg();
 
                     if (opInfo != null)
                     {
@@ -1088,12 +1069,8 @@ namespace Common.LogicObject
                         // get parent info
                         ArticleForBackend parent = null;
 
-                        using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-                        {
-                            IArticlePublisherDataAccess artPubDao = _artPubDao;
-                            parent = artPubDao.GetArticleDataForBackend(curParentId);
-                            string dbErrMsg = artPubDao.GetErrMsg();
-                        }
+                        parent = artPub.GetArticleDataForBackend(curParentId);
+                        //string dbErrMsg = artPub.GetDbErrMsg();
 
                         if (parent == null)
                         {
@@ -1137,8 +1114,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-附件設定頁的共用元件")]
     public class ArticleAttachCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticleAttachCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
-            : base(context, viewState, empAuthDao, artPubDao)
+        public ArticleAttachCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, viewState, empAuthDao, artPub)
         {
         }
 
@@ -1158,7 +1135,6 @@ namespace Common.LogicObject
             if (qsAct == ConfigFormAction.add)
                 return qsArtId;
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             AttachFile att = artPub.GetAttachFileDataForBackend(qsAttId);
             Guid articleId = Guid.Empty;
 
@@ -1177,8 +1153,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-照片設定頁的共用元件")]
     public class ArticlePictureCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticlePictureCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
-            : base(context, viewState, empAuthDao, artPubDao)
+        public ArticlePictureCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, viewState, empAuthDao, artPub)
         {
         }
 
@@ -1198,7 +1174,6 @@ namespace Common.LogicObject
             if (qsAct == ConfigFormAction.add)
                 return qsArtId;
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             ArticlePicture pic = artPub.GetArticlePictureDataForBackend(qsPicId);
             Guid articleId = Guid.Empty;
 
@@ -1217,8 +1192,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-影片設定頁的共用元件")]
     public class ArticleVideoCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticleVideoCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
-            : base(context, viewState, empAuthDao, artPubDao)
+        public ArticleVideoCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, viewState, empAuthDao, artPub)
         {
         }
 
@@ -1238,7 +1213,6 @@ namespace Common.LogicObject
             if (qsAct == ConfigFormAction.add)
                 return qsArtId;
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             ArticleVideo att = artPub.GetArticleVideoDataForBackend(qsVidId);
             Guid articleId = Guid.Empty;
 
@@ -1286,12 +1260,8 @@ namespace Common.LogicObject
             {
                 OperationOpInfo opInfo = null;
 
-                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
-                {
-                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                    opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(qsUrl, false);
-                    string dbErrMsg = empAuthDao.GetErrMsg();
-                }
+                opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(qsUrl, false);
+                string dbErrMsg = empAuthDao.GetErrMsg();
 
                 if (opInfo != null)
                 {

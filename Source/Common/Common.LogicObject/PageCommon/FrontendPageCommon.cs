@@ -112,10 +112,10 @@ namespace Common.LogicObject
         /// <summary>
         /// 前台網頁的共用元件
         /// </summary>
-        public FrontendPageCommon(HttpContext context, StateBag viewState)
+        public FrontendPageCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
             : base(context, viewState)
         {
-            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+            this.artPub = artPub;
             articleData = new ArticleData();
 
             ERROR_PAGE = string.Format("ErrorPage.aspx?l={0}", qsLangNo);
@@ -341,8 +341,8 @@ namespace Common.LogicObject
         #region qs:=QueryString, se:=Session, vs:=ViewState, co:=Cookie
         #endregion
 
-        public OtherArticlePageCommon(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public OtherArticlePageCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
+            : base(context, viewState, artPub)
         {
         }
 
@@ -424,8 +424,8 @@ namespace Common.LogicObject
 
         #endregion
 
-        public SearchPageCommon(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public SearchPageCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
+            : base(context, viewState, artPub)
         {
         }
 

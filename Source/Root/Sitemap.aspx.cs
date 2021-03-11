@@ -20,7 +20,8 @@ public partial class Sitemap : FrontendBasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new OtherArticlePageCommon(this.Context, this.ViewState);
+        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new OtherArticlePageCommon(this.Context, this.ViewState, artPub);
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData())
@@ -29,7 +30,6 @@ public partial class Sitemap : FrontendBasePage
         }
 
         articleData = c.GetArticleData();
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         masterSettings = (IMasterArticleSettings)this.Master;
         
     }

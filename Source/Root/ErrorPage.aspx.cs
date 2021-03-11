@@ -8,11 +8,11 @@ using System.Web.UI.WebControls;
 
 public partial class ErrorPage : System.Web.UI.Page
 {
-    protected FrontendPageCommon c;
+    protected PageCommon c;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new FrontendPageCommon(this.Context, this.ViewState);
+        c = new PageCommon(this.Context, this.ViewState);
         c.InitialLoggerOfUI(this.GetType());
     }
 

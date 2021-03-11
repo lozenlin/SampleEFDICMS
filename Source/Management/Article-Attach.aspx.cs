@@ -16,7 +16,8 @@ public partial class Article_Attach : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleAttachCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(), new Common.DataAccess.EF.ArticlePublisherDataAccess());
+        c = new ArticleAttachCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
+            new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
 
         artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
@@ -25,7 +26,7 @@ public partial class Article_Attach : System.Web.UI.Page
         empAuth.SetCustomEmployeeAuthorizationResult(artPub);
         empAuth.InitialAuthorizationResultOfSubPages();
 
-        attFileMgr = new AttachFileManagerLogic(this.Context);
+        attFileMgr = new AttachFileManagerLogic(this.Context, artPub);
     }
 
     protected void Page_Load(object sender, EventArgs e)

@@ -19,7 +19,8 @@ public partial class Article_Config : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(), new Common.DataAccess.EF.ArticlePublisherDataAccess());
+        c = new ArticleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
+            new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
 
         artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());

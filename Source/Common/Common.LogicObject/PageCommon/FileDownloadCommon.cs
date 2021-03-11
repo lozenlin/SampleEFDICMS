@@ -500,9 +500,12 @@ namespace Common.LogicObject
     /// </summary>
     public class AttDownloadCommon : FileDownloadCommon
     {
-        public AttDownloadCommon(HttpContext context, StateBag viewState)
+        protected ArticlePublisherLogic artPub;
+        public AttDownloadCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
             : base(context, viewState)
         {
+            this.artPub = artPub;
+
             if (qsSaveAs != -1)
             {
                 isSaveAs = (qsSaveAs == 1);
@@ -513,7 +516,6 @@ namespace Common.LogicObject
         {
             string fileFullName = "";
             string attRootDir = Server.MapPath(string.Format("~/{0}", ConfigurationManager.AppSettings["AttRootDir"]));
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             AttachFile attachFile = artPub.GetAttachFileDataForBackend(attId);
 
             if (attachFile == null)
@@ -542,8 +544,8 @@ namespace Common.LogicObject
     /// </summary>
     public class AttViewDownloadCommon : AttDownloadCommon
     {
-        public AttViewDownloadCommon(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public AttViewDownloadCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
+            : base(context, viewState, artPub)
         {
             isSaveAs = false;
             enabledPicResize = true;
@@ -578,9 +580,13 @@ namespace Common.LogicObject
     /// </summary>
     public class ArtPicDownloadCommon : FileDownloadCommon
     {
-        public ArtPicDownloadCommon(HttpContext context, StateBag viewState)
+        protected ArticlePublisherLogic artPub;
+
+        public ArtPicDownloadCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
             : base(context, viewState)
         {
+            this.artPub = artPub;
+
             isSaveAs = false;
             enabledPicResize = true;
             picFitSize.Width = 1920;
@@ -616,7 +622,6 @@ namespace Common.LogicObject
         {
             string fileFullName = "";
             string attRootDir = Server.MapPath(string.Format("~/{0}", ConfigurationManager.AppSettings["AttRootDir"]));
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             ArticlePicture pic = artPub.GetArticlePictureDataForBackend(attId);
 
             if (pic == null)

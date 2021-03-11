@@ -47,6 +47,12 @@ namespace Common.LogicObject
         public ArticlePublisherLogic(IAuthenticationConditionProvider authCondition, IArticlePublisherDataAccess artPubDao, IEmployeeAuthorityDataAccess empAuthDao)
             : this()
         {
+            if (artPubDao == null)
+                throw new ArgumentNullException("artPubDao");
+
+            if (empAuthDao == null)
+                throw new ArgumentNullException("empAuthDao");
+
             this.authCondition = authCondition;
             this.artPubDao = artPubDao;
             this.empAuthDao = empAuthDao;
@@ -71,12 +77,8 @@ namespace Common.LogicObject
         {
             ArticleForBackend entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.GetArticleDataForBackend(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.GetArticleDataForBackend(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -88,12 +90,8 @@ namespace Common.LogicObject
         {
             ArticleMultiLang entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<ArticleMultiLang>(articleId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<ArticleMultiLang>(articleId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -105,12 +103,8 @@ namespace Common.LogicObject
         {
             ArticleForFrontend entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.GetArticleDataForFrontend(articleId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.GetArticleDataForFrontend(articleId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -122,12 +116,8 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetArticleMaxSortNo(parentId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetArticleMaxSortNo(parentId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -139,54 +129,50 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            Article entity = new Article()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                Article entity = new Article()
-                {
-                    ArticleId = param.ArticleId,
-                    ParentId = param.ParentId,
-                    ArticleAlias = param.ArticleAlias,
-                    BannerPicFileName = param.BannerPicFileName,
-                    LayoutModeId = param.LayoutModeId,
-                    ShowTypeId = param.ShowTypeId,
-                    LinkUrl = param.LinkUrl,
-                    LinkTarget = param.LinkTarget,
-                    ControlName = param.ControlName,
-                    SubItemControlName = param.SubItemControlName,
-                    IsHideSelf = param.IsHideSelf,
-                    IsHideChild = param.IsHideChild,
-                    StartDate = param.StartDate,
-                    EndDate = param.EndDate,
-                    SortNo = param.SortNo,
-                    DontDelete = param.DontDelete,
-                    PostAccount = param.PostAccount,
-                    SubjectAtBannerArea = param.SubjectAtBannerArea,
-                    PublishDate = param.PublishDate,
-                    IsShowInUnitArea = param.IsShowInUnitArea,
-                    IsShowInSitemap = param.IsShowInSitemap,
-                    SortFieldOfFrontStage = param.SortFieldOfFrontStage,
-                    IsSortDescOfFrontStage = param.IsSortDescOfFrontStage,
-                    IsListAreaShowInFrontStage = param.IsListAreaShowInFrontStage,
-                    IsAttAreaShowInFrontStage = param.IsAttAreaShowInFrontStage,
-                    IsPicAreaShowInFrontStage = param.IsPicAreaShowInFrontStage,
-                    IsVideoAreaShowInFrontStage = param.IsVideoAreaShowInFrontStage,
-                    SubItemLinkUrl = param.SubItemLinkUrl
-                };
+                ArticleId = param.ArticleId,
+                ParentId = param.ParentId,
+                ArticleAlias = param.ArticleAlias,
+                BannerPicFileName = param.BannerPicFileName,
+                LayoutModeId = param.LayoutModeId,
+                ShowTypeId = param.ShowTypeId,
+                LinkUrl = param.LinkUrl,
+                LinkTarget = param.LinkTarget,
+                ControlName = param.ControlName,
+                SubItemControlName = param.SubItemControlName,
+                IsHideSelf = param.IsHideSelf,
+                IsHideChild = param.IsHideChild,
+                StartDate = param.StartDate,
+                EndDate = param.EndDate,
+                SortNo = param.SortNo,
+                DontDelete = param.DontDelete,
+                PostAccount = param.PostAccount,
+                SubjectAtBannerArea = param.SubjectAtBannerArea,
+                PublishDate = param.PublishDate,
+                IsShowInUnitArea = param.IsShowInUnitArea,
+                IsShowInSitemap = param.IsShowInSitemap,
+                SortFieldOfFrontStage = param.SortFieldOfFrontStage,
+                IsSortDescOfFrontStage = param.IsSortDescOfFrontStage,
+                IsListAreaShowInFrontStage = param.IsListAreaShowInFrontStage,
+                IsAttAreaShowInFrontStage = param.IsAttAreaShowInFrontStage,
+                IsPicAreaShowInFrontStage = param.IsPicAreaShowInFrontStage,
+                IsVideoAreaShowInFrontStage = param.IsVideoAreaShowInFrontStage,
+                SubItemLinkUrl = param.SubItemLinkUrl
+            };
 
-                insResult = artPubDao.InsertArticleData(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
+            insResult = artPubDao.InsertArticleData(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
-                if (!insResult.IsSuccess)
+            if (!insResult.IsSuccess)
+            {
+                if (artPubDao.GetSqlErrNumber() == 50000 && artPubDao.GetSqlErrState() == 2)
                 {
-                    if (artPubDao.GetSqlErrNumber() == 50000 && artPubDao.GetSqlErrState() == 2)
-                    {
-                        param.HasIdBeenUsed = true;
-                    }
-                    else if (artPubDao.GetSqlErrNumber() == 50000 && artPubDao.GetSqlErrState() == 3)
-                    {
-                        param.HasAliasBeenUsed = true;
-                    }
+                    param.HasIdBeenUsed = true;
+                }
+                else if (artPubDao.GetSqlErrNumber() == 50000 && artPubDao.GetSqlErrState() == 3)
+                {
+                    param.HasAliasBeenUsed = true;
                 }
             }
 
@@ -200,26 +186,22 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticleMultiLang entity = new ArticleMultiLang()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleMultiLang entity = new ArticleMultiLang()
-                {
-                    ArticleId = param.ArticleId,
-                    CultureName = param.CultureName,
-                    ArticleSubject = param.ArticleSubject,
-                    ArticleContext = param.ArticleContext,
-                    IsShowInLang = param.IsShowInLang,
-                    PostAccount = param.PostAccount,
-                    Subtitle = param.Subtitle,
-                    PublisherName = param.PublisherName,
-                    TextContext = param.TextContext,
-                    PostDate = DateTime.Now
-                };
+                ArticleId = param.ArticleId,
+                CultureName = param.CultureName,
+                ArticleSubject = param.ArticleSubject,
+                ArticleContext = param.ArticleContext,
+                IsShowInLang = param.IsShowInLang,
+                PostAccount = param.PostAccount,
+                Subtitle = param.Subtitle,
+                PublisherName = param.PublisherName,
+                TextContext = param.TextContext,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<ArticleMultiLang>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<ArticleMultiLang>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -231,62 +213,58 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            Article entity = artPubDao.GetEmptyEntity<Article>(new ArticleRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                Article entity = artPubDao.GetEmptyEntity<Article>(new ArticleRequiredPropValues()
+                ArticleId = param.ArticleId,
+                IsHideSelf = !param.IsHideSelf,
+                IsHideChild = !param.IsHideChild,
+                DontDelete = !param.DontDelete,
+                SubjectAtBannerArea = !param.SubjectAtBannerArea,
+                IsShowInUnitArea = !param.IsShowInUnitArea,
+                IsShowInSitemap = !param.IsShowInSitemap,
+                IsSortDescOfFrontStage = !param.IsSortDescOfFrontStage,
+                IsListAreaShowInFrontStage = !param.IsListAreaShowInFrontStage,
+                IsAttAreaShowInFrontStage = !param.IsAttAreaShowInFrontStage,
+                IsPicAreaShowInFrontStage = !param.IsPicAreaShowInFrontStage,
+                IsVideoAreaShowInFrontStage = !param.IsVideoAreaShowInFrontStage
+            });
+
+            entity.ArticleAlias = param.ArticleAlias;
+            entity.BannerPicFileName = param.BannerPicFileName;
+            entity.LayoutModeId = param.LayoutModeId;
+            entity.ShowTypeId = param.ShowTypeId;
+            entity.LinkUrl = param.LinkUrl;
+            entity.LinkTarget = param.LinkTarget;
+            entity.ControlName = param.ControlName;
+            entity.SubItemControlName = param.SubItemControlName;
+            entity.IsHideSelf = param.IsHideSelf;
+            entity.IsHideChild = param.IsHideChild;
+            entity.StartDate = param.StartDate;
+            entity.EndDate = param.EndDate;
+            entity.SortNo = param.SortNo;
+            entity.DontDelete = param.DontDelete;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
+            entity.SubjectAtBannerArea = param.SubjectAtBannerArea;
+            entity.PublishDate = param.PublishDate;
+            entity.IsShowInUnitArea = param.IsShowInUnitArea;
+            entity.IsShowInSitemap = param.IsShowInSitemap;
+            entity.SortFieldOfFrontStage = param.SortFieldOfFrontStage;
+            entity.IsSortDescOfFrontStage = param.IsSortDescOfFrontStage;
+            entity.IsListAreaShowInFrontStage = param.IsListAreaShowInFrontStage;
+            entity.IsAttAreaShowInFrontStage = param.IsAttAreaShowInFrontStage;
+            entity.IsPicAreaShowInFrontStage = param.IsPicAreaShowInFrontStage;
+            entity.IsVideoAreaShowInFrontStage = param.IsVideoAreaShowInFrontStage;
+            entity.SubItemLinkUrl = param.SubItemLinkUrl;
+
+            result = artPubDao.UpdateArticleData(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
+
+            if (!result)
+            {
+                if (artPubDao.GetSqlErrNumber() == 50000 && artPubDao.GetSqlErrState() == 3)
                 {
-                    ArticleId = param.ArticleId,
-                    IsHideSelf = !param.IsHideSelf,
-                    IsHideChild = !param.IsHideChild,
-                    DontDelete = !param.DontDelete,
-                    SubjectAtBannerArea = !param.SubjectAtBannerArea,
-                    IsShowInUnitArea = !param.IsShowInUnitArea,
-                    IsShowInSitemap = !param.IsShowInSitemap,
-                    IsSortDescOfFrontStage = !param.IsSortDescOfFrontStage,
-                    IsListAreaShowInFrontStage = !param.IsListAreaShowInFrontStage,
-                    IsAttAreaShowInFrontStage = !param.IsAttAreaShowInFrontStage,
-                    IsPicAreaShowInFrontStage = !param.IsPicAreaShowInFrontStage,
-                    IsVideoAreaShowInFrontStage = !param.IsVideoAreaShowInFrontStage
-                });
-
-                entity.ArticleAlias = param.ArticleAlias;
-                entity.BannerPicFileName = param.BannerPicFileName;
-                entity.LayoutModeId = param.LayoutModeId;
-                entity.ShowTypeId = param.ShowTypeId;
-                entity.LinkUrl = param.LinkUrl;
-                entity.LinkTarget = param.LinkTarget;
-                entity.ControlName = param.ControlName;
-                entity.SubItemControlName = param.SubItemControlName;
-                entity.IsHideSelf = param.IsHideSelf;
-                entity.IsHideChild = param.IsHideChild;
-                entity.StartDate = param.StartDate;
-                entity.EndDate = param.EndDate;
-                entity.SortNo = param.SortNo;
-                entity.DontDelete = param.DontDelete;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
-                entity.SubjectAtBannerArea = param.SubjectAtBannerArea;
-                entity.PublishDate = param.PublishDate;
-                entity.IsShowInUnitArea = param.IsShowInUnitArea;
-                entity.IsShowInSitemap = param.IsShowInSitemap;
-                entity.SortFieldOfFrontStage = param.SortFieldOfFrontStage;
-                entity.IsSortDescOfFrontStage = param.IsSortDescOfFrontStage;
-                entity.IsListAreaShowInFrontStage = param.IsListAreaShowInFrontStage;
-                entity.IsAttAreaShowInFrontStage = param.IsAttAreaShowInFrontStage;
-                entity.IsPicAreaShowInFrontStage = param.IsPicAreaShowInFrontStage;
-                entity.IsVideoAreaShowInFrontStage = param.IsVideoAreaShowInFrontStage;
-                entity.SubItemLinkUrl = param.SubItemLinkUrl;
-
-                result = artPubDao.UpdateArticleData(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-
-                if (!result)
-                {
-                    if (artPubDao.GetSqlErrNumber() == 50000 && artPubDao.GetSqlErrState() == 3)
-                    {
-                        param.HasAliasBeenUsed = true;
-                    }
+                    param.HasAliasBeenUsed = true;
                 }
             }
 
@@ -300,28 +278,24 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticleMultiLang entity = artPubDao.GetEmptyEntity<ArticleMultiLang>(new ArticleMultiLangRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleMultiLang entity = artPubDao.GetEmptyEntity<ArticleMultiLang>(new ArticleMultiLangRequiredPropValues()
-                {
-                    ArticleId = param.ArticleId,
-                    CultureName = param.CultureName,
-                    IsShowInLang = !param.IsShowInLang
-                });
+                ArticleId = param.ArticleId,
+                CultureName = param.CultureName,
+                IsShowInLang = !param.IsShowInLang
+            });
 
-                entity.ArticleSubject = param.ArticleSubject;
-                entity.ArticleContext = param.ArticleContext;
-                entity.IsShowInLang = param.IsShowInLang;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
-                entity.Subtitle = param.Subtitle;
-                entity.PublisherName = param.PublisherName;
-                entity.TextContext = param.TextContext;
+            entity.ArticleSubject = param.ArticleSubject;
+            entity.ArticleContext = param.ArticleContext;
+            entity.IsShowInLang = param.IsShowInLang;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
+            entity.Subtitle = param.Subtitle;
+            entity.PublisherName = param.PublisherName;
+            entity.TextContext = param.TextContext;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -333,12 +307,8 @@ namespace Common.LogicObject
         {
             List<ArticleMultiLangForOpMenu> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleMultiLangListForOpMenu(parentId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleMultiLangListForOpMenu(parentId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -350,12 +320,8 @@ namespace Common.LogicObject
         {
             List<ArticleForBEList> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleMultiLangListForBackend(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleMultiLangListForBackend(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -367,12 +333,8 @@ namespace Common.LogicObject
         {
             List<ArticleForFEList> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleValidListForFrontend(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleValidListForFrontend(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -384,12 +346,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.DeleteArticleData(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.DeleteArticleData(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -401,12 +359,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.IncreaseArticleSortNo(articleId, mdfAccount);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.IncreaseArticleSortNo(articleId, mdfAccount);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -418,12 +372,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.DecreaseArticleSortNo(articleId, mdfAccount);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.DecreaseArticleSortNo(articleId, mdfAccount);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -435,12 +385,8 @@ namespace Common.LogicObject
         {
             List<ArticleMultiLangLevelInfo> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleMultiLangLevelInfoList(articleId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleMultiLangLevelInfoList(articleId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -452,12 +398,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.UpdateArticleIsAreaShowInFrontStage(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.UpdateArticleIsAreaShowInFrontStage(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -469,12 +411,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.UpdateArticleSortFieldOfFrontStage(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.UpdateArticleSortFieldOfFrontStage(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -486,12 +424,8 @@ namespace Common.LogicObject
         {
             Guid? result = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetArticleIdByAlias(articleAlias);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetArticleIdByAlias(articleAlias);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -503,12 +437,8 @@ namespace Common.LogicObject
         {
             Guid? result = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetArticleIdByLinkUrl(linkUrl);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetArticleIdByLinkUrl(linkUrl);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -520,12 +450,8 @@ namespace Common.LogicObject
         {
             ArticleTopLevelIds result = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetArticleTopLevelIds(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetArticleTopLevelIds(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -537,17 +463,13 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleMultiLang entity = artPubDao.Get<ArticleMultiLang>(articleId, cultureName);
+            ArticleMultiLang entity = artPubDao.Get<ArticleMultiLang>(articleId, cultureName);
 
-                if (entity != null)
-                {
-                    entity.ReadCount++;
-                    result = artPubDao.Update();
-                    dbErrMsg = artPubDao.GetErrMsg();
-                }
+            if (entity != null)
+            {
+                entity.ReadCount++;
+                result = artPubDao.Update();
+                dbErrMsg = artPubDao.GetErrMsg();
             }
 
             return result;
@@ -560,12 +482,8 @@ namespace Common.LogicObject
         {
             List<ArticleForFEUnitArea> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleValidListForUnitArea(parentId, cultureName, isShowInUnitArea);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleValidListForUnitArea(parentId, cultureName, isShowInUnitArea);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -577,12 +495,8 @@ namespace Common.LogicObject
         {
             List<ArticleForFESideSection> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleValidListForSideSection(parentId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleValidListForSideSection(parentId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -594,12 +508,8 @@ namespace Common.LogicObject
         {
             List<ArticleForFESitemap> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleValidListForSitemap(parentId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleValidListForSitemap(parentId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -611,12 +521,8 @@ namespace Common.LogicObject
         {
             List<ArticleDescendant> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleDescendants(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleDescendants(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -632,12 +538,8 @@ namespace Common.LogicObject
         {
             AttachFile entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<AttachFile>(attId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<AttachFile>(attId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -649,12 +551,8 @@ namespace Common.LogicObject
         {
             AttachFileMultiLang entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<AttachFileMultiLang>(attId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<AttachFileMultiLang>(attId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -666,12 +564,8 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetAttachFileMaxSortNo(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetAttachFileMaxSortNo(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -683,26 +577,22 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            AttachFile entity = new AttachFile()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                AttachFile entity = new AttachFile()
-                {
-                    AttId = param.AttId,
-                    ArticleId = param.ArticleId,
-                    FilePath = param.FilePath,
-                    FileSavedName = param.FileSavedName,
-                    FileSize = param.FileSize,
-                    SortNo = param.SortNo,
-                    FileMIME = param.FileMIME,
-                    DontDelete = param.DontDelete,
-                    PostAccount = param.PostAccount,
-                    PostDate = DateTime.Now
-                };
+                AttId = param.AttId,
+                ArticleId = param.ArticleId,
+                FilePath = param.FilePath,
+                FileSavedName = param.FileSavedName,
+                FileSize = param.FileSize,
+                SortNo = param.SortNo,
+                FileMIME = param.FileMIME,
+                DontDelete = param.DontDelete,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<AttachFile>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<AttachFile>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -714,22 +604,18 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            AttachFileMultiLang entity = new AttachFileMultiLang()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                AttachFileMultiLang entity = new AttachFileMultiLang()
-                {
-                    AttId = param.AttId,
-                    CultureName = param.CultureName,
-                    AttSubject = param.AttSubject,
-                    IsShowInLang = param.IsShowInLang,
-                    PostAccount = param.PostAccount,
-                    PostDate = DateTime.Now
-                };
+                AttId = param.AttId,
+                CultureName = param.CultureName,
+                AttSubject = param.AttSubject,
+                IsShowInLang = param.IsShowInLang,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<AttachFileMultiLang>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<AttachFileMultiLang>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -741,27 +627,23 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            AttachFile entity = artPubDao.GetEmptyEntity<AttachFile>(new AttachFileRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                AttachFile entity = artPubDao.GetEmptyEntity<AttachFile>(new AttachFileRequiredPropValues()
-                {
-                    AttId = param.AttId,
-                    DontDelete = !param.DontDelete
-                });
+                AttId = param.AttId,
+                DontDelete = !param.DontDelete
+            });
 
-                entity.FilePath = param.FilePath;
-                entity.FileSavedName = param.FileSavedName;
-                entity.FileSize = param.FileSize;
-                entity.SortNo = param.SortNo;
-                entity.FileMIME = param.FileMIME;
-                entity.DontDelete = param.DontDelete;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
+            entity.FilePath = param.FilePath;
+            entity.FileSavedName = param.FileSavedName;
+            entity.FileSize = param.FileSize;
+            entity.SortNo = param.SortNo;
+            entity.FileMIME = param.FileMIME;
+            entity.DontDelete = param.DontDelete;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -773,24 +655,20 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            AttachFileMultiLang entity = artPubDao.GetEmptyEntity<AttachFileMultiLang>(new AttachFileMultiLangRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                AttachFileMultiLang entity = artPubDao.GetEmptyEntity<AttachFileMultiLang>(new AttachFileMultiLangRequiredPropValues()
-                {
-                    AttId = param.AttId,
-                    CultureName = param.CultureName,
-                    IsShowInLang = !param.IsShowInLang
-                });
+                AttId = param.AttId,
+                CultureName = param.CultureName,
+                IsShowInLang = !param.IsShowInLang
+            });
 
-                entity.AttSubject = param.AttSubject;
-                entity.IsShowInLang = param.IsShowInLang;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
+            entity.AttSubject = param.AttSubject;
+            entity.IsShowInLang = param.IsShowInLang;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -802,12 +680,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.DeleteAttachFileData(attId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.DeleteAttachFileData(attId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -819,12 +693,8 @@ namespace Common.LogicObject
         {
             List<AttachFileForBEList> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetAttachFileMultiLangListForBackend(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetAttachFileMultiLangListForBackend(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -836,12 +706,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.IncreaseAttachFileSortNo(attId, mdfAccount);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.IncreaseAttachFileSortNo(attId, mdfAccount);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -853,12 +719,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.DecreaseAttachFileSortNo(attId, mdfAccount);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.DecreaseAttachFileSortNo(attId, mdfAccount);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -870,18 +732,14 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            AttachFileMultiLang entity = artPubDao.Get<AttachFileMultiLang>(attId, cultureName);
+
+            if (entity != null)
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                AttachFileMultiLang entity = artPubDao.Get<AttachFileMultiLang>(attId, cultureName);
+                entity.ReadCount++;
 
-                if (entity != null)
-                {
-                    entity.ReadCount++;
-
-                    result = artPubDao.Update();
-                    dbErrMsg = artPubDao.GetErrMsg();
-                }
+                result = artPubDao.Update();
+                dbErrMsg = artPubDao.GetErrMsg();
             }
 
             return result;
@@ -894,12 +752,8 @@ namespace Common.LogicObject
         {
             List<AttachFileForFrontend> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetAttachFileListForFrontend(articleId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetAttachFileListForFrontend(articleId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -915,12 +769,8 @@ namespace Common.LogicObject
         {
             ArticlePicture entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<ArticlePicture>(picId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<ArticlePicture>(picId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -932,12 +782,8 @@ namespace Common.LogicObject
         {
             ArticlePictureMultiLang entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<ArticlePictureMultiLang>(picId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<ArticlePictureMultiLang>(picId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -949,12 +795,8 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetArticlePictureMaxSortNo(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetArticlePictureMaxSortNo(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -966,12 +808,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.DeleteArticlePictureData(picId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.DeleteArticlePictureData(picId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -983,24 +821,20 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticlePicture entity = new ArticlePicture()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticlePicture entity = new ArticlePicture()
-                {
-                    PicId = param.PicId,
-                    ArticleId = param.ArticleId,
-                    FileSavedName = param.FileSavedName,
-                    FileSize = param.FileSize,
-                    SortNo = param.SortNo,
-                    FileMIME = param.FileMIME,
-                    PostAccount = param.PostAccount,
-                    PostDate = DateTime.Now
-                };
+                PicId = param.PicId,
+                ArticleId = param.ArticleId,
+                FileSavedName = param.FileSavedName,
+                FileSize = param.FileSize,
+                SortNo = param.SortNo,
+                FileMIME = param.FileMIME,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<ArticlePicture>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<ArticlePicture>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -1012,22 +846,18 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticlePictureMultiLang entity = new ArticlePictureMultiLang()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticlePictureMultiLang entity = new ArticlePictureMultiLang()
-                {
-                    PicId = param.PicId,
-                    CultureName = param.CultureName,
-                    PicSubject = param.PicSubject,
-                    IsShowInLang = param.IsShowInLang,
-                    PostAccount = param.PostAccount,
-                    PostDate = DateTime.Now
-                };
+                PicId = param.PicId,
+                CultureName = param.CultureName,
+                PicSubject = param.PicSubject,
+                IsShowInLang = param.IsShowInLang,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<ArticlePictureMultiLang>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<ArticlePictureMultiLang>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -1039,24 +869,20 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticlePicture entity = artPubDao.GetEmptyEntity<ArticlePicture>(new ArticlePictureRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticlePicture entity = artPubDao.GetEmptyEntity<ArticlePicture>(new ArticlePictureRequiredPropValues()
-                {
-                    PicId = param.PicId
-                });
+                PicId = param.PicId
+            });
 
-                entity.FileSavedName = param.FileSavedName;
-                entity.FileSize = param.FileSize;
-                entity.SortNo = param.SortNo;
-                entity.FileMIME = param.FileMIME;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
+            entity.FileSavedName = param.FileSavedName;
+            entity.FileSize = param.FileSize;
+            entity.SortNo = param.SortNo;
+            entity.FileMIME = param.FileMIME;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1068,24 +894,20 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticlePictureMultiLang entity = artPubDao.GetEmptyEntity<ArticlePictureMultiLang>(new ArticlePictureMultiLangRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticlePictureMultiLang entity = artPubDao.GetEmptyEntity<ArticlePictureMultiLang>(new ArticlePictureMultiLangRequiredPropValues()
-                {
-                    PicId = param.PicId,
-                    CultureName = param.CultureName,
-                    IsShowInLang = !param.IsShowInLang
-                });
+                PicId = param.PicId,
+                CultureName = param.CultureName,
+                IsShowInLang = !param.IsShowInLang
+            });
 
-                entity.PicSubject = param.PicSubject;
-                entity.IsShowInLang = param.IsShowInLang;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
+            entity.PicSubject = param.PicSubject;
+            entity.IsShowInLang = param.IsShowInLang;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1100,12 +922,8 @@ namespace Common.LogicObject
         {
             List<ArticlePictureForBEList> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticlePictureMultiLangListForBackend(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticlePictureMultiLangListForBackend(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -1117,12 +935,8 @@ namespace Common.LogicObject
         {
             List<ArticlePictureForFrontend> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticlePictureListForFrontend(articleId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticlePictureListForFrontend(articleId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -1138,12 +952,8 @@ namespace Common.LogicObject
         {
             ArticleVideo entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<ArticleVideo>(vidId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<ArticleVideo>(vidId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -1155,12 +965,8 @@ namespace Common.LogicObject
         {
             ArticleVideoMultiLang entity = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entity = artPubDao.Get<ArticleVideoMultiLang>(vidId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entity = artPubDao.Get<ArticleVideoMultiLang>(vidId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entity;
         }
@@ -1172,12 +978,8 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.GetArticleVideoMaxSortNo(articleId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.GetArticleVideoMaxSortNo(articleId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1189,23 +991,19 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticleVideo entity = new ArticleVideo()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleVideo entity = new ArticleVideo()
-                {
-                    VidId = param.VidId,
-                    ArticleId = param.ArticleId,
-                    SortNo = param.SortNo,
-                    VidLinkUrl = param.VidLinkUrl,
-                    SourceVideoId = param.SourceVideoId,
-                    PostAccount = param.PostAccount,
-                    PostDate = DateTime.Now
-                };
+                VidId = param.VidId,
+                ArticleId = param.ArticleId,
+                SortNo = param.SortNo,
+                VidLinkUrl = param.VidLinkUrl,
+                SourceVideoId = param.SourceVideoId,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<ArticleVideo>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<ArticleVideo>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -1217,23 +1015,19 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticleVideoMultiLang entity = new ArticleVideoMultiLang()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleVideoMultiLang entity = new ArticleVideoMultiLang()
-                {
-                    VidId = param.VidId,
-                    CultureName = param.CultureName,
-                    VidSubject = param.VidSubject,
-                    VidDesc = param.VidDesc,
-                    IsShowInLang = param.IsShowInLang,
-                    PostAccount = param.PostAccount,
-                    PostDate = DateTime.Now
-                };
+                VidId = param.VidId,
+                CultureName = param.CultureName,
+                VidSubject = param.VidSubject,
+                VidDesc = param.VidDesc,
+                IsShowInLang = param.IsShowInLang,
+                PostAccount = param.PostAccount,
+                PostDate = DateTime.Now
+            };
 
-                insResult = artPubDao.Insert<ArticleVideoMultiLang>(entity);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            insResult = artPubDao.Insert<ArticleVideoMultiLang>(entity);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return insResult.IsSuccess;
         }
@@ -1245,23 +1039,19 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticleVideo entity = artPubDao.GetEmptyEntity<ArticleVideo>(new ArticleVideoRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleVideo entity = artPubDao.GetEmptyEntity<ArticleVideo>(new ArticleVideoRequiredPropValues()
-                {
-                    VidId = param.VidId
-                });
+                VidId = param.VidId
+            });
 
-                entity.SortNo = param.SortNo;
-                entity.VidLinkUrl = param.VidLinkUrl;
-                entity.SourceVideoId = param.SourceVideoId;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
+            entity.SortNo = param.SortNo;
+            entity.VidLinkUrl = param.VidLinkUrl;
+            entity.SourceVideoId = param.SourceVideoId;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1273,25 +1063,21 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
+            ArticleVideoMultiLang entity = artPubDao.GetEmptyEntity<ArticleVideoMultiLang>(new ArticleVideoMultiLangRequiredPropValues()
             {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                ArticleVideoMultiLang entity = artPubDao.GetEmptyEntity<ArticleVideoMultiLang>(new ArticleVideoMultiLangRequiredPropValues()
-                {
-                    VidId = param.VidId,
-                    CultureName = param.CultureName,
-                    IsShowInLang = !param.IsShowInLang
-                });
+                VidId = param.VidId,
+                CultureName = param.CultureName,
+                IsShowInLang = !param.IsShowInLang
+            });
 
-                entity.VidSubject = param.VidSubject;
-                entity.VidDesc = param.VidDesc;
-                entity.IsShowInLang = param.IsShowInLang;
-                entity.MdfAccount = param.PostAccount;
-                entity.MdfDate = DateTime.Now;
+            entity.VidSubject = param.VidSubject;
+            entity.VidDesc = param.VidDesc;
+            entity.IsShowInLang = param.IsShowInLang;
+            entity.MdfAccount = param.PostAccount;
+            entity.MdfDate = DateTime.Now;
 
-                result = artPubDao.Update();
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.Update();
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1303,12 +1089,8 @@ namespace Common.LogicObject
         {
             List<ArticleVideoForBEList> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleVideoMultiLangListForBackend(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleVideoMultiLangListForBackend(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -1320,12 +1102,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.DeleteArticleVideoData(vidId);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.DeleteArticleVideoData(vidId);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1337,12 +1115,8 @@ namespace Common.LogicObject
         {
             List<ArticleVideoForFrontend> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetArticleVideoListForFrontend(articleId, cultureName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetArticleVideoListForFrontend(articleId, cultureName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -1358,12 +1132,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.SaveKeywordData(cultureName, kw);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.SaveKeywordData(cultureName, kw);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1375,12 +1145,8 @@ namespace Common.LogicObject
         {
             List<Keyword> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetKeywordListForFrontend(cultureName, kw, topCount);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetKeywordListForFrontend(cultureName, kw, topCount);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -1396,12 +1162,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.BuildSearchDataSource(mainLinkUrl);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.BuildSearchDataSource(mainLinkUrl);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1414,12 +1176,8 @@ namespace Common.LogicObject
         {
             List<SearchDataSourceForFrontend> entities = null;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                entities = artPubDao.GetSearchDataSourceList(param);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            entities = artPubDao.GetSearchDataSourceList(param);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return entities;
         }
@@ -1435,12 +1193,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.CallSqlServerAgentJob(jobName);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.CallSqlServerAgentJob(jobName);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }
@@ -1547,43 +1301,35 @@ namespace Common.LogicObject
                 OperationOpInfo opInfo = null;
                 string dbErrMsg = "";
 
-                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
+                if (curParentId.HasValue)
                 {
-                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                    if (curParentId.HasValue)
-                    {
-                        // get opId by LinkUrl
-                        linkUrl = string.Format("Article-Node.aspx?artid={0}", curArticleId);
-                        opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(linkUrl);
-                    }
-                    else
-                    {
-                        // get opId of root
-                        opInfo = empAuthDao.GetOperationOpInfoByCommonClass("ArticleCommonOfBackend");
-                    }
-
-                    dbErrMsg = empAuthDao.GetErrMsg();
+                    // get opId by LinkUrl
+                    linkUrl = string.Format("Article-Node.aspx?artid={0}", curArticleId);
+                    opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(linkUrl);
                 }
+                else
+                {
+                    // get opId of root
+                    opInfo = empAuthDao.GetOperationOpInfoByCommonClass("ArticleCommonOfBackend");
+                }
+
+                dbErrMsg = empAuthDao.GetErrMsg();
 
                 if (opInfo != null)
                 {
                     int opId = opInfo.OpId;
 
                     // get authorizations
-                    using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
+                    EmployeeRoleOperationsDesc roleOp = empAuthDao.GetEmployeeRoleOperationsDescDataOfOp(authCondition.GetRoleName(), opId);
+
+                    if (roleOp != null)
                     {
-                        IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
-                        EmployeeRoleOperationsDesc roleOp = empAuthDao.GetEmployeeRoleOperationsDescDataOfOp(authCondition.GetRoleName(), opId);
+                        //檢查權限, 只允許 CanRead=true
 
-                        if (roleOp != null)
+                        if (roleOp.CanRead)
                         {
-                            //檢查權限, 只允許 CanRead=true
-
-                            if (roleOp.CanRead)
-                            {
-                                authAndOwner = (EmployeeAuthorizationsWithOwnerInfoOfDataExamined)LoadRoleAuthorizationsFromDataSet(authAndOwner, roleOp, isRoleAdmin);
-                                gotOpAuth = true;
-                            }
+                            authAndOwner = (EmployeeAuthorizationsWithOwnerInfoOfDataExamined)LoadRoleAuthorizationsFromDataSet(authAndOwner, roleOp, isRoleAdmin);
+                            gotOpAuth = true;
                         }
                     }
                 }

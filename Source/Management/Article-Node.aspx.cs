@@ -26,7 +26,8 @@ public partial class Article_Node : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(), new Common.DataAccess.EF.ArticlePublisherDataAccess());
+        c = new ArticleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
+            new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 
@@ -940,7 +941,7 @@ public partial class Article_Node : BasePage
                 attId = new Guid(args[0]);
                 string attSubject = args[1];
 
-                AttachFileManagerLogic attFileMgr = new AttachFileManagerLogic(this.Context);
+                AttachFileManagerLogic attFileMgr = new AttachFileManagerLogic(this.Context, artPub);
                 result = attFileMgr.Initialize(attId, c.qsArtId);
 
                 if (result)
@@ -1105,7 +1106,7 @@ public partial class Article_Node : BasePage
                 picId = new Guid(args[0]);
                 string picSubject = args[1];
 
-                ArticlePictureManagerLogic artPicMgr = new ArticlePictureManagerLogic(this.Context);
+                ArticlePictureManagerLogic artPicMgr = new ArticlePictureManagerLogic(this.Context, artPub);
                 result = artPicMgr.Initialize(picId, c.qsArtId);
 
                 if (result)

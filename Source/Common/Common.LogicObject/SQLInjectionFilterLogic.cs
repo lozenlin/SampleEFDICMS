@@ -15,6 +15,9 @@ namespace Common.LogicObject
         protected IArticlePublisherDataAccess artPubDao;
         public SQLInjectionFilterLogic(IArticlePublisherDataAccess artPubDao)
         {
+            if (artPubDao == null)
+                throw new ArgumentNullException("artPubDao");
+
             logger = LogManager.GetLogger(this.GetType());
             this.artPubDao = artPubDao;
         }
@@ -36,12 +39,8 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
-            {
-                IArticlePublisherDataAccess artPubDao = _artPubDao;
-                result = artPubDao.IsSQLInjectionExpr(expr);
-                dbErrMsg = artPubDao.GetErrMsg();
-            }
+            result = artPubDao.IsSQLInjectionExpr(expr);
+            dbErrMsg = artPubDao.GetErrMsg();
 
             return result;
         }

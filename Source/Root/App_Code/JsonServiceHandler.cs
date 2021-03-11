@@ -26,10 +26,10 @@ namespace JsonService
         public Article_GetListWithThumb(HttpContext context)
             : base(context)
         {
-            c = new OtherArticlePageCommon(context, null);
+            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+            c = new OtherArticlePageCommon(context, null, artPub);
             c.InitialLoggerOfUI(this.GetType());
 
-            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         }
 
         public override ClientResult ProcessRequest()
@@ -192,10 +192,10 @@ namespace JsonService
         public Keyword_GetList(HttpContext context)
             : base(context)
         {
-            c = new FrontendPageCommon(context, null);
+            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+            c = new FrontendPageCommon(context, null, artPub);
             c.InitialLoggerOfUI(this.GetType());
 
-            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         }
 
         public override ClientResult ProcessRequest()

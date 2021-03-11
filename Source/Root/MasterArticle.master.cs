@@ -101,10 +101,10 @@ public partial class MasterArticle : System.Web.UI.MasterPage, IMasterArticleSet
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new FrontendPageCommon(this.Context, this.ViewState);
+        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new FrontendPageCommon(this.Context, this.ViewState, artPub);
         c.InitialLoggerOfUI(this.GetType());
 
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         basePage = (FrontendBasePage)this.Page;
         articleData = basePage.GetArticleData();
     }
