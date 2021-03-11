@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.DataAccess.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,8 @@ namespace Common.LogicObject
     /// </summary>
     public class AfmServicePageCommon : BackendPageCommon
     {
-        public AfmServicePageCommon(HttpContext context)
-            : base(context, null)
+        public AfmServicePageCommon(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, null, empAuthDao)
         {
         }
 

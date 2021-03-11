@@ -26,13 +26,13 @@ public partial class Article_Node : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleCommonOfBackend(this.Context, this.ViewState);
+        c = new ArticleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(), new Common.DataAccess.EF.ArticlePublisherDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 
-        artPub = new ArticlePublisherLogic(c);
+        artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
-        empAuth = new EmployeeAuthorityLogic(c);
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         empAuth.SetCustomEmployeeAuthorizationResult(artPub);
         empAuth.InitialAuthorizationResultOfTopPage();
 

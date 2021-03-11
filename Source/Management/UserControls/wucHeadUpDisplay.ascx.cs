@@ -16,9 +16,9 @@ public partial class UserControls_wucHeadUpDisplay : System.Web.UI.UserControl, 
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, this.ViewState);
+        c = new BackendPageCommon(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
-        empAuth = new EmployeeAuthorityLogic(c);
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
         if (c.seCultureNameOfBackend == "en")
         {

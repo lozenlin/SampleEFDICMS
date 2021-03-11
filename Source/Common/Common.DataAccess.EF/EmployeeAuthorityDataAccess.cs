@@ -22,7 +22,7 @@ using Common.Data.Domain.QueryParam;
 
 namespace Common.DataAccess.EF
 {
-    public class EmployeeAuthorityDataAccess : DataAccessBase
+    public class EmployeeAuthorityDataAccess : DataAccessBase, IEmployeeAuthorityDataAccess
     {
         public EmployeeAuthorityDataAccess() : base()
         {
@@ -162,12 +162,12 @@ namespace Common.DataAccess.EF
             {
                 Employee entity = cmsCtx.Employee.Find(empId);
 
-                if(entity != null)
+                if (entity != null)
                 {
                     empAccount = entity.EmpAccount;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -388,7 +388,7 @@ namespace Common.DataAccess.EF
                               PostDeptId = emp.DeptId ?? 0
                           }).FirstOrDefault();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -620,7 +620,7 @@ namespace Common.DataAccess.EF
                 {
                     entity = cmsCtx.Operations.Find(curOpId);
 
-                    if(entity == null)
+                    if (entity == null)
                     {
                         throw new Exception("there is no data of opId.");
                     }
@@ -636,7 +636,7 @@ namespace Common.DataAccess.EF
 
                     entities.Add(levelInfo);
 
-                    if(entity.ParentId.HasValue)
+                    if (entity.ParentId.HasValue)
                     {
                         curOpId = entity.ParentId.Value;
                     }
@@ -650,7 +650,7 @@ namespace Common.DataAccess.EF
                     obj.LevelNum = total + obj.LevelNum + 1;
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -672,7 +672,7 @@ namespace Common.DataAccess.EF
             try
             {
                 // check sub-items
-                if(cmsCtx.Operations.Any(op=>op.ParentId == opId))
+                if (cmsCtx.Operations.Any(op => op.ParentId == opId))
                 {
                     sqlErrNumber = 50000;
                     sqlErrState = 2;
@@ -691,7 +691,7 @@ namespace Common.DataAccess.EF
 
                 tran.Commit();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -797,7 +797,7 @@ namespace Common.DataAccess.EF
                     .FirstOrDefault();
 
                 // there is no smaller one, exit
-                if(smallerOne == null)
+                if (smallerOne == null)
                 {
                     return true;
                 }
@@ -877,7 +877,7 @@ namespace Common.DataAccess.EF
                 entity = cmsCtx.EmployeeRoleOperationsDesc.Where(ro => ro.RoleName == roleName && ro.OpId == opId)
                     .FirstOrDefault();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -1098,7 +1098,7 @@ namespace Common.DataAccess.EF
             {
                 result = cmsCtx.EmployeeRole.Max(emp => emp.SortNo) ?? 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -1121,7 +1121,7 @@ namespace Common.DataAccess.EF
             try
             {
                 // check role name
-                if(cmsCtx.EmployeeRole.Any(role=> role.RoleName == entity.RoleName))
+                if (cmsCtx.EmployeeRole.Any(role => role.RoleName == entity.RoleName))
                 {
                     sqlErrNumber = 50000;
                     sqlErrState = 2;
@@ -1163,7 +1163,7 @@ namespace Common.DataAccess.EF
                 tran.Commit();
                 insResult.IsSuccess = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -1230,7 +1230,7 @@ namespace Common.DataAccess.EF
 
                 cmsCtx.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -1381,7 +1381,7 @@ namespace Common.DataAccess.EF
             try
             {
                 // check employee
-                if(cmsCtx.Employee.Any(emp=>emp.DeptId == deptId))
+                if (cmsCtx.Employee.Any(emp => emp.DeptId == deptId))
                 {
                     sqlErrNumber = 50000;
                     sqlErrState = 2;
@@ -1392,7 +1392,7 @@ namespace Common.DataAccess.EF
                 cmsCtx.Entry<Department>(entity).State = EntityState.Deleted;
                 cmsCtx.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -1435,7 +1435,7 @@ namespace Common.DataAccess.EF
             try
             {
                 // check department name
-                if(cmsCtx.Department.Any(dept=>dept.DeptName == entity.DeptName))
+                if (cmsCtx.Department.Any(dept => dept.DeptName == entity.DeptName))
                 {
                     sqlErrNumber = 50000;
                     sqlErrState = 2;
@@ -1448,7 +1448,7 @@ namespace Common.DataAccess.EF
 
                 insResult.IsSuccess = true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -1529,7 +1529,7 @@ namespace Common.DataAccess.EF
                             && (obj.EmpAccount == param.AuthParams.MyAccount || obj.OwnerAccount == param.AuthParams.MyAccount));
                 }
 
-                if(param.Account != "")
+                if (param.Account != "")
                 {
                     if (param.IsAccKw)
                     {
@@ -1542,7 +1542,7 @@ namespace Common.DataAccess.EF
                     }
                 }
 
-                if(param.IP != "")
+                if (param.IP != "")
                 {
                     if (param.IsIpHeadKw)
                     {

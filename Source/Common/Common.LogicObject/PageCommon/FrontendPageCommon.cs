@@ -115,7 +115,7 @@ namespace Common.LogicObject
         public FrontendPageCommon(HttpContext context, StateBag viewState)
             : base(context, viewState)
         {
-            artPub = new ArticlePublisherLogic(null);
+            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             articleData = new ArticleData();
 
             ERROR_PAGE = string.Format("ErrorPage.aspx?l={0}", qsLangNo);

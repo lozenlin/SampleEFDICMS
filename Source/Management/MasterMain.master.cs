@@ -31,10 +31,10 @@ public partial class MasterMain : System.Web.UI.MasterPage
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, this.ViewState);
+        c = new BackendPageCommon(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
-        artPub = new ArticlePublisherLogic(c);
-        empAuth = new EmployeeAuthorityLogic(c);
+        artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
         Page.Title = Resources.Lang.BackStageName;
         Page.MaintainScrollPositionOnPostBack = true;

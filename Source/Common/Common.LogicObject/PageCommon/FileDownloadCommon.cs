@@ -513,7 +513,7 @@ namespace Common.LogicObject
         {
             string fileFullName = "";
             string attRootDir = Server.MapPath(string.Format("~/{0}", ConfigurationManager.AppSettings["AttRootDir"]));
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             AttachFile attachFile = artPub.GetAttachFileDataForBackend(attId);
 
             if (attachFile == null)
@@ -616,7 +616,7 @@ namespace Common.LogicObject
         {
             string fileFullName = "";
             string attRootDir = Server.MapPath(string.Format("~/{0}", ConfigurationManager.AppSettings["AttRootDir"]));
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             ArticlePicture pic = artPub.GetArticlePictureDataForBackend(attId);
 
             if (pic == null)

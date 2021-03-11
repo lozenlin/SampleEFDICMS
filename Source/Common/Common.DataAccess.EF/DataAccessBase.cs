@@ -22,7 +22,7 @@ using System.Reflection;
 
 namespace Common.DataAccess.EF
 {
-    public abstract class DataAccessBase : IDisposable
+    public abstract class DataAccessBase : IDataAccessBase, IDisposable
     {
         protected ILog Logger
         {
@@ -137,7 +137,7 @@ namespace Common.DataAccess.EF
                 cmsCtx.Entry<TEntity>(entity).State = EntityState.Deleted;
                 cmsCtx.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -161,7 +161,7 @@ namespace Common.DataAccess.EF
                 //設定必要屬性
                 Dictionary<string, PropertyInfo> dicEntityProps = new Dictionary<string, PropertyInfo>();
                 PropertyInfo[] entityProps = entity.GetType().GetProperties();
-                
+
                 foreach (PropertyInfo entityProp in entityProps)
                 {
                     dicEntityProps.Add(entityProp.Name, entityProp);
@@ -173,7 +173,7 @@ namespace Common.DataAccess.EF
                 {
                     string propertyName = initProp.Name;
                     object propertyValue = initProp.GetValue(requiredPropValues);
-                    
+
                     dicEntityProps[propertyName].SetValue(entity, propertyValue);
                 }
             }
@@ -183,7 +183,7 @@ namespace Common.DataAccess.EF
             return entity;
         }
 
-        public TEntity Get<TEntity>(params object[] pkValues) where TEntity :class
+        public TEntity Get<TEntity>(params object[] pkValues) where TEntity : class
         {
             Logger.DebugFormat("Get<TEntity>(pkValues) - TEntity[{0}]", typeof(TEntity).Name);
 
@@ -193,7 +193,7 @@ namespace Common.DataAccess.EF
             {
                 entity = cmsCtx.Set<TEntity>().Find(pkValues);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -284,7 +284,7 @@ namespace Common.DataAccess.EF
             return cmsCtx.Set<TEntity>().Any(predicate);
         }
 
-        public bool UpdateAllCols<TEntity>(TEntity entity) where TEntity :class
+        public bool UpdateAllCols<TEntity>(TEntity entity) where TEntity : class
         {
             Logger.DebugFormat("UpdateAllCols<TEntity>(entity) - TEntity[{0}]", typeof(TEntity).Name);
 
@@ -293,7 +293,7 @@ namespace Common.DataAccess.EF
                 cmsCtx.Entry<TEntity>(entity).State = EntityState.Modified;
                 cmsCtx.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;
@@ -323,7 +323,7 @@ namespace Common.DataAccess.EF
             {
                 cmsCtx.SaveChanges();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;

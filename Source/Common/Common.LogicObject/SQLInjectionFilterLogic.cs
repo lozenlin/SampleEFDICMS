@@ -12,10 +12,11 @@ namespace Common.LogicObject
     {
         protected ILog logger = null;
         protected string dbErrMsg = "";
-
-        public SQLInjectionFilterLogic()
+        protected IArticlePublisherDataAccess artPubDao;
+        public SQLInjectionFilterLogic(IArticlePublisherDataAccess artPubDao)
         {
             logger = LogManager.GetLogger(this.GetType());
+            this.artPubDao = artPubDao;
         }
 
         // DataAccess functions
@@ -35,8 +36,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (ArticlePublisherDataAccess artPubDao = new ArticlePublisherDataAccess())
+            using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
             {
+                IArticlePublisherDataAccess artPubDao = _artPubDao;
                 result = artPubDao.IsSQLInjectionExpr(expr);
                 dbErrMsg = artPubDao.GetErrMsg();
             }

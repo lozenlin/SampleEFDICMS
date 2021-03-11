@@ -24,7 +24,7 @@ namespace Common.LogicObject
         /// </summary>
         protected override bool IsSQLInjectionExpr(string expr)
         {
-            SQLInjectionFilterLogic sqlInjectionFilterLogic = new SQLInjectionFilterLogic();
+            SQLInjectionFilterLogic sqlInjectionFilterLogic = new SQLInjectionFilterLogic(new Common.DataAccess.EF.ArticlePublisherDataAccess());
 
             return sqlInjectionFilterLogic.IsSQLInjectionExpr(expr);
         }

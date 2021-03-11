@@ -48,6 +48,7 @@ namespace Common.LogicObject
         protected int ownerDeptIdOfDataExamined = 0;
 
         protected IAuthenticationConditionProvider authCondition;
+        protected IEmployeeAuthorityDataAccess empAuthDao;
         protected ICustomEmployeeAuthorizationResult custEmpAuthResult;
         protected EmployeeAuthorizations authorizations = null;
         protected ILog logger = null;
@@ -61,11 +62,11 @@ namespace Common.LogicObject
         protected bool isRoleAdmin = false;
         protected int deptId = 0;
         protected string dbErrMsg = "";
-        
+
         /// <summary>
         /// 帳號與權限
         /// </summary>
-        public EmployeeAuthorityLogic()
+        protected EmployeeAuthorityLogic()
         {
             this.authorizations = new EmployeeAuthorizations();
             logger = LogManager.GetLogger(this.GetType());
@@ -74,10 +75,11 @@ namespace Common.LogicObject
         /// <summary>
         /// 帳號與權限
         /// </summary>
-        public EmployeeAuthorityLogic(IAuthenticationConditionProvider authCondition)
+        public EmployeeAuthorityLogic(IAuthenticationConditionProvider authCondition, IEmployeeAuthorityDataAccess empAuthDao)
             : this()
         {
             this.authCondition = authCondition;
+            this.empAuthDao = empAuthDao;
 
             if (authCondition != null)
             {
@@ -122,8 +124,9 @@ namespace Common.LogicObject
         {
             this.isTopPageOfOperation = isTopPageOfOperation;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 //取得指定作業代碼的後端身分可使用權限
                 EmployeeRoleOperationsDesc roleOp = empAuthDao.GetEmployeeRoleOperationsDescDataOfOp(roleName, opIdOfPage);
 
@@ -365,8 +368,9 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 insResult = empAuthDao.Insert<BackEndLog>(new BackEndLog()
                 {
                     EmpAccount = data.EmpAccount,
@@ -389,8 +393,9 @@ namespace Common.LogicObject
         {
             List<BackEndLogForBackend> entities = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetBackEndLogList(param);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -409,8 +414,9 @@ namespace Common.LogicObject
         {
             EmployeeToLogin entity = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetEmployeeDataToLogin(empAccount);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -425,8 +431,9 @@ namespace Common.LogicObject
         {
             EmployeeForBackend entity = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetEmployeeDataForBackend(empAccount);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -441,8 +448,9 @@ namespace Common.LogicObject
         {
             EmployeeForBackend entity = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetEmployeeDataForBackend(empId);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -457,8 +465,9 @@ namespace Common.LogicObject
         {
             string roleName = "";
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 roleName = empAuthDao.GetRoleNameOfEmp(empAccount);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -473,8 +482,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Employee entity = empAuthDao.Get<Employee>(emp => emp.EmpAccount == empAccount);
 
                 //備份上次的登入資訊,記錄這次的
@@ -497,8 +507,9 @@ namespace Common.LogicObject
         {
             List<EmployeeForBackend> entities = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetEmployeeListForBackend(param);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -513,8 +524,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Employee entity = new Employee()
                 {
                     EmpId = empId
@@ -534,8 +546,9 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 insResult = empAuthDao.Insert<Employee>(new Employee()
                 {
                     EmpAccount = param.EmpAccount,
@@ -577,8 +590,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Employee entity = empAuthDao.GetEmptyEntity<Employee>(new EmployeeRequiredPropValues()
                 {
                     EmpId = param.EmpId,
@@ -617,8 +631,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Employee entity = empAuthDao.Get<Employee>(emp => emp.EmpAccount == empAccount);
 
                 entity.EmpPassword = empPassword;
@@ -640,8 +655,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Employee entity = empAuthDao.Get<Employee>(emp => emp.EmpAccount == empAccount);
 
                 entity.PasswordResetKey = passwordResetKey;
@@ -663,8 +679,9 @@ namespace Common.LogicObject
         {
             Employee entity = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.Get<Employee>(emp => emp.PasswordResetKey == passwordResetKey);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -683,8 +700,9 @@ namespace Common.LogicObject
         {
             OperationOpInfo entity = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetOperationOpInfoByCommonClass(commonClass);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -699,8 +717,9 @@ namespace Common.LogicObject
         {
             OperationOpInfo entity = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetOperationOpInfoByLinkUrl(linkUrl);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -715,8 +734,9 @@ namespace Common.LogicObject
         {
             List<OperationWithRoleAuth> entities = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 List<Operations> topOps = empAuthDao.GetList<Operations>(op => op.ParentId == null && !op.IsHideSelf)
                     .OrderBy(op => op.SortNo).ToList();
                 List<Operations> subOps = empAuthDao.GetList<Operations>(op => op.ParentId != null && !op.IsHideSelf)
@@ -773,8 +793,9 @@ namespace Common.LogicObject
         {
             OperationForBackend entity = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetOperationDataForBackend(opId);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -817,8 +838,9 @@ namespace Common.LogicObject
         {
             List<OperationForBackend> entities = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao=new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetOperationListForBackend(param);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -833,8 +855,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.DeleteOperationData(param.OpId);
                 dbErrMsg = empAuthDao.GetErrMsg();
 
@@ -854,8 +877,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.IncreaseOperationSortNo(opId, mdfAccount);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -870,8 +894,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.DecreaseOperationSortNo(opId, mdfAccount);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -886,8 +911,9 @@ namespace Common.LogicObject
         {
             List<OperationLevelInfo> entities = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetOperationLevelInfo(opId);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -902,8 +928,9 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.GetOperationMaxSortNo(parentId);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -918,8 +945,9 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 int? objParentId = null;
 
                 if (param.ParentId != 0)
@@ -959,8 +987,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Operations entity = empAuthDao.GetEmptyEntity<Operations>(new OperationsRequiredPropValues()
                 {
                     OpId = param.OpId,
@@ -998,8 +1027,9 @@ namespace Common.LogicObject
         {
             List<EmployeeRoleToSelect> entities = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetList<EmployeeRole>()
                     .OrderBy(r => r.SortNo)
                     .AsEnumerable()
@@ -1024,8 +1054,9 @@ namespace Common.LogicObject
         {
             List<EmployeeRoleForBackend> entities = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetEmployeeRoleListForBackend(param);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -1040,8 +1071,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.DeleteEmployeeRoleData(param.RoleId);
                 dbErrMsg = empAuthDao.GetErrMsg();
 
@@ -1061,8 +1093,9 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.GetEmployeeRoleMaxSortNo();
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -1077,8 +1110,9 @@ namespace Common.LogicObject
         {
             EmployeeRoleForBackend entity = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetEmployeeRoleDataForBackend(roleId);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -1093,8 +1127,9 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 EmployeeRole entity = new EmployeeRole()
                 {
                     RoleName = param.RoleName,
@@ -1127,8 +1162,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 EmployeeRole entity = empAuthDao.GetEmptyEntity<EmployeeRole>(new EmployeeRoleRequiredPropValues()
                 {
                     RoleId = param.RoleId,
@@ -1158,8 +1194,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 List<EmployeeRoleOperationsDesc> empRoleOps = param.GenEmpRoleOps();
                 result = empAuthDao.SaveListOfEmployeeRolePrivileges(empRoleOps);
                 dbErrMsg = empAuthDao.GetErrMsg();
@@ -1179,8 +1216,9 @@ namespace Common.LogicObject
         {
             List<Department> entities = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetList<Department>()
                     .OrderBy(dept => dept.SortNo).ToList();
                 dbErrMsg = empAuthDao.GetErrMsg();
@@ -1196,8 +1234,9 @@ namespace Common.LogicObject
         {
             List<DepartmentForBackend> entities = null;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entities = empAuthDao.GetDepartmentListForBackend(param);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -1212,8 +1251,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.DeleteDepartmentData(param.DeptId);
                 dbErrMsg = empAuthDao.GetErrMsg();
 
@@ -1233,8 +1273,9 @@ namespace Common.LogicObject
         {
             DepartmentForBackend entity = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 entity = empAuthDao.GetDepartmentDataForBackend(deptId);
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -1249,8 +1290,9 @@ namespace Common.LogicObject
         {
             int result = 0;
 
-            using(EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 result = empAuthDao.GetDepartmentMaxSortNo();
                 dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -1265,8 +1307,9 @@ namespace Common.LogicObject
         {
             InsertResult insResult = new InsertResult() { IsSuccess = false };
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Department entity = new Department()
                 {
                     DeptName = param.DeptName,
@@ -1298,8 +1341,9 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 Department entity = empAuthDao.GetEmptyEntity<Department>(new DepartmentRequiredPropValues()
                 {
                     DeptId = param.DeptId,

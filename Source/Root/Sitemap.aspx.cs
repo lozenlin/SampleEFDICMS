@@ -29,7 +29,7 @@ public partial class Sitemap : FrontendBasePage
         }
 
         articleData = c.GetArticleData();
-        artPub = new ArticlePublisherLogic(null);
+        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         masterSettings = (IMasterArticleSettings)this.Master;
         
     }

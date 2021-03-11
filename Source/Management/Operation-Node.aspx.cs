@@ -24,11 +24,11 @@ public partial class Operation_Node : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new OperationCommonOfBackend(this.Context, this.ViewState);
+        c = new OperationCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItem(c.qsId.ToString(), "");
 
-        empAuth = new EmployeeAuthorityLogic(c);
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         empAuth.InitialAuthorizationResultOfTopPage();
 
         hud = Master.GetHeadUpDisplay();

@@ -242,13 +242,15 @@ namespace Common.LogicObject
         /// 後台網頁所屬的作業代碼
         /// </summary>
         protected int opIdOfPage;
+        protected IEmployeeAuthorityDataAccess empAuthDao;
 
         /// <summary>
         /// 後台網頁的共用元件
         /// </summary>
-        public BackendPageCommon(HttpContext context, StateBag viewState)
+        public BackendPageCommon(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
             : base(context, viewState)
         {
+            this.empAuthDao = empAuthDao;
         }
 
         /// <summary>
@@ -272,8 +274,9 @@ namespace Common.LogicObject
             //用共用元件類別名稱取得後端作業選項資訊
             OperationOpInfo opInfo = null;
 
-            using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+            using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
             {
+                IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                 opInfo = empAuthDao.GetOperationOpInfoByCommonClass(commonClass);
                 string dbErrMsg = empAuthDao.GetErrMsg();
             }
@@ -474,8 +477,8 @@ namespace Common.LogicObject
     [Description("後台登入頁的共用元件")]
     public class LoginCommonOfBackend : BackendPageCommon
     {
-        public LoginCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public LoginCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -520,8 +523,8 @@ namespace Common.LogicObject
     [Description("後台帳號管理頁的共用元件")]
     public class AccountCommonOfBackend : BackendPageCommon, ICustomEmployeeAuthorizationResult
     {
-        public AccountCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public AccountCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -632,8 +635,9 @@ namespace Common.LogicObject
             if (!isTopPageOfOperation)
             {
                 // get owner info for config-form
-                using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
                 {
+                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                     string empAccount = empAuthDao.GetEmployeeAccountOfId(qsEmpId);
                     string dbErrMsg = empAuthDao.GetErrMsg();
 
@@ -665,8 +669,8 @@ namespace Common.LogicObject
     [Description("後台身分管理頁的共用元件")]
     public class RoleCommonOfBackend : BackendPageCommon, ICustomEmployeeAuthorizationResult
     {
-        public RoleCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public RoleCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -744,8 +748,9 @@ namespace Common.LogicObject
                 // get owner info for config-form
                 EmployeeRoleForBackend empRole = null;
 
-                using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
                 {
+                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                     empRole = empAuthDao.GetEmployeeRoleDataForBackend(qsRoleId);
                     string dbErrMsg = empAuthDao.GetErrMsg();
                 }
@@ -769,8 +774,8 @@ namespace Common.LogicObject
     [Description("後台部門管理頁的共用元件")]
     public class DepartmentCommonOfBackend : BackendPageCommon, ICustomEmployeeAuthorizationResult
     {
-        public DepartmentCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public DepartmentCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -795,8 +800,9 @@ namespace Common.LogicObject
             if (!isTopPageOfOperation)
             {
                 // get owner info for config-form
-                using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
                 {
+                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                     DepartmentForBackend dept = empAuthDao.GetDepartmentDataForBackend(qsId);
                     string dbErrMsg = empAuthDao.GetErrMsg();
 
@@ -821,8 +827,8 @@ namespace Common.LogicObject
     [Description("後台操作記錄頁的共用元件")]
     public class BackEndLogCommonOfBackend : BackendPageCommon
     {
-        public BackEndLogCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public BackEndLogCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -949,8 +955,8 @@ namespace Common.LogicObject
     [Description("後台作業選項管理頁的共用元件")]
     public class OperationCommonOfBackend : BackendPageCommon
     {
-        public OperationCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public OperationCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -970,9 +976,12 @@ namespace Common.LogicObject
     [Description("後台網站架構管理頁的共用元件")]
     public class ArticleCommonOfBackend : BackendPageCommon
     {
-        public ArticleCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        protected IArticlePublisherDataAccess artPubDao;
+
+        public ArticleCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
+            : base(context, viewState, empAuthDao)
         {
+            this.artPubDao = artPubDao;
         }
 
         #region qs:=QueryString, se:=Session, vs:=ViewState, co:=Cookie
@@ -1023,8 +1032,9 @@ namespace Common.LogicObject
                 // get article info
                 ArticleForBackend article = null;
 
-                using(ArticlePublisherDataAccess artPubDao = new ArticlePublisherDataAccess())
+                using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
                 {
+                    IArticlePublisherDataAccess artPubDao = _artPubDao;
                     article = artPubDao.GetArticleDataForBackend(curArticleId);
                     string dbErrMsg = artPubDao.GetErrMsg();
                 }
@@ -1055,8 +1065,9 @@ namespace Common.LogicObject
                     linkUrl = string.Format("Article-Node.aspx?artid={0}", curArticleId);
                     OperationOpInfo opInfo = null;
 
-                    using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+                    using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
                     {
+                        IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                         opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(linkUrl);
                         string dbErrMsg = empAuthDao.GetErrMsg();
                     }
@@ -1077,8 +1088,9 @@ namespace Common.LogicObject
                         // get parent info
                         ArticleForBackend parent = null;
 
-                        using (ArticlePublisherDataAccess artPubDao = new ArticlePublisherDataAccess())
+                        using (ArticlePublisherDataAccess _artPubDao = new ArticlePublisherDataAccess())
                         {
+                            IArticlePublisherDataAccess artPubDao = _artPubDao;
                             parent = artPubDao.GetArticleDataForBackend(curParentId);
                             string dbErrMsg = artPubDao.GetErrMsg();
                         }
@@ -1125,8 +1137,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-附件設定頁的共用元件")]
     public class ArticleAttachCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticleAttachCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public ArticleAttachCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
+            : base(context, viewState, empAuthDao, artPubDao)
         {
         }
 
@@ -1146,7 +1158,7 @@ namespace Common.LogicObject
             if (qsAct == ConfigFormAction.add)
                 return qsArtId;
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic();
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             AttachFile att = artPub.GetAttachFileDataForBackend(qsAttId);
             Guid articleId = Guid.Empty;
 
@@ -1165,8 +1177,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-照片設定頁的共用元件")]
     public class ArticlePictureCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticlePictureCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public ArticlePictureCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
+            : base(context, viewState, empAuthDao, artPubDao)
         {
         }
 
@@ -1186,7 +1198,7 @@ namespace Common.LogicObject
             if (qsAct == ConfigFormAction.add)
                 return qsArtId;
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic();
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             ArticlePicture pic = artPub.GetArticlePictureDataForBackend(qsPicId);
             Guid articleId = Guid.Empty;
 
@@ -1205,8 +1217,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-影片設定頁的共用元件")]
     public class ArticleVideoCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticleVideoCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public ArticleVideoCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, IArticlePublisherDataAccess artPubDao)
+            : base(context, viewState, empAuthDao, artPubDao)
         {
         }
 
@@ -1226,7 +1238,7 @@ namespace Common.LogicObject
             if (qsAct == ConfigFormAction.add)
                 return qsArtId;
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic();
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             ArticleVideo att = artPub.GetArticleVideoDataForBackend(qsVidId);
             Guid articleId = Guid.Empty;
 
@@ -1245,8 +1257,8 @@ namespace Common.LogicObject
     [Description("後台內嵌內容頁面的共用元件")]
     public class EmbeddedContentCommonOfBackend : BackendPageCommon
     {
-        public EmbeddedContentCommonOfBackend(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public EmbeddedContentCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 
@@ -1274,8 +1286,9 @@ namespace Common.LogicObject
             {
                 OperationOpInfo opInfo = null;
 
-                using (EmployeeAuthorityDataAccess empAuthDao = new EmployeeAuthorityDataAccess())
+                using (EmployeeAuthorityDataAccess _empAuthDao = new EmployeeAuthorityDataAccess())
                 {
+                    IEmployeeAuthorityDataAccess empAuthDao = _empAuthDao;
                     opInfo = empAuthDao.GetOperationOpInfoByLinkUrl(qsUrl, false);
                     string dbErrMsg = empAuthDao.GetErrMsg();
                 }
@@ -1296,8 +1309,8 @@ namespace Common.LogicObject
     /// </summary>
     public class SsoAuthenticatorCommon : BackendPageCommon
     {
-        public SsoAuthenticatorCommon(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public SsoAuthenticatorCommon(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, viewState, empAuthDao)
         {
         }
 

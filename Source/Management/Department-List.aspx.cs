@@ -18,11 +18,11 @@ public partial class Department_List : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new DepartmentCommonOfBackend(this.Context, this.ViewState);
+        c = new DepartmentCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 
-        empAuth = new EmployeeAuthorityLogic(c);
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         empAuth.InitialAuthorizationResultOfTopPage();
 
         hud = Master.GetHeadUpDisplay();

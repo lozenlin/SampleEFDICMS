@@ -30,7 +30,7 @@ namespace JsonService
         public TemporarilyStoreRolePrivilege(HttpContext context)
             : base(context)
         {
-            c = new RoleCommonOfBackend(context, null);
+            c = new RoleCommonOfBackend(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             c.InitialLoggerOfUI(this.GetType());
         }
 
@@ -69,7 +69,7 @@ namespace JsonService
                 throw new Exception("roleId is invalid");
 
             // authenticate
-            empAuth = new EmployeeAuthorityLogic(c);
+            empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             empAuth.SetCustomEmployeeAuthorizationResult(this);
             empAuth.InitialAuthorizationResultOfSubPages();
 
@@ -267,7 +267,7 @@ namespace JsonService
         public UpdateArticleIsAreaShowInFrontStage(HttpContext context)
             : base(context)
         {
-            c = new BackendPageCommon(context, null);
+            c = new BackendPageCommon(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             c.InitialLoggerOfUI(this.GetType());
         }
 
@@ -318,7 +318,7 @@ namespace JsonService
 
             string areaName = GetParamValue("areaName");
             bool isShow = Convert.ToBoolean(GetParamValue("isShow"));
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic();
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
             ArticleUpdateIsAreaShowInFrontStageParams param = new ArticleUpdateIsAreaShowInFrontStageParams()
             {
@@ -364,7 +364,7 @@ namespace JsonService
         public UpdateArticleSortFieldOfFrontStage(HttpContext context)
             : base(context)
         {
-            c = new BackendPageCommon(context, null);
+            c = new BackendPageCommon(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             c.InitialLoggerOfUI(this.GetType());
         }
 
@@ -431,7 +431,7 @@ namespace JsonService
                 strIsSortDesc = "";
             }
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic();
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
             ArticleUpdateSortFieldOfFrontStageParams param = new ArticleUpdateSortFieldOfFrontStageParams()
             {

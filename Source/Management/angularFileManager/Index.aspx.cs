@@ -13,7 +13,7 @@ public partial class angularFileManager_Index : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, this.ViewState);
+        c = new BackendPageCommon(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
         afmLang = c.seCultureNameOfBackend;
 

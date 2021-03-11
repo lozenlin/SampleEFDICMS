@@ -414,7 +414,7 @@ namespace Common.LogicObject
                 return false;
             }
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             bool result = artPub.DeleteAttachFileData(attId);
 
             if (result)
@@ -440,7 +440,7 @@ namespace Common.LogicObject
 
             if (attId != Guid.Empty)
             {
-                ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+                ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
                 AttachFile att = artPub.GetAttachFileDataForBackend(attId);
 
                 if (att == null)
@@ -546,7 +546,7 @@ namespace Common.LogicObject
         /// </summary>
         protected virtual int GetNextSortNo()
         {
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             int newSortNo = artPub.GetAttachFileMaxSortNo(contextId) + 10;
 
             return newSortNo;
@@ -799,7 +799,7 @@ namespace Common.LogicObject
                 PostAccount = postAccount
             };
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             bool result = artPub.InsertAttachFileData(param);
 
             if (result)
@@ -866,7 +866,7 @@ namespace Common.LogicObject
                 PostAccount = postAccount
             };
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             bool result = artPub.UpdateAttachFileData(param);
 
             if (result)
@@ -963,7 +963,7 @@ namespace Common.LogicObject
                 return false;
             }
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             bool result = artPub.DeleteArticlePictureData(attId);
 
             if (result)
@@ -989,7 +989,7 @@ namespace Common.LogicObject
 
             if (attId != Guid.Empty)
             {
-                ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+                ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
                 ArticlePicture pic = artPub.GetArticlePictureDataForBackend(attId);
 
                 if (pic == null)
@@ -1084,7 +1084,7 @@ namespace Common.LogicObject
         /// </summary>
         protected override int GetNextSortNo()
         {
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             int newSortNo = artPub.GetArticlePictureMaxSortNo(contextId) + 10;
 
             return newSortNo;
@@ -1116,7 +1116,7 @@ namespace Common.LogicObject
                 PostAccount = postAccount
             };
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             bool result = artPub.InsertArticlePictureData(param);
 
             if (result)
@@ -1181,7 +1181,7 @@ namespace Common.LogicObject
                 PostAccount = postAccount
             };
 
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null);
+            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             bool result = artPub.UpdateArticlePictureData(param);
 
             if (result)

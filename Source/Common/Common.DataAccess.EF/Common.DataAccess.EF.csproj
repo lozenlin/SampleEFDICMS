@@ -60,6 +60,9 @@
     <Compile Include="EmployeeAuthorityDataAccess.cs" />
     <Compile Include="ExtensionMethods\OrderingExtensions.cs" />
     <Compile Include="ExtensionMethods\WhereExtensions.cs" />
+    <Compile Include="IArticlePublisherDataAccess.cs" />
+    <Compile Include="IDataAccessBase.cs" />
+    <Compile Include="IEmployeeAuthorityDataAccess.cs" />
     <Compile Include="MyConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

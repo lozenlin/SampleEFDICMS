@@ -12,7 +12,7 @@ public partial class MasterLogin : System.Web.UI.MasterPage
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, this.ViewState);
+        c = new BackendPageCommon(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
 
         ltrBackStageName.Text = Resources.Lang.BackStageName;

@@ -16,12 +16,12 @@ public partial class Article_Attach : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleAttachCommonOfBackend(this.Context, this.ViewState);
+        c = new ArticleAttachCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(), new Common.DataAccess.EF.ArticlePublisherDataAccess());
         c.InitialLoggerOfUI(this.GetType());
 
-        artPub = new ArticlePublisherLogic(c);
+        artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
-        empAuth = new EmployeeAuthorityLogic(c);
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         empAuth.SetCustomEmployeeAuthorizationResult(artPub);
         empAuth.InitialAuthorizationResultOfSubPages();
 

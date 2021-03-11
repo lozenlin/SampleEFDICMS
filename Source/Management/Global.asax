@@ -62,7 +62,7 @@
             string empAccount = User.Identity.Name;
 
             //取得員工身分
-            EmployeeAuthorityLogic empAuth = new EmployeeAuthorityLogic(null);
+            EmployeeAuthorityLogic empAuth = new EmployeeAuthorityLogic(null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             string roleName = empAuth.GetRoleNameOfEmp(empAccount);
 
             string[] aryRoles = new string[] { roleName };
@@ -125,7 +125,7 @@
 
         try
         {
-            BackendPageCommon c = new BackendPageCommon(Context, null);
+            BackendPageCommon c = new BackendPageCommon(Context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             int langNo = 1;
 
             if (Context.Session["seLangNoOfBackend"] == null)

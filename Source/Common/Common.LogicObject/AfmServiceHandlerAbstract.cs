@@ -46,9 +46,9 @@ namespace Common.LogicObject
         {
             this.context = context;
             this.afmRequest = afmRequest;
-            c = new AfmServicePageCommon(context);
+            c = new AfmServicePageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             c.InitialLoggerOfUI(this.GetType());
-            empAuth = new EmployeeAuthorityLogic(c);
+            empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         }
 
         public AfmResult BuildResultOfError(string errMsg)

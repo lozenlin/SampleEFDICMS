@@ -29,7 +29,7 @@ namespace JsonService
             c = new OtherArticlePageCommon(context, null);
             c.InitialLoggerOfUI(this.GetType());
 
-            artPub = new ArticlePublisherLogic();
+            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         }
 
         public override ClientResult ProcessRequest()
@@ -195,7 +195,7 @@ namespace JsonService
             c = new FrontendPageCommon(context, null);
             c.InitialLoggerOfUI(this.GetType());
 
-            artPub = new ArticlePublisherLogic();
+            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         }
 
         public override ClientResult ProcessRequest()

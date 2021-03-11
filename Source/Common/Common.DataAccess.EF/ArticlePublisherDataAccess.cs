@@ -21,7 +21,7 @@ using Common.Data.Domain.QueryParam;
 
 namespace Common.DataAccess.EF
 {
-    public class ArticlePublisherDataAccess : DataAccessBase
+    public class ArticlePublisherDataAccess : DataAccessBase, IArticlePublisherDataAccess
     {
         public ArticlePublisherDataAccess() : base()
         {
@@ -131,7 +131,7 @@ namespace Common.DataAccess.EF
         {
             Logger.Debug("GetArticleMultiLangLevelInfoList(articleId, cultureName)");
             List<ArticleMultiLangLevelInfo> entities = null;
-            
+
             try
             {
                 entities = new List<ArticleMultiLangLevelInfo>();
@@ -232,7 +232,7 @@ namespace Common.DataAccess.EF
                         || param.AuthParams.CanReadSubItemOfSelf && obj.PostAccount == param.AuthParams.MyAccount);
                 }
 
-                if(param.Kw != "")
+                if (param.Kw != "")
                 {
                     tempQuery = tempQuery.Where(obj => obj.ArticleSubject.Contains(param.Kw));
                 }
@@ -1191,7 +1191,7 @@ where exists(
                         || param.AuthParams.CanReadSubItemOfSelf && obj.PostAccount == param.AuthParams.MyAccount);
                 }
 
-                if(param.Kw != "")
+                if (param.Kw != "")
                 {
                     tempQuery = tempQuery.Where(obj =>
                         obj.AttSubject.Contains(param.Kw));
@@ -1256,7 +1256,7 @@ where exists(
             {
                 AttachFile entity = cmsCtx.AttachFile.Find(attId);
 
-                if(entity == null)
+                if (entity == null)
                 {
                     throw new Exception("there is no data of attId.");
                 }
@@ -1270,7 +1270,7 @@ where exists(
                     .FirstOrDefault();
 
                 // there is no bigger one, exit
-                if(biggerOne == null)
+                if (biggerOne == null)
                 {
                     return true;
                 }
@@ -1279,7 +1279,7 @@ where exists(
                 int biggerSortNo = biggerOne.SortNo ?? 0;
 
                 // when the values are the same
-                if(biggerSortNo == sortNo)
+                if (biggerSortNo == sortNo)
                 {
                     biggerSortNo++;
                 }
@@ -1316,7 +1316,7 @@ where exists(
             {
                 AttachFile entity = cmsCtx.AttachFile.Find(attId);
 
-                if(entity == null)
+                if (entity == null)
                 {
                     throw new Exception("there is no data of attId");
                 }
@@ -1330,7 +1330,7 @@ where exists(
                     .FirstOrDefault();
 
                 // there is no smaller one, exit
-                if(smallerOne == null)
+                if (smallerOne == null)
                 {
                     return true;
                 }
@@ -1339,7 +1339,7 @@ where exists(
                 int smallerSortNo = smallerOne.SortNo ?? 0;
 
                 // when the values are the same
-                if(smallerSortNo == sortNo)
+                if (smallerSortNo == sortNo)
                 {
                     sortNo++;
                 }
@@ -1974,7 +1974,7 @@ where exists(
             {
                 cmsCtx.spSearchDataSource_Build(mainLinkUrl);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.Error("", ex);
                 errMsg = ex.Message;

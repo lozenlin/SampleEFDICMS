@@ -23,10 +23,10 @@ public partial class Account_Config : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new AccountCommonOfBackend(this.Context, this.ViewState);
+        c = new AccountCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
 
-        empAuth = new EmployeeAuthorityLogic(c);
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         empAuth.InitialAuthorizationResultOfSubPages();
     }
 
