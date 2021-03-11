@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using Common.LogicObject;
-using Common.DataAccess.EF.Model;
+using Common.Data.Domain.Model;
 
 namespace Att
 {

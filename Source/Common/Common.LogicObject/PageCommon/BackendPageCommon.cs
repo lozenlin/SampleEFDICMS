@@ -10,7 +10,7 @@
 // ===============================================================================
 
 using Common.DataAccess.EF;
-using Common.DataAccess.EF.Model;
+using Common.Data.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

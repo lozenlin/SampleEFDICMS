@@ -1,5 +1,5 @@
-﻿using Common.DataAccess.EF.Model;
-using Common.DataAccess.EF.QueryParam;
+﻿using Common.Data.Domain.Model;
+using Common.Data.Domain.QueryParam;
 using Common.LogicObject;
 using Common.Utility;
 using Newtonsoft.Json;

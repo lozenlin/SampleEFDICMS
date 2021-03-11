@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using Common.DataAccess.EF.Model;
+using Common.Data.Domain.Model;
 using log4net;
 using System.Linq.Expressions;
 using System.Reflection;

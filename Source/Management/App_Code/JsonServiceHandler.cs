@@ -8,8 +8,8 @@ using Common.Utility;
 using System.Configuration;
 using Newtonsoft.Json;
 using System.Data;
-using Common.DataAccess.EF.Model;
-using Common.DataAccess.EF.QueryParam;
+using Common.Data.Domain.Model;
+using Common.Data.Domain.QueryParam;
 
 namespace JsonService
 {

@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://sampleefdicms.dev.com", "http://sampleefdicms.dev.com", "{5280B754-9F03-476B-9ABE-6F29D15FF8D3}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{148266c2-75dc-4c89-85fc-23e9eef766cf}|Common.Utility.dll;{e72437e3-dd4d-42a0-840b-070898a01af7}|Common.LogicObject.dll;{CD655DC6-58B8-41CD-883C-173025811AA5}|Common.DataAccess.EF.dll;"
+		ProjectReferences = "{148266c2-75dc-4c89-85fc-23e9eef766cf}|Common.Utility.dll;{e72437e3-dd4d-42a0-840b-070898a01af7}|Common.LogicObject.dll;{CD655DC6-58B8-41CD-883C-173025811AA5}|Common.DataAccess.EF.dll;{8d1762fa-a81a-4e95-b63d-e7d6e278a1e8}|Common.Data.Domain.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/sampleefdicms.dev.com"
 		Debug.AspNetCompiler.PhysicalPath = "Root\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\sampleefdicms.dev.com\"
@@ -29,7 +29,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Management", "http://sample
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "false"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5"
-		ProjectReferences = "{e72437e3-dd4d-42a0-840b-070898a01af7}|Common.LogicObject.dll;{148266c2-75dc-4c89-85fc-23e9eef766cf}|Common.Utility.dll;{CD655DC6-58B8-41CD-883C-173025811AA5}|Common.DataAccess.EF.dll;"
+		ProjectReferences = "{e72437e3-dd4d-42a0-840b-070898a01af7}|Common.LogicObject.dll;{148266c2-75dc-4c89-85fc-23e9eef766cf}|Common.Utility.dll;{CD655DC6-58B8-41CD-883C-173025811AA5}|Common.DataAccess.EF.dll;{8d1762fa-a81a-4e95-b63d-e7d6e278a1e8}|Common.Data.Domain.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/Management"
 		Debug.AspNetCompiler.PhysicalPath = "Management\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Management\"
@@ -54,6 +54,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Utility", "Common\Common.Utility\Common.Utility.csproj", "{148266C2-75DC-4C89-85FC-23E9EEF766CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.DataAccess.EF", "Common\Common.DataAccess.EF\Common.DataAccess.EF.csproj", "{CD655DC6-58B8-41CD-883C-173025811AA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Data.Domain", "Common\Common.Data.Domain\Common.Data.Domain.csproj", "{8D1762FA-A81A-4E95-B63D-E7D6E278A1E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{CD655DC6-58B8-41CD-883C-173025811AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD655DC6-58B8-41CD-883C-173025811AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD655DC6-58B8-41CD-883C-173025811AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1762FA-A81A-4E95-B63D-E7D6E278A1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1762FA-A81A-4E95-B63D-E7D6E278A1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1762FA-A81A-4E95-B63D-E7D6E278A1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1762FA-A81A-4E95-B63D-E7D6E278A1E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,5 +95,9 @@ Global
 		{E72437E3-DD4D-42A0-840B-070898A01AF7} = {15D9AADF-C975-4ACC-AB16-BB5994321974}
 		{148266C2-75DC-4C89-85FC-23E9EEF766CF} = {15D9AADF-C975-4ACC-AB16-BB5994321974}
 		{CD655DC6-58B8-41CD-883C-173025811AA5} = {15D9AADF-C975-4ACC-AB16-BB5994321974}
+		{8D1762FA-A81A-4E95-B63D-E7D6E278A1E8} = {15D9AADF-C975-4ACC-AB16-BB5994321974}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {364D37E9-D678-4A0A-86B3-60DE7F2DD888}
 	EndGlobalSection
 EndGlobal

@@ -23,3 +23,15 @@
 /Source/Common/Common.DataAccess.EF/bin
 /Source/packages
 /Source/.vs
+/Source/Root/Bin/Common.Utility.dll
+/Source/Root/Bin/Common.DataAccess.EF.dll
+/Source/Root/Bin/Common.LogicObject.dll
+/Source/Management/Bin/Common.DataAccess.EF.dll
+/Source/Management/Bin/Common.LogicObject.dll
+/Source/Management/Bin/Common.Utility.dll
+/Source/Common/Common.Data.Domain/bin
+/Source/Common/Common.Data.Domain/obj
+/Source/Management/Bin/Common.Data.Domain.dll
+/Source/Management/Bin/Common.Data.Domain.pdb
+/Source/Root/Bin/Common.Data.Domain.dll
+/Source/Root/Bin/Common.Data.Domain.pdb

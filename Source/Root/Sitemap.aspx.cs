@@ -1,4 +1,4 @@
-﻿using Common.DataAccess.EF.Model;
+﻿using Common.Data.Domain.Model;
 using Common.LogicObject;
 using Common.Utility;
 using System;

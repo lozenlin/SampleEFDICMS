@@ -58,175 +58,24 @@
     <Compile Include="ArticlePublisherDataAccess.cs" />
     <Compile Include="DataAccessBase.cs" />
     <Compile Include="EmployeeAuthorityDataAccess.cs" />
-    <Compile Include="EntityRequiredPropValues\ArticleMultiLangRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\ArticlePictureMultiLangRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\ArticlePictureRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\ArticleRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\ArticleVideoMultiLangRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\ArticleVideoRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\AttachFileMultiLangRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\AttachFileRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\DepartmentRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\EmployeeRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\EmployeeRoleOperationsDescRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\EmployeeRoleRequiredPropValues.cs" />
-    <Compile Include="EntityRequiredPropValues\OperationsRequiredPropValues.cs" />
     <Compile Include="ExtensionMethods\OrderingExtensions.cs" />
     <Compile Include="ExtensionMethods\WhereExtensions.cs" />
     <Compile Include="InsertResult.cs" />
-    <Compile Include="Model\Article.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ArticleDescendant.cs" />
-    <Compile Include="Model\ArticleForBackend.cs" />
-    <Compile Include="Model\ArticleForBEList.cs" />
-    <Compile Include="Model\ArticleForFEList.cs" />
-    <Compile Include="Model\ArticleForFEListWithThumb.cs" />
-    <Compile Include="Model\ArticleForFESideSection.cs" />
-    <Compile Include="Model\ArticleForFESitemap.cs" />
-    <Compile Include="Model\ArticleForFEUnitArea.cs" />
-    <Compile Include="Model\ArticleForFrontend.cs" />
-    <Compile Include="Model\ArticleMultiLang.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ArticleMultiLangForOpMenu.cs" />
-    <Compile Include="Model\ArticleMultiLangLevelInfo.cs" />
-    <Compile Include="Model\ArticlePicture.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ArticlePictureForBEList.cs" />
-    <Compile Include="Model\ArticlePictureForFrontend.cs" />
-    <Compile Include="Model\ArticlePictureMultiLang.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ArticleTopLevelIds.cs" />
-    <Compile Include="Model\ArticleVideo.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ArticleVideoForBEList.cs" />
-    <Compile Include="Model\ArticleVideoForFrontend.cs" />
-    <Compile Include="Model\ArticleVideoMultiLang.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\AttachFile.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\AttachFileForBEList.cs" />
-    <Compile Include="Model\AttachFileForFrontend.cs" />
-    <Compile Include="Model\AttachFileMultiLang.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\BackEndLog.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\BackEndLogForBackend.cs" />
-    <Compile Include="Model\Cms.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Cms.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Cms.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Cms.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Cms.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Department.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\DepartmentForBackend.cs" />
-    <Compile Include="Model\Employee.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EmployeeForBackend.cs" />
-    <Compile Include="Model\EmployeeRole.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EmployeeRoleForBackend.cs" />
-    <Compile Include="Model\EmployeeRoleOperationsDesc.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EmployeeRoleToSelect.cs" />
-    <Compile Include="Model\EmployeeToLogin.cs" />
-    <Compile Include="Model\Interfaces.cs" />
-    <Compile Include="Model\Keyword.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\ModelExtension.cs" />
-    <Compile Include="Model\OperationForBackend.cs" />
-    <Compile Include="Model\OperationLevelInfo.cs" />
-    <Compile Include="Model\OperationOpInfo.cs" />
-    <Compile Include="Model\Operations.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\OperationWithRoleAuth.cs" />
-    <Compile Include="Model\RoleOpPvg.cs" />
-    <Compile Include="Model\SearchDataSource.cs">
-      <DependentUpon>Cms.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\SearchDataSourceForFrontend.cs" />
     <Compile Include="MyConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryParam\AccountListQueryParams.cs" />
-    <Compile Include="QueryParam\AccountParams.cs" />
-    <Compile Include="QueryParam\ArticleListQueryParams.cs" />
-    <Compile Include="QueryParam\ArticleMultiLangParams.cs" />
-    <Compile Include="QueryParam\ArticleParams.cs" />
-    <Compile Include="QueryParam\ArticlePictureListQueryParams.cs" />
-    <Compile Include="QueryParam\ArticlePictureMultiLangParams.cs" />
-    <Compile Include="QueryParam\ArticlePictureParams.cs" />
-    <Compile Include="QueryParam\ArticleUpdateIsAreaShowInFrontStageParams.cs" />
-    <Compile Include="QueryParam\ArticleUpdateSortFieldOfFrontStageParams.cs" />
-    <Compile Include="QueryParam\ArticleValidListQueryParams.cs" />
-    <Compile Include="QueryParam\ArticleVideoListQueryParams.cs" />
-    <Compile Include="QueryParam\ArticleVideoMultiLangParams.cs" />
-    <Compile Include="QueryParam\ArticleVideoParams.cs" />
-    <Compile Include="QueryParam\AttachFileListQueryParams.cs" />
-    <Compile Include="QueryParam\AttachFileMultiLangParams.cs" />
-    <Compile Include="QueryParam\AttachFileParams.cs" />
-    <Compile Include="QueryParam\AuthenticationQueryParams.cs" />
-    <Compile Include="QueryParam\AuthenticationUpdateParams.cs" />
-    <Compile Include="QueryParam\BackEndLogListQueryParams.cs" />
-    <Compile Include="QueryParam\DeptListQueryParams.cs" />
-    <Compile Include="QueryParam\DeptParams.cs" />
-    <Compile Include="QueryParam\OpListQueryParams.cs" />
-    <Compile Include="QueryParam\OpParams.cs" />
-    <Compile Include="QueryParam\PagedListQueryParams.cs" />
-    <Compile Include="QueryParam\RoleListQueryParams.cs" />
-    <Compile Include="QueryParam\RoleOpDescParams.cs" />
-    <Compile Include="QueryParam\RoleParams.cs" />
-    <Compile Include="QueryParam\RolePrivilegeParams.cs" />
-    <Compile Include="QueryParam\SearchResultListQueryParams.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Model\Cms.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Cms.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model\Cms.edmx.diagram">
-      <DependentUpon>Cms.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Model\Cms.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Cms.edmx</DependentUpon>
-      <LastGenOutput>Cms.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\Cms.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Cms.edmx</DependentUpon>
-      <LastGenOutput>Cms.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\Common.Data.Domain\Common.Data.Domain.csproj">
+      <Project>{8d1762fa-a81a-4e95-b63d-e7d6e278a1e8}</Project>
+      <Name>Common.Data.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

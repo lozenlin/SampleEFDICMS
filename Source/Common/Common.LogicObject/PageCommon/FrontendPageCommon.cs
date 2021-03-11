@@ -9,7 +9,7 @@
 // Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // ===============================================================================
 
-using Common.DataAccess.EF.Model;
+using Common.Data.Domain.Model;
 using Common.Utility;
 using Newtonsoft.Json;
 using System;

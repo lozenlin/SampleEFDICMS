@@ -99,6 +99,10 @@
     <Compile Include="Widget\SQLInjectionFilterExt.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common.Data.Domain\Common.Data.Domain.csproj">
+      <Project>{8d1762fa-a81a-4e95-b63d-e7d6e278a1e8}</Project>
+      <Name>Common.Data.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common.DataAccess.EF\Common.DataAccess.EF.csproj">
       <Project>{cd655dc6-58b8-41cd-883c-173025811aa5}</Project>
       <Name>Common.DataAccess.EF</Name>

@@ -10,9 +10,9 @@
 // ===============================================================================
 
 using Common.DataAccess.EF;
-using Common.DataAccess.EF.EntityRequiredPropValues;
-using Common.DataAccess.EF.Model;
-using Common.DataAccess.EF.QueryParam;
+using Common.Data.Domain.EntityRequiredPropValues;
+using Common.Data.Domain.Model;
+using Common.Data.Domain.QueryParam;
 using log4net;
 using System;
 using System.Collections.Generic;
