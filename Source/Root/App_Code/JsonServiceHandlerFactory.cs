@@ -8,17 +8,17 @@ namespace JsonService
 {
     public static class JsonServiceHandlerFactory
     {
-        public static IJsonServiceHandler GetHandler(HttpContext context, string serviceName)
+        public static IJsonServiceHandler GetHandler(HttpContext context, string serviceName, OtherArticlePageCommon c, ArticlePublisherLogic artPub)
         {
             IJsonServiceHandler handler = null;
 
             switch (serviceName)
             {
                 case "Article_GetListWithThumb":
-                    handler = new Article_GetListWithThumb(context);
+                    handler = new Article_GetListWithThumb(context, c, artPub);
                     break;
                 case "Keyword_GetList":
-                    handler = new Keyword_GetList(context);
+                    handler = new Keyword_GetList(context, c, artPub);
                     break;
             }
 

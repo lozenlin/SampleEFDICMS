@@ -9,7 +9,8 @@ using JsonService;
 
 public class jsonService : IHttpHandler, IRequiresSessionState
 {
-    protected PageCommon c;
+    protected OtherArticlePageCommon c;
+    protected ArticlePublisherLogic artPub;
     protected HttpContext context;
 
     #region 工具屬性
@@ -35,12 +36,13 @@ public class jsonService : IHttpHandler, IRequiresSessionState
     }
 
     #endregion
-    
+
     private bool allowedParamFromQueryString = false;   // true for testing
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new PageCommon(context, null);
+        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new OtherArticlePageCommon(context, null, artPub);
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;
@@ -50,11 +52,11 @@ public class jsonService : IHttpHandler, IRequiresSessionState
 
         try
         {
-            IJsonServiceHandler handler = JsonServiceHandlerFactory.GetHandler(context, serviceName);
+            IJsonServiceHandler handler = JsonServiceHandlerFactory.GetHandler(context, serviceName, c, artPub);
 
             if (handler == null)
                 throw new Exception("service name is invalid");
-                
+
             clientResult = handler.ProcessRequest();
         }
         catch (Exception ex)
@@ -65,7 +67,7 @@ public class jsonService : IHttpHandler, IRequiresSessionState
         }
 
         string result = JsonConvert.SerializeObject(clientResult);
-        
+
         Response.ContentType = "text/plain";
         Response.Write(result);
     }

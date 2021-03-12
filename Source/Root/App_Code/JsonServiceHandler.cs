@@ -23,13 +23,11 @@ namespace JsonService
         /// <summary>
         /// 取得附縮圖的網頁內容清單
         /// </summary>
-        public Article_GetListWithThumb(HttpContext context)
+        public Article_GetListWithThumb(HttpContext context, OtherArticlePageCommon c, ArticlePublisherLogic artPub)
             : base(context)
         {
-            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            c = new OtherArticlePageCommon(context, null, artPub);
-            c.InitialLoggerOfUI(this.GetType());
-
+            this.c = c;
+            this.artPub = artPub;
         }
 
         public override ClientResult ProcessRequest()
@@ -189,13 +187,11 @@ namespace JsonService
         /// <summary>
         /// 取得搜尋關鍵字
         /// </summary>
-        public Keyword_GetList(HttpContext context)
+        public Keyword_GetList(HttpContext context, FrontendPageCommon c, ArticlePublisherLogic artPub)
             : base(context)
         {
-            artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            c = new FrontendPageCommon(context, null, artPub);
-            c.InitialLoggerOfUI(this.GetType());
-
+            this.c = c;
+            this.artPub = artPub;
         }
 
         public override ClientResult ProcessRequest()
