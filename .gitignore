@@ -35,3 +35,7 @@
 /Source/Management/Bin/Common.Data.Domain.pdb
 /Source/Root/Bin/Common.Data.Domain.dll
 /Source/Root/Bin/Common.Data.Domain.pdb
+/Source/Root/Bin/Autofac.dll
+/Source/Root/Bin/Autofac.Integration.Web.dll
+/Source/Root/Bin/Autofac.Integration.Web.xml
+/Source/Root/Bin/Autofac.xml
