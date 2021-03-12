@@ -57,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AfmServiceHandlerAbstract.cs" />
+    <Compile Include="DataAccessInterfaces\IArticlePublisherDataAccess.cs" />
+    <Compile Include="DataAccessInterfaces\IDataAccessBase.cs" />
+    <Compile Include="DataAccessInterfaces\IEmployeeAuthorityDataAccess.cs" />
     <Compile Include="DataClass\ArticleAjaxAuthData.cs" />
     <Compile Include="DataClass\ArticleData.cs" />
     <Compile Include="DataClass\PreviewArticle.cs" />
@@ -102,18 +105,12 @@
       <Project>{8d1762fa-a81a-4e95-b63d-e7d6e278a1e8}</Project>
       <Name>Common.Data.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Common.DataAccess.EF\Common.DataAccess.EF.csproj">
-      <Project>{cd655dc6-58b8-41cd-883c-173025811aa5}</Project>
-      <Name>Common.DataAccess.EF</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common.Utility\Common.Utility.csproj">
       <Project>{148266c2-75dc-4c89-85fc-23e9eef766cf}</Project>
       <Name>Common.Utility</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataAccessInterfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,4 +1,4 @@
-﻿using Common.DataAccess.EF;
+﻿using Common.LogicObject.DataAccessInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

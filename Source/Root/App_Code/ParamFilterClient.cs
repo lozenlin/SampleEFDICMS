@@ -1,5 +1,6 @@
 ﻿using Common.DataAccess.EF;
 using Common.LogicObject;
+using Common.LogicObject.DataAccessInterfaces;
 using log4net;
 using System;
 using System.Collections.Generic;

@@ -13,7 +13,7 @@ using Common.Data.Domain.Model;
 using Common.Data.Domain.QueryParam;
 using System.Collections.Generic;
 
-namespace Common.DataAccess.EF
+namespace Common.LogicObject.DataAccessInterfaces
 {
     public interface IEmployeeAuthorityDataAccess : IDataAccessBase
     {

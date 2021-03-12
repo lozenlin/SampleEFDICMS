@@ -1,4 +1,4 @@
-﻿using Common.DataAccess.EF;
+﻿using Common.LogicObject.DataAccessInterfaces;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,6 @@ namespace Common.LogicObject
     /// </summary>
     public class SQLInjectionFilterExt : SQLInjectionFilter
     {
-        protected ILog logger = null;
         protected string dbErrMsg = "";
         protected IArticlePublisherDataAccess artPubDao;
 
@@ -26,7 +25,6 @@ namespace Common.LogicObject
             if (artPubDao == null)
                 throw new ArgumentNullException("artPubDao");
 
-            logger = LogManager.GetLogger(this.GetType());
             this.artPubDao = artPubDao;
         }
 

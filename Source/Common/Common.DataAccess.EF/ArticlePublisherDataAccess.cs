@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Common.Data.Domain.QueryParam;
+using Common.LogicObject.DataAccessInterfaces;
 
 namespace Common.DataAccess.EF
 {

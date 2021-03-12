@@ -14,7 +14,7 @@ using Common.Data.Domain.QueryParam;
 using System;
 using System.Collections.Generic;
 
-namespace Common.DataAccess.EF
+namespace Common.LogicObject.DataAccessInterfaces
 {
     public interface IArticlePublisherDataAccess : IDataAccessBase
     {

@@ -19,6 +19,7 @@ using Common.Data.Domain.Model;
 using log4net;
 using System.Linq.Expressions;
 using System.Reflection;
+using Common.LogicObject.DataAccessInterfaces;
 
 namespace Common.DataAccess.EF
 {

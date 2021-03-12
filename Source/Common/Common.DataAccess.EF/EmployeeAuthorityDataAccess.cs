@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using Common.Data.Domain.EntityRequiredPropValues;
 using Common.Data.Domain.QueryParam;
+using Common.LogicObject.DataAccessInterfaces;
 
 namespace Common.DataAccess.EF
 {

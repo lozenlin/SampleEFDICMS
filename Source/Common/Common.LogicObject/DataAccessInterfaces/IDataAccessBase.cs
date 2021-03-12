@@ -14,7 +14,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Common.DataAccess.EF
+namespace Common.LogicObject.DataAccessInterfaces
 {
     public interface IDataAccessBase
     {
