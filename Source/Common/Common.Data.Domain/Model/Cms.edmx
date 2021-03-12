@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CmsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="ArticleId" />
@@ -362,7 +362,7 @@
         <Function Name="spStartJob" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="job_name" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="ModelStoreContainer">
+        <EntityContainer Name="CmsModelStoreContainer">
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticleMultiLang" EntityType="Self.ArticleMultiLang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ArticlePicture" EntityType="Self.ArticlePicture" Schema="dbo" store:Type="Tables" />
@@ -392,10 +392,11 @@
             <End Role="EmployeeRoleOperationsDesc" EntitySet="EmployeeRoleOperationsDesc" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CmsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="ArticleId" />
@@ -761,13 +762,13 @@
             <End Role="EmployeeRoleOperationsDesc" EntitySet="EmployeeRoleOperationsDesc" />
           </AssociationSet>
           <FunctionImport Name="spIsSQLInjectionExpr" ReturnType="Collection(Boolean)">
-          <Parameter Name="Expr" Mode="In" Type="String" />
+            <Parameter Name="Expr" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spSearchDataSource_Build">
-          <Parameter Name="MainLinkUrl" Mode="In" Type="String" />
+            <Parameter Name="MainLinkUrl" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spStartJob">
-          <Parameter Name="job_name" Mode="In" Type="String" />
+            <Parameter Name="job_name" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
       </Schema>
@@ -775,9 +776,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CmsContext">
+        <EntityContainerMapping StorageEntityContainer="CmsModelStoreContainer" CdmEntityContainer="CmsContext">
           <EntitySetMapping Name="Article">
-            <EntityTypeMapping TypeName="Model.Article">
+            <EntityTypeMapping TypeName="CmsModel.Article">
               <MappingFragment StoreEntitySet="Article">
                 <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="SeqnoForCluster" ColumnName="SeqnoForCluster" />
@@ -816,7 +817,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ArticleMultiLang">
-            <EntityTypeMapping TypeName="Model.ArticleMultiLang">
+            <EntityTypeMapping TypeName="CmsModel.ArticleMultiLang">
               <MappingFragment StoreEntitySet="ArticleMultiLang">
                 <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="CultureName" ColumnName="CultureName" />
@@ -836,7 +837,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ArticlePicture">
-            <EntityTypeMapping TypeName="Model.ArticlePicture">
+            <EntityTypeMapping TypeName="CmsModel.ArticlePicture">
               <MappingFragment StoreEntitySet="ArticlePicture">
                 <ScalarProperty Name="PicId" ColumnName="PicId" />
                 <ScalarProperty Name="SeqnoForCluster" ColumnName="SeqnoForCluster" />
@@ -853,7 +854,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ArticlePictureMultiLang">
-            <EntityTypeMapping TypeName="Model.ArticlePictureMultiLang">
+            <EntityTypeMapping TypeName="CmsModel.ArticlePictureMultiLang">
               <MappingFragment StoreEntitySet="ArticlePictureMultiLang">
                 <ScalarProperty Name="PicId" ColumnName="PicId" />
                 <ScalarProperty Name="CultureName" ColumnName="CultureName" />
@@ -868,7 +869,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ArticleVideo">
-            <EntityTypeMapping TypeName="Model.ArticleVideo">
+            <EntityTypeMapping TypeName="CmsModel.ArticleVideo">
               <MappingFragment StoreEntitySet="ArticleVideo">
                 <ScalarProperty Name="VidId" ColumnName="VidId" />
                 <ScalarProperty Name="SeqnoForCluster" ColumnName="SeqnoForCluster" />
@@ -884,7 +885,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ArticleVideoMultiLang">
-            <EntityTypeMapping TypeName="Model.ArticleVideoMultiLang">
+            <EntityTypeMapping TypeName="CmsModel.ArticleVideoMultiLang">
               <MappingFragment StoreEntitySet="ArticleVideoMultiLang">
                 <ScalarProperty Name="VidId" ColumnName="VidId" />
                 <ScalarProperty Name="CultureName" ColumnName="CultureName" />
@@ -900,7 +901,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AttachFile">
-            <EntityTypeMapping TypeName="Model.AttachFile">
+            <EntityTypeMapping TypeName="CmsModel.AttachFile">
               <MappingFragment StoreEntitySet="AttachFile">
                 <ScalarProperty Name="AttId" ColumnName="AttId" />
                 <ScalarProperty Name="SeqnoForCluster" ColumnName="SeqnoForCluster" />
@@ -919,7 +920,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AttachFileMultiLang">
-            <EntityTypeMapping TypeName="Model.AttachFileMultiLang">
+            <EntityTypeMapping TypeName="CmsModel.AttachFileMultiLang">
               <MappingFragment StoreEntitySet="AttachFileMultiLang">
                 <ScalarProperty Name="AttId" ColumnName="AttId" />
                 <ScalarProperty Name="CultureName" ColumnName="CultureName" />
@@ -935,7 +936,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="BackEndLog">
-            <EntityTypeMapping TypeName="Model.BackEndLog">
+            <EntityTypeMapping TypeName="CmsModel.BackEndLog">
               <MappingFragment StoreEntitySet="BackEndLog">
                 <ScalarProperty Name="Seqno" ColumnName="Seqno" />
                 <ScalarProperty Name="EmpAccount" ColumnName="EmpAccount" />
@@ -946,7 +947,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Department">
-            <EntityTypeMapping TypeName="Model.Department">
+            <EntityTypeMapping TypeName="CmsModel.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="DeptId" ColumnName="DeptId" />
                 <ScalarProperty Name="DeptName" ColumnName="DeptName" />
@@ -959,7 +960,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="Model.Employee">
+            <EntityTypeMapping TypeName="CmsModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="EmpId" ColumnName="EmpId" />
                 <ScalarProperty Name="EmpAccount" ColumnName="EmpAccount" />
@@ -992,7 +993,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeRole">
-            <EntityTypeMapping TypeName="Model.EmployeeRole">
+            <EntityTypeMapping TypeName="CmsModel.EmployeeRole">
               <MappingFragment StoreEntitySet="EmployeeRole">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -1006,7 +1007,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="EmployeeRoleOperationsDesc">
-            <EntityTypeMapping TypeName="Model.EmployeeRoleOperationsDesc">
+            <EntityTypeMapping TypeName="CmsModel.EmployeeRoleOperationsDesc">
               <MappingFragment StoreEntitySet="EmployeeRoleOperationsDesc">
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="OpId" ColumnName="OpId" />
@@ -1030,7 +1031,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Keyword">
-            <EntityTypeMapping TypeName="Model.Keyword">
+            <EntityTypeMapping TypeName="CmsModel.Keyword">
               <MappingFragment StoreEntitySet="Keyword">
                 <ScalarProperty Name="Seqno" ColumnName="Seqno" />
                 <ScalarProperty Name="CultureName" ColumnName="CultureName" />
@@ -1040,7 +1041,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Operations">
-            <EntityTypeMapping TypeName="Model.Operations">
+            <EntityTypeMapping TypeName="CmsModel.Operations">
               <MappingFragment StoreEntitySet="Operations">
                 <ScalarProperty Name="OpId" ColumnName="OpId" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
@@ -1060,7 +1061,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SearchDataSource">
-            <EntityTypeMapping TypeName="Model.SearchDataSource">
+            <EntityTypeMapping TypeName="CmsModel.SearchDataSource">
               <MappingFragment StoreEntitySet="SearchDataSource">
                 <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="SubId" ColumnName="SubId" />
@@ -1078,9 +1079,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="spIsSQLInjectionExpr" FunctionName="Model.Store.spIsSQLInjectionExpr" />
-          <FunctionImportMapping FunctionImportName="spSearchDataSource_Build" FunctionName="Model.Store.spSearchDataSource_Build" />
-          <FunctionImportMapping FunctionImportName="spStartJob" FunctionName="Model.Store.spStartJob" />
+          <FunctionImportMapping FunctionImportName="spIsSQLInjectionExpr" FunctionName="CmsModel.Store.spIsSQLInjectionExpr" />
+          <FunctionImportMapping FunctionImportName="spSearchDataSource_Build" FunctionName="CmsModel.Store.spSearchDataSource_Build" />
+          <FunctionImportMapping FunctionImportName="spStartJob" FunctionName="CmsModel.Store.spStartJob" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

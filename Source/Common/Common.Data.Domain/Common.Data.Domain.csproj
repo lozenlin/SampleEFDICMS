@@ -63,53 +63,33 @@
     <Compile Include="EntityRequiredPropValues\EmployeeRoleOperationsDescRequiredPropValues.cs" />
     <Compile Include="EntityRequiredPropValues\EmployeeRoleRequiredPropValues.cs" />
     <Compile Include="EntityRequiredPropValues\OperationsRequiredPropValues.cs" />
-    <Compile Include="Model\InsertResult.cs" />
     <Compile Include="Model\Article.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ArticleDescendant.cs" />
-    <Compile Include="Model\ArticleForBackend.cs" />
-    <Compile Include="Model\ArticleForBEList.cs" />
-    <Compile Include="Model\ArticleForFEList.cs" />
-    <Compile Include="Model\ArticleForFEListWithThumb.cs" />
-    <Compile Include="Model\ArticleForFESideSection.cs" />
-    <Compile Include="Model\ArticleForFESitemap.cs" />
-    <Compile Include="Model\ArticleForFEUnitArea.cs" />
-    <Compile Include="Model\ArticleForFrontend.cs" />
     <Compile Include="Model\ArticleMultiLang.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ArticleMultiLangForOpMenu.cs" />
-    <Compile Include="Model\ArticleMultiLangLevelInfo.cs" />
     <Compile Include="Model\ArticlePicture.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ArticlePictureForBEList.cs" />
-    <Compile Include="Model\ArticlePictureForFrontend.cs" />
     <Compile Include="Model\ArticlePictureMultiLang.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ArticleTopLevelIds.cs" />
     <Compile Include="Model\ArticleVideo.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\ArticleVideoForBEList.cs" />
-    <Compile Include="Model\ArticleVideoForFrontend.cs" />
     <Compile Include="Model\ArticleVideoMultiLang.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\AttachFile.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\AttachFileForBEList.cs" />
-    <Compile Include="Model\AttachFileForFrontend.cs" />
     <Compile Include="Model\AttachFileMultiLang.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\BackEndLog.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\BackEndLogForBackend.cs" />
     <Compile Include="Model\Cms.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -128,18 +108,38 @@
     <Compile Include="Model\Department.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\DepartmentForBackend.cs" />
     <Compile Include="Model\Employee.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\EmployeeForBackend.cs" />
     <Compile Include="Model\EmployeeRole.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\EmployeeRoleForBackend.cs" />
     <Compile Include="Model\EmployeeRoleOperationsDesc.cs">
       <DependentUpon>Cms.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\InsertResult.cs" />
+    <Compile Include="Model\ArticleDescendant.cs" />
+    <Compile Include="Model\ArticleForBackend.cs" />
+    <Compile Include="Model\ArticleForBEList.cs" />
+    <Compile Include="Model\ArticleForFEList.cs" />
+    <Compile Include="Model\ArticleForFEListWithThumb.cs" />
+    <Compile Include="Model\ArticleForFESideSection.cs" />
+    <Compile Include="Model\ArticleForFESitemap.cs" />
+    <Compile Include="Model\ArticleForFEUnitArea.cs" />
+    <Compile Include="Model\ArticleForFrontend.cs" />
+    <Compile Include="Model\ArticleMultiLangForOpMenu.cs" />
+    <Compile Include="Model\ArticleMultiLangLevelInfo.cs" />
+    <Compile Include="Model\ArticlePictureForBEList.cs" />
+    <Compile Include="Model\ArticlePictureForFrontend.cs" />
+    <Compile Include="Model\ArticleTopLevelIds.cs" />
+    <Compile Include="Model\ArticleVideoForBEList.cs" />
+    <Compile Include="Model\ArticleVideoForFrontend.cs" />
+    <Compile Include="Model\AttachFileForBEList.cs" />
+    <Compile Include="Model\AttachFileForFrontend.cs" />
+    <Compile Include="Model\BackEndLogForBackend.cs" />
+    <Compile Include="Model\DepartmentForBackend.cs" />
+    <Compile Include="Model\EmployeeForBackend.cs" />
+    <Compile Include="Model\EmployeeRoleForBackend.cs" />
     <Compile Include="Model\EmployeeRoleToSelect.cs" />
     <Compile Include="Model\EmployeeToLogin.cs" />
     <Compile Include="Model\Interfaces.cs" />
@@ -201,7 +201,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\Cms.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
