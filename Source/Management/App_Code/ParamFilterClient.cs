@@ -14,6 +14,7 @@ using System.Web;
 public class ParamFilterClient
 {
     protected ILog logger;
+    protected SQLInjectionFilterLogic sqlInjectionFilterLogic;
 
     /// <summary>
     /// Int32 類型的參數名單 (needs lowercase)
@@ -78,6 +79,8 @@ public class ParamFilterClient
     public ParamFilterClient()
     {
         logger = LogManager.GetLogger(this.GetType());
+        sqlInjectionFilterLogic = new SQLInjectionFilterLogic(new Common.DataAccess.EF.ArticlePublisherDataAccess());
+
         InitialParamValueLenLookup();
         InitialWhitelistOfBlacklistKeywords();
     }
@@ -189,7 +192,7 @@ public class ParamFilterClient
         regexParam.SetBlacklistPatterns(blacklistPatterns);
 
         //SQL Injection 過濾
-        SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt();
+        SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
 
         //用 HtmlDecode 解碼參數內容
         HtmlDecodeParamValue htmlDecodeValue = new HtmlDecodeParamValue();
@@ -200,7 +203,7 @@ public class ParamFilterClient
         blacklistKw.SetBlacklistKeywords(blacklistKeywords);
 
         //SQL Injection過濾
-        SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt();
+        SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
 
         //建立檢查順序
         ParamFilter chainOfResponsibility = specificPageParam;
@@ -298,13 +301,13 @@ public class ParamFilterClient
             HtmlDecodeParamValue htmlDecodeValue = new HtmlDecodeParamValue();
 
             //SQL Injection過濾
-            SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt();
+            SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
 
             //用 UrlDecode 解碼參數內容
             UrlDecodeParamValue urlDecodeValue = new UrlDecodeParamValue();
 
             //SQL Injection過濾
-            SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt();
+            SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
 
             chainOfResponsibility = forAcunetix;
             forAcunetix.SetSuccessor(specificPageParam);

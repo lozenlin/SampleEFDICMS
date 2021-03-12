@@ -27,11 +27,13 @@ namespace JsonService
         /// <summary>
         /// 暫存身分的權限
         /// </summary>
-        public TemporarilyStoreRolePrivilege(HttpContext context)
+        public TemporarilyStoreRolePrivilege(HttpContext context, RoleCommonOfBackend c, EmployeeAuthorityLogic empAuth)
             : base(context)
         {
-            c = new RoleCommonOfBackend(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            c.InitialLoggerOfUI(this.GetType());
+            this.c = c;
+            this.empAuth = empAuth;
+            empAuth.SetCustomEmployeeAuthorizationResult(this);
+            empAuth.InitialAuthorizationResultOfSubPages();
         }
 
         public override ClientResult ProcessRequest()
@@ -69,9 +71,6 @@ namespace JsonService
                 throw new Exception("roleId is invalid");
 
             // authenticate
-            empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            empAuth.SetCustomEmployeeAuthorizationResult(this);
-            empAuth.InitialAuthorizationResultOfSubPages();
 
             if (!empAuth.CanEditThisPage())
             {
@@ -260,15 +259,16 @@ namespace JsonService
     public class UpdateArticleIsAreaShowInFrontStage : ArticleAjaxeHandler
     {
         protected BackendPageCommon c;
+        protected ArticlePublisherLogic artPub;
 
         /// <summary>
         /// 更新網頁內容的指定區域是否在前台顯示
         /// </summary>
-        public UpdateArticleIsAreaShowInFrontStage(HttpContext context)
+        public UpdateArticleIsAreaShowInFrontStage(HttpContext context, BackendPageCommon c, ArticlePublisherLogic artPub)
             : base(context)
         {
-            c = new BackendPageCommon(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            c.InitialLoggerOfUI(this.GetType());
+            this.c = c;
+            this.artPub = artPub;
         }
 
         public override ClientResult ProcessRequest()
@@ -318,7 +318,6 @@ namespace JsonService
 
             string areaName = GetParamValue("areaName");
             bool isShow = Convert.ToBoolean(GetParamValue("isShow"));
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
             ArticleUpdateIsAreaShowInFrontStageParams param = new ArticleUpdateIsAreaShowInFrontStageParams()
             {
@@ -357,15 +356,16 @@ namespace JsonService
     public class UpdateArticleSortFieldOfFrontStage : ArticleAjaxeHandler
     {
         protected BackendPageCommon c;
+        protected ArticlePublisherLogic artPub;
 
         /// <summary>
         /// 更新網頁內容的前台子項目排序欄位
         /// </summary>
-        public UpdateArticleSortFieldOfFrontStage(HttpContext context)
+        public UpdateArticleSortFieldOfFrontStage(HttpContext context, BackendPageCommon c, ArticlePublisherLogic artPub)
             : base(context)
         {
-            c = new BackendPageCommon(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            c.InitialLoggerOfUI(this.GetType());
+            this.c = c;
+            this.artPub = artPub;
         }
 
         public override ClientResult ProcessRequest()
@@ -430,8 +430,6 @@ namespace JsonService
             {
                 strIsSortDesc = "";
             }
-
-            ArticlePublisherLogic artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
             ArticleUpdateSortFieldOfFrontStageParams param = new ArticleUpdateSortFieldOfFrontStageParams()
             {

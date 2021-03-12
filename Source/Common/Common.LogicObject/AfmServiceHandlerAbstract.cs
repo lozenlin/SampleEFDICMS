@@ -42,13 +42,12 @@ namespace Common.LogicObject
 
         #endregion
 
-        public AfmServiceHandlerAbstract(HttpContext context, AfmRequest afmRequest)
+        public AfmServiceHandlerAbstract(HttpContext context, AfmRequest afmRequest, AfmServicePageCommon c, EmployeeAuthorityLogic empAuth)
         {
             this.context = context;
             this.afmRequest = afmRequest;
-            c = new AfmServicePageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-            c.InitialLoggerOfUI(this.GetType());
-            empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+            this.c = c;
+            this.empAuth = empAuth;
         }
 
         public AfmResult BuildResultOfError(string errMsg)

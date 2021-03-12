@@ -12,8 +12,8 @@ namespace AfmService
     /// </summary>
     public class AfmGetList : AfmServiceHandlerAbstract
     {
-        public AfmGetList(HttpContext context, AfmRequest afmRequest)
-            : base(context, afmRequest)
+        public AfmGetList(HttpContext context, AfmRequest afmRequest, AfmServicePageCommon c, EmployeeAuthorityLogic empAuth)
+            : base(context, afmRequest, c, empAuth)
         {
         }
 
@@ -84,8 +84,8 @@ namespace AfmService
     /// </summary>
     public class AfmUploadFiles : AfmServiceHandlerAbstract
     {
-        public AfmUploadFiles(HttpContext context, AfmRequest afmRequest)
-            : base(context, afmRequest)
+        public AfmUploadFiles(HttpContext context, AfmRequest afmRequest, AfmServicePageCommon c, EmployeeAuthorityLogic empAuth)
+            : base(context, afmRequest, c, empAuth)
         {
         }
 
@@ -168,8 +168,8 @@ namespace AfmService
     /// </summary>
     public class AfmRemoveFoldersOrFiles : AfmServiceHandlerAbstract
     {
-        public AfmRemoveFoldersOrFiles(HttpContext context, AfmRequest afmRequest)
-            : base(context, afmRequest)
+        public AfmRemoveFoldersOrFiles(HttpContext context, AfmRequest afmRequest, AfmServicePageCommon c, EmployeeAuthorityLogic empAuth)
+            : base(context, afmRequest, c, empAuth)
         {
         }
 
@@ -326,8 +326,8 @@ namespace AfmService
     /// </summary>
     public class AfmCreateFolder : AfmServiceHandlerAbstract
     {
-        public AfmCreateFolder(HttpContext context, AfmRequest afmRequest)
-            : base(context, afmRequest)
+        public AfmCreateFolder(HttpContext context, AfmRequest afmRequest, AfmServicePageCommon c, EmployeeAuthorityLogic empAuth)
+            : base(context, afmRequest, c, empAuth)
         {
         }
 
@@ -381,8 +381,8 @@ namespace AfmService
     /// </summary>
     public class AfmRenameFolderOrFile : AfmServiceHandlerAbstract
     {
-        public AfmRenameFolderOrFile(HttpContext context, AfmRequest afmRequest)
-            : base(context, afmRequest)
+        public AfmRenameFolderOrFile(HttpContext context, AfmRequest afmRequest, AfmServicePageCommon c, EmployeeAuthorityLogic empAuth)
+            : base(context, afmRequest, c, empAuth)
         {
         }
 

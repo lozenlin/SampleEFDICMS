@@ -15,6 +15,7 @@ public class afmService : IHttpHandler, IRequiresSessionState
 {
     protected AfmServicePageCommon c;
     protected HttpContext context;
+    protected EmployeeAuthorityLogic empAuth;
 
     #region 工具屬性
 
@@ -46,6 +47,7 @@ public class afmService : IHttpHandler, IRequiresSessionState
     {
         c = new AfmServicePageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
+        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
         this.context = context;
         AfmResult afmResult = null;
@@ -85,7 +87,7 @@ public class afmService : IHttpHandler, IRequiresSessionState
                 }
             }
             
-            IAfmServiceHandler handler = AfmServiceHandlerFactory.GetHandler(context, afmRequest);
+            IAfmServiceHandler handler = AfmServiceHandlerFactory.GetHandler(context, afmRequest, c, empAuth);
 
             if (handler == null)
                 throw new Exception("action is not supported");

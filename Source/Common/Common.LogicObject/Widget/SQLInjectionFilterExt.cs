@@ -11,12 +11,15 @@ namespace Common.LogicObject
     /// </summary>
     public class SQLInjectionFilterExt : SQLInjectionFilter
     {
+        protected SQLInjectionFilterLogic sqlInjectionFilterLogic;
+
         /// <summary>
         /// SQL Injection 過濾加強版,可測試運算式
         /// </summary>
-        public SQLInjectionFilterExt()
+        public SQLInjectionFilterExt(SQLInjectionFilterLogic sqlInjectionFilterLogic)
             : base()
         {
+            this.sqlInjectionFilterLogic = sqlInjectionFilterLogic;
         }
 
         /// <summary>
@@ -24,8 +27,6 @@ namespace Common.LogicObject
         /// </summary>
         protected override bool IsSQLInjectionExpr(string expr)
         {
-            SQLInjectionFilterLogic sqlInjectionFilterLogic = new SQLInjectionFilterLogic(new Common.DataAccess.EF.ArticlePublisherDataAccess());
-
             return sqlInjectionFilterLogic.IsSQLInjectionExpr(expr);
         }
     }
