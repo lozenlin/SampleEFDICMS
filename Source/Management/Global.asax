@@ -94,7 +94,7 @@
         //sw.Start();
 
         //檢查參數內容是否有效
-        ParamFilterClient paramFilterClient = new ParamFilterClient();
+        ParamFilterClient paramFilterClient = new ParamFilterClient(new Common.DataAccess.EF.ArticlePublisherDataAccess());
 
         if (!paramFilterClient.IsParamValueValid(Context))
         {

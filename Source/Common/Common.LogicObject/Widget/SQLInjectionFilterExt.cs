@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Common.DataAccess.EF;
+using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,15 +13,31 @@ namespace Common.LogicObject
     /// </summary>
     public class SQLInjectionFilterExt : SQLInjectionFilter
     {
-        protected SQLInjectionFilterLogic sqlInjectionFilterLogic;
+        protected ILog logger = null;
+        protected string dbErrMsg = "";
+        protected IArticlePublisherDataAccess artPubDao;
 
         /// <summary>
         /// SQL Injection 過濾加強版,可測試運算式
         /// </summary>
-        public SQLInjectionFilterExt(SQLInjectionFilterLogic sqlInjectionFilterLogic)
+        public SQLInjectionFilterExt(IArticlePublisherDataAccess artPubDao)
             : base()
         {
-            this.sqlInjectionFilterLogic = sqlInjectionFilterLogic;
+            if (artPubDao == null)
+                throw new ArgumentNullException("artPubDao");
+
+            logger = LogManager.GetLogger(this.GetType());
+            this.artPubDao = artPubDao;
+        }
+
+        // DataAccess functions
+
+        /// <summary>
+        /// DB command 執行後的錯誤訊息
+        /// </summary>
+        public string GetDbErrMsg()
+        {
+            return dbErrMsg;
         }
 
         /// <summary>
@@ -27,7 +45,12 @@ namespace Common.LogicObject
         /// </summary>
         protected override bool IsSQLInjectionExpr(string expr)
         {
-            return sqlInjectionFilterLogic.IsSQLInjectionExpr(expr);
+            bool result = false;
+
+            result = artPubDao.IsSQLInjectionExpr(expr);
+            dbErrMsg = artPubDao.GetErrMsg();
+
+            return result;
         }
     }
 }

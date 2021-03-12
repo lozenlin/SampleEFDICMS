@@ -1,4 +1,5 @@
-﻿using Common.LogicObject;
+﻿using Common.DataAccess.EF;
+using Common.LogicObject;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Web;
 public class ParamFilterClient
 {
     protected ILog logger;
-    protected SQLInjectionFilterLogic sqlInjectionFilterLogic;
+    protected IArticlePublisherDataAccess artPubDao;
 
     /// <summary>
     /// Int32 類型的參數名單 (needs lowercase)
@@ -59,10 +60,10 @@ public class ParamFilterClient
     /// </summary>
     private Dictionary<string, int> paramValueLenLookup = new Dictionary<string, int>();
 
-	public ParamFilterClient()
+	public ParamFilterClient(IArticlePublisherDataAccess artPubDao)
 	{
+        this.artPubDao = artPubDao;
         logger = LogManager.GetLogger(this.GetType());
-        sqlInjectionFilterLogic = new SQLInjectionFilterLogic(new Common.DataAccess.EF.ArticlePublisherDataAccess());
 
         InitialParamValueLenLookup();
 	}
@@ -132,7 +133,7 @@ public class ParamFilterClient
         regexParam.SetBlacklistPatterns(blacklistPatterns);
 
         //SQL Injection 過濾
-        SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
+        SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt(artPubDao);
 
         //用 HtmlDecode 解碼參數內容
         HtmlDecodeParamValue htmlDecodeValue = new HtmlDecodeParamValue();
@@ -143,7 +144,7 @@ public class ParamFilterClient
         blacklistKw.SetBlacklistKeywords(blacklistKeywords);
 
         //SQL Injection過濾
-        SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);    
+        SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt(artPubDao);    
 
         //建立檢查順序
         ParamFilter chainOfResponsibility = specificPageParam;
@@ -222,7 +223,7 @@ public class ParamFilterClient
         HtmlDecodeParamValue htmlDecodeValue = new HtmlDecodeParamValue();
 
         //SQL Injection過濾
-        SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
+        SQLInjectionFilterExt sqlInjection1 = new SQLInjectionFilterExt(artPubDao);
 
         //用 UrlDecode 解碼參數內容
         UrlDecodeParamValue urlDecodeValue = new UrlDecodeParamValue();
@@ -233,7 +234,7 @@ public class ParamFilterClient
         blacklistKw.SetBlacklistKeywords(blacklistKeywords);
 
         //SQL Injection過濾
-        SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt(sqlInjectionFilterLogic);
+        SQLInjectionFilterExt sqlInjection2 = new SQLInjectionFilterExt(artPubDao);
 
         //建立檢查順序
         ParamFilter chainOfResponsibility = forAcunetix;

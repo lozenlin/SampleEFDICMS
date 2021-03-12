@@ -87,7 +87,6 @@
     <Compile Include="JsonServiceHandlerAbstract.cs" />
     <Compile Include="MagicNumbersAndStrings.cs" />
     <Compile Include="AttachFileManagerLogic.cs" />
-    <Compile Include="SQLInjectionFilterLogic.cs" />
     <Compile Include="Widget\DataPagerLogic.cs" />
     <Compile Include="Widget\EmailSender.cs" />
     <Compile Include="PageCommon\FrontendPageCommon.cs" />
