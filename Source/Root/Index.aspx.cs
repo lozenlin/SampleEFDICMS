@@ -9,9 +9,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Index : FrontendBasePage
 {
+    [Dependency]
+    public ArticlePublisherLogic ArtPub { get; set; }
+    [Dependency]
+    public OtherArticlePageCommon OtherArticlePC { get; set; }
+
     protected OtherArticlePageCommon c;
     protected ArticlePublisherLogic artPub;
     protected IMasterArticleSettings masterSettings;
@@ -20,8 +26,14 @@ public partial class Index : FrontendBasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new OtherArticlePageCommon(this.Context, this.ViewState, artPub);
+        if (ArtPub == null)
+            throw new ArgumentException("ArtPub");
+
+        if (OtherArticlePC == null)
+            throw new ArgumentException("OtherArticlePC");
+
+        this.artPub = ArtPub;
+        this.c = OtherArticlePC;
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData(Guid.Empty))

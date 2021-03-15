@@ -63,6 +63,7 @@
     <Compile Include="DataClass\ArticleAjaxAuthData.cs" />
     <Compile Include="DataClass\ArticleData.cs" />
     <Compile Include="DataClass\PreviewArticle.cs" />
+    <Compile Include="NullAuthenticationConditionProvider.cs" />
     <Compile Include="PageCommon\AfmServicePageCommon.cs" />
     <Compile Include="ArticlePublisherLogic.cs" />
     <Compile Include="PageCommon\BackendPageCommon.cs" />
