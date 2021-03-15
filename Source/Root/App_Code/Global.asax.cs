@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Configuration;
 using Common.LogicObject;
+using UnityFive.WebForms;
+using Unity;
 
 namespace MyGlobal
 {
@@ -12,7 +14,6 @@ namespace MyGlobal
         protected void Application_Start(object sender, EventArgs e)
         {
             // 在應用程式啟動時執行的程式碼
-
             //載入log4net設定
             log4net.Config.XmlConfigurator.Configure();
 
@@ -65,8 +66,10 @@ namespace MyGlobal
             //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             //sw.Start();
 
+            IUnityContainer container = Context.GetChildContainer();
+
             //檢查參數內容是否有效
-            ParamFilterClient paramFilterClient = new ParamFilterClient(new Common.DataAccess.EF.ArticlePublisherDataAccess());
+            ParamFilterClient paramFilterClient = container.Resolve<ParamFilterClient>();
 
             if (!paramFilterClient.IsParamValueValid(Context))
             {

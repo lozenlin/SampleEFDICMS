@@ -38,17 +38,19 @@ namespace ASP.App_Start
 		private static void RegisterDependencies( IUnityContainer container )
 		{
 			// TODO: Add any dependencies needed here
+			// Common components of: Index
 			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>();
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>();
 			container.RegisterType<ArticlePublisherLogic>();
 			container.RegisterInstance<StateBag>(new StateBag());
-			container.RegisterType<OtherArticlePageCommon>(new InjectionConstructor(
-				HttpContext.Current,
-				container.Resolve<StateBag>(),
-				container.Resolve<ArticlePublisherLogic>()
-			));
-			
+			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
+			container.RegisterType<OtherArticlePageCommon>();
+			container.RegisterType<FrontendPageCommon>();
+
+			// Global
+			container.RegisterType<ParamFilterClient>();
+
 		}
 	}
 }

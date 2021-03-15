@@ -14,9 +14,9 @@ using Unity.Attributes;
 public partial class Index : FrontendBasePage
 {
     [Dependency]
-    public ArticlePublisherLogic ArtPub { get; set; }
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
     [Dependency]
-    public OtherArticlePageCommon OtherArticlePC { get; set; }
+    public OtherArticlePageCommon OtherArticlePageCommonIn { get; set; }
 
     protected OtherArticlePageCommon c;
     protected ArticlePublisherLogic artPub;
@@ -26,14 +26,14 @@ public partial class Index : FrontendBasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        if (ArtPub == null)
-            throw new ArgumentException("ArtPub");
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
 
-        if (OtherArticlePC == null)
-            throw new ArgumentException("OtherArticlePC");
+        if (OtherArticlePageCommonIn == null)
+            throw new ArgumentException("OtherArticlePageCommonIn");
 
-        this.artPub = ArtPub;
-        this.c = OtherArticlePC;
+        this.artPub = ArticlePublisherLogicIn;
+        this.c = OtherArticlePageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData(Guid.Empty))

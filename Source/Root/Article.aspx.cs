@@ -10,17 +10,29 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Article : FrontendBasePage
 {
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public FrontendPageCommon FrontendPageCommonIn { get; set; }
+
     protected FrontendPageCommon c;
     protected ArticlePublisherLogic artPub;
     protected IMasterArticleSettings masterSettings;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new FrontendPageCommon(this.Context, this.ViewState, artPub);
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (FrontendPageCommonIn == null)
+            throw new ArgumentException("FrontendPageCommonIn");
+
+        this.artPub = ArticlePublisherLogicIn;
+        this.c = FrontendPageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData())
