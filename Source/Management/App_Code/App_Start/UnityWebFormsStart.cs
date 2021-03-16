@@ -45,11 +45,14 @@ namespace ASP.App_Start
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>(new HierarchicalLifetimeManager());
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>(new HierarchicalLifetimeManager());
 			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
-			// 
+			// captcha, Dashboard
 			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
 			container.RegisterType<EmployeeAuthorityLogic>(new HierarchicalLifetimeManager());
 			container.RegisterType<ArticlePublisherLogic>(new HierarchicalLifetimeManager());
 			container.RegisterType<BackendPageCommon>();
+
+			// Login, Psw-Change, Psw-Require
+			container.RegisterType<LoginCommonOfBackend>();
 
 			// Global
 			container.RegisterType<ParamFilterClient>();

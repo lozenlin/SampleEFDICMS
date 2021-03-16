@@ -13,9 +13,15 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Psw_Change : System.Web.UI.Page
 {
+    [Dependency]
+    public LoginCommonOfBackend LoginCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected LoginCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
 
@@ -28,9 +34,15 @@ public partial class Psw_Change : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new LoginCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (LoginCommonOfBackendIn == null)
+            throw new ArgumentException("LoginCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = LoginCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
-        empAuth = new EmployeeAuthorityLogic(null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
 
         ACCOUNT_FAILED_ERRMSG = Resources.Lang.ErrMsg_AccountFailed;
     }

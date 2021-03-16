@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.Web.SessionState;
 using Common.LogicObject;
+using Unity.Attributes;
 
 /// <summary>
 /// 
@@ -13,9 +14,15 @@ using Common.LogicObject;
 /// </remarks>
 public class captch : IHttpHandler, IRequiresSessionState
 {
+    [Dependency]
+    public BackendPageCommon BackendPageCommonIn { get; set; }
+
     public void ProcessRequest(HttpContext context)
     {
-        BackendPageCommon c = new BackendPageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (BackendPageCommonIn == null)
+            throw new ArgumentException("BackendPageCommonIn");
+
+        BackendPageCommon c = BackendPageCommonIn;
 
         string captchaCode = Common.Utility.StringUtility.GenerateCaptchaCode(5);
         // save into session
