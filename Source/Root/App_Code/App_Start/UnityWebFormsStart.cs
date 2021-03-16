@@ -40,14 +40,23 @@ namespace ASP.App_Start
 			// 2021/03/15, lozenlin, add, here is kind of Composition Root
 
 			// TODO: Add any dependencies needed here
-			// Common components of: Index, Article
+			// Common components of:
+			// Index
 			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>();
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>();
 			container.RegisterType<ArticlePublisherLogic>();
 			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
 			container.RegisterType<OtherArticlePageCommon>();
+
+			// Article, MasterArticle
 			container.RegisterType<FrontendPageCommon>();
+
+			// wucSearchCondition
+			container.RegisterType<SearchPageCommon>();
+
+			// FileAtt
+			container.RegisterType<AttDownloadCommon>();
 
 			// Global
 			container.RegisterType<ParamFilterClient>();
