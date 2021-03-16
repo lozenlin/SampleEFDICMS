@@ -84,6 +84,17 @@ namespace Common.LogicObject
             this.authCondition = authCondition;
             this.empAuthDao = empAuthDao;
 
+            ApplyAuthenticationConditionProvider();
+        }
+
+        public void SetAuthenticationConditionProvider(IAuthenticationConditionProvider authCondition)
+        {
+            this.authCondition = authCondition;
+            ApplyAuthenticationConditionProvider();
+        }
+
+        private void ApplyAuthenticationConditionProvider()
+        {
             if (authCondition != null)
             {
                 opIdOfPage = authCondition.GetOpIdOfPage();

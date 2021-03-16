@@ -54,6 +54,9 @@ namespace ASP.App_Start
 			// Login, Psw-Change, Psw-Require
 			container.RegisterType<LoginCommonOfBackend>();
 
+			// Account-List, Account-Config
+			container.RegisterType<AccountCommonOfBackend>(new HierarchicalLifetimeManager());
+
 			// Global
 			container.RegisterType<ParamFilterClient>();
 

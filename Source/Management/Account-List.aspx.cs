@@ -10,20 +10,33 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Account_List : BasePage
 {
+    [Dependency]
+    public AccountCommonOfBackend AccountCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected AccountCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
     private IHeadUpDisplay hud = null;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new AccountCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (AccountCommonOfBackendIn == null)
+            throw new ArgumentException("AccountCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = AccountCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.InitialAuthorizationResultOfTopPage();
 
         hud = Master.GetHeadUpDisplay();
