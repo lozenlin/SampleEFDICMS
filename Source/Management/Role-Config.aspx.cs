@@ -9,18 +9,31 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Role_Config : System.Web.UI.Page
 {
+    [Dependency]
+    public RoleCommonOfBackend RoleCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected RoleCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new RoleCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (RoleCommonOfBackendIn == null)
+            throw new ArgumentException("RoleCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = RoleCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.InitialAuthorizationResultOfSubPages();
     }
 

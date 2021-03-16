@@ -58,6 +58,11 @@ namespace Common.LogicObject
             this.empAuthDao = empAuthDao;
         }
 
+        public void SetAuthenticationConditionProvider(IAuthenticationConditionProvider authCondition)
+        {
+            this.authCondition = authCondition;
+        }
+
         // DataAccess functions
 
         /// <summary>

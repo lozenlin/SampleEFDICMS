@@ -6,9 +6,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Article_Picture : System.Web.UI.Page
 {
+    [Dependency]
+    public ArticlePictureCommonOfBackend ArticlePictureCommonOfBackendIn { get; set; }
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected ArticlePictureCommonOfBackend c;
     protected ArticlePublisherLogic artPub;
     protected EmployeeAuthorityLogic empAuth;
@@ -16,13 +24,23 @@ public partial class Article_Picture : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticlePictureCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
-            new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        if (ArticlePictureCommonOfBackendIn == null)
+            throw new ArgumentException("ArticlePictureCommonOfBackendIn");
+
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = ArticlePictureCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
 
-        artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.artPub = ArticlePublisherLogicIn;
+        artPub.SetAuthenticationConditionProvider(c);
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.SetCustomEmployeeAuthorizationResult(artPub);
         empAuth.InitialAuthorizationResultOfSubPages();
 

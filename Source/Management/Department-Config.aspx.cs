@@ -9,18 +9,31 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Department_Config : System.Web.UI.Page
 {
+    [Dependency]
+    public DepartmentCommonOfBackend DepartmentCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected DepartmentCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new DepartmentCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (DepartmentCommonOfBackendIn == null)
+            throw new ArgumentException("DepartmentCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = DepartmentCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.InitialAuthorizationResultOfSubPages();
     }
 

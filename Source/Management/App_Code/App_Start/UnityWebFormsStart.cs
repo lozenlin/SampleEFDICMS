@@ -51,11 +51,32 @@ namespace ASP.App_Start
 			container.RegisterType<ArticlePublisherLogic>(new HierarchicalLifetimeManager());
 			container.RegisterType<BackendPageCommon>();
 
-			// Login, Psw-Change, Psw-Require
+			// Login, Psw-Change, Psw-Require, Logout
 			container.RegisterType<LoginCommonOfBackend>();
 
 			// Account-List, Account-Config
 			container.RegisterType<AccountCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Role-LIst, Role-Config, Role-Privilege
+			container.RegisterType<RoleCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Department-List, Department-Config
+			container.RegisterType<DepartmentCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Back-End-Log
+			container.RegisterType<BackEndLogCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Article-Node, Article-Config
+			container.RegisterType<ArticleCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Article-Attach
+			container.RegisterType<ArticleAttachCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Article-Picture
+			container.RegisterType<ArticlePictureCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Article-Video
+			container.RegisterType<ArticleVideoCommonOfBackend>(new HierarchicalLifetimeManager());
 
 			// Global
 			container.RegisterType<ParamFilterClient>();

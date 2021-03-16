@@ -8,20 +8,33 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Back_End_Log : BasePage
 {
+    [Dependency]
+    public BackEndLogCommonOfBackend BackEndLogCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected BackEndLogCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
     private IHeadUpDisplay hud = null;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new BackEndLogCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (BackEndLogCommonOfBackendIn == null)
+            throw new ArgumentException("BackEndLogCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = BackEndLogCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.InitialAuthorizationResultOfTopPage();
 
         hud = Master.GetHeadUpDisplay();
