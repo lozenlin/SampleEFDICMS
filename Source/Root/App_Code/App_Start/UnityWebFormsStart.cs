@@ -43,9 +43,9 @@ namespace ASP.App_Start
 			// TODO: Add any dependencies needed here
 			// Common components of:
 			// all
-			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>();
+			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>(new HierarchicalLifetimeManager());
+			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>(new HierarchicalLifetimeManager());
 			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
-			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>();
 			// Index, jsonService, Sitemap
 			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
 			container.RegisterType<ArticlePublisherLogic>(new HierarchicalLifetimeManager());
