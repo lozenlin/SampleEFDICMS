@@ -13,7 +13,7 @@ public class FileArtPic : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new ArtPicDownloadCommon(context, null, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        c = new ArtPicDownloadCommon(context, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
 
         //使用 Client Cache
         context.Response.Cache.SetCacheability(HttpCacheability.Private);    // Private:Client, Public:Server+Proxy+Client, Server:Client No-Cache

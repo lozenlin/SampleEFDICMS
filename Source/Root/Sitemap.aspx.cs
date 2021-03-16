@@ -21,7 +21,7 @@ public partial class Sitemap : FrontendBasePage
     protected void Page_PreInit(object sender, EventArgs e)
     {
         artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new OtherArticlePageCommon(this.Context, this.ViewState, artPub);
+        c = new OtherArticlePageCommon(this.Context, artPub);
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData())

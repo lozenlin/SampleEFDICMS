@@ -53,7 +53,7 @@ public class GetCurrentAccount : IHttpHandler, IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new SsoAuthenticatorCommon(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new SsoAuthenticatorCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;

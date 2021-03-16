@@ -19,7 +19,7 @@ public partial class Account_List : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new AccountCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new AccountCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 

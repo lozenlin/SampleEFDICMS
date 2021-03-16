@@ -12,7 +12,7 @@ public partial class UserControls_wucSearchConditionPost : System.Web.UI.UserCon
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new SearchPageCommon(this.Context, this.ViewState, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        c = new SearchPageCommon(this.Context, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
     }
 

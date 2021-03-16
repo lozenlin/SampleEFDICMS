@@ -125,7 +125,7 @@
 
         try
         {
-            BackendPageCommon c = new BackendPageCommon(Context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+            BackendPageCommon c = new BackendPageCommon(Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
             int langNo = 1;
 
             if (Context.Session["seLangNoOfBackend"] == null)

@@ -18,7 +18,7 @@ public partial class Operation_Config : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new OperationCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new OperationCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
 
         empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());

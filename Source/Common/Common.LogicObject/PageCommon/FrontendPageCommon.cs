@@ -112,8 +112,8 @@ namespace Common.LogicObject
         /// <summary>
         /// 前台網頁的共用元件
         /// </summary>
-        public FrontendPageCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
-            : base(context, viewState)
+        public FrontendPageCommon(HttpContext context, ArticlePublisherLogic artPub)
+            : base(context)
         {
             this.artPub = artPub;
             articleData = new ArticleData();
@@ -341,8 +341,8 @@ namespace Common.LogicObject
         #region qs:=QueryString, se:=Session, vs:=ViewState, co:=Cookie
         #endregion
 
-        public OtherArticlePageCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
-            : base(context, viewState, artPub)
+        public OtherArticlePageCommon(HttpContext context, ArticlePublisherLogic artPub)
+            : base(context, artPub)
         {
         }
 
@@ -424,8 +424,8 @@ namespace Common.LogicObject
 
         #endregion
 
-        public SearchPageCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
-            : base(context, viewState, artPub)
+        public SearchPageCommon(HttpContext context, ArticlePublisherLogic artPub)
+            : base(context, artPub)
         {
         }
 

@@ -14,7 +14,7 @@ public partial class Embedded_Content : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new EmbeddedContentCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new EmbeddedContentCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 

@@ -32,7 +32,7 @@ public partial class MasterConfig : System.Web.UI.MasterPage
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new BackendPageCommon(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
 
         Page.MaintainScrollPositionOnPostBack = true;

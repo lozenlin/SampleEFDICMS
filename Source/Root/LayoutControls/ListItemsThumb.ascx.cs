@@ -24,7 +24,7 @@ public partial class LayoutControls_ListItemsThumb : System.Web.UI.UserControl
     protected void Page_Init(object sender, EventArgs e)
     {
         artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new FrontendPageCommon(this.Context, this.ViewState, artPub);
+        c = new FrontendPageCommon(this.Context, artPub);
         c.InitialLoggerOfUI(this.GetType());
 
         basePage = (FrontendBasePage)this.Page;

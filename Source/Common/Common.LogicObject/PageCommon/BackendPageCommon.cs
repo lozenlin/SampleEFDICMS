@@ -247,8 +247,8 @@ namespace Common.LogicObject
         /// <summary>
         /// 後台網頁的共用元件
         /// </summary>
-        public BackendPageCommon(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState)
+        public BackendPageCommon(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context)
         {
             if (empAuthDao == null)
                 throw new ArgumentNullException("empAuthDao");
@@ -476,8 +476,8 @@ namespace Common.LogicObject
     [Description("後台登入頁的共用元件")]
     public class LoginCommonOfBackend : BackendPageCommon
     {
-        public LoginCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public LoginCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -522,8 +522,8 @@ namespace Common.LogicObject
     [Description("後台帳號管理頁的共用元件")]
     public class AccountCommonOfBackend : BackendPageCommon, ICustomEmployeeAuthorizationResult
     {
-        public AccountCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public AccountCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -664,8 +664,8 @@ namespace Common.LogicObject
     [Description("後台身分管理頁的共用元件")]
     public class RoleCommonOfBackend : BackendPageCommon, ICustomEmployeeAuthorizationResult
     {
-        public RoleCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public RoleCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -765,8 +765,8 @@ namespace Common.LogicObject
     [Description("後台部門管理頁的共用元件")]
     public class DepartmentCommonOfBackend : BackendPageCommon, ICustomEmployeeAuthorizationResult
     {
-        public DepartmentCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public DepartmentCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -813,8 +813,8 @@ namespace Common.LogicObject
     [Description("後台操作記錄頁的共用元件")]
     public class BackEndLogCommonOfBackend : BackendPageCommon
     {
-        public BackEndLogCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public BackEndLogCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -941,8 +941,8 @@ namespace Common.LogicObject
     [Description("後台作業選項管理頁的共用元件")]
     public class OperationCommonOfBackend : BackendPageCommon
     {
-        public OperationCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public OperationCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -964,8 +964,8 @@ namespace Common.LogicObject
     {
         protected ArticlePublisherLogic artPub;
 
-        public ArticleCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
-            : base(context, viewState, empAuthDao)
+        public ArticleCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, empAuthDao)
         {
             if (artPub == null)
                 throw new ArgumentNullException("artPub");
@@ -1114,8 +1114,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-附件設定頁的共用元件")]
     public class ArticleAttachCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticleAttachCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
-            : base(context, viewState, empAuthDao, artPub)
+        public ArticleAttachCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, empAuthDao, artPub)
         {
         }
 
@@ -1153,8 +1153,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-照片設定頁的共用元件")]
     public class ArticlePictureCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticlePictureCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
-            : base(context, viewState, empAuthDao, artPub)
+        public ArticlePictureCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, empAuthDao, artPub)
         {
         }
 
@@ -1192,8 +1192,8 @@ namespace Common.LogicObject
     [Description("後台網站架構管理-影片設定頁的共用元件")]
     public class ArticleVideoCommonOfBackend : ArticleCommonOfBackend
     {
-        public ArticleVideoCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
-            : base(context, viewState, empAuthDao, artPub)
+        public ArticleVideoCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao, ArticlePublisherLogic artPub)
+            : base(context, empAuthDao, artPub)
         {
         }
 
@@ -1231,8 +1231,8 @@ namespace Common.LogicObject
     [Description("後台內嵌內容頁面的共用元件")]
     public class EmbeddedContentCommonOfBackend : BackendPageCommon
     {
-        public EmbeddedContentCommonOfBackend(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public EmbeddedContentCommonOfBackend(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 
@@ -1279,8 +1279,8 @@ namespace Common.LogicObject
     /// </summary>
     public class SsoAuthenticatorCommon : BackendPageCommon
     {
-        public SsoAuthenticatorCommon(HttpContext context, StateBag viewState, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, viewState, empAuthDao)
+        public SsoAuthenticatorCommon(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 

@@ -30,7 +30,7 @@ public class ToSearchResult : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new SearchPageCommon(context, null, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        c = new SearchPageCommon(context, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;

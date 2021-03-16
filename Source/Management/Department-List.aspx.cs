@@ -18,7 +18,7 @@ public partial class Department_List : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new DepartmentCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new DepartmentCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 

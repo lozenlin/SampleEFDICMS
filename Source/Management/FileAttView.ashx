@@ -13,7 +13,7 @@ public class FileAttView : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new AttViewDownloadCommon(context, null, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        c = new AttViewDownloadCommon(context, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
 
         c.IsInBackend = true;
 

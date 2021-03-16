@@ -187,7 +187,6 @@ namespace Common.LogicObject
         #endregion
 
         protected HttpContext context;
-        protected StateBag viewState;
         protected ILog logger = null;
         /// <summary>
         /// 讓 QueryStringToSafeStr() 可依照前台、後台去調整過濾方式
@@ -221,11 +220,6 @@ namespace Common.LogicObject
             get { return context.User; }
         }
 
-        protected StateBag ViewState
-        {
-            get { return viewState; }
-        }
-
         protected System.Web.Caching.Cache Cache
         {
             get { return context.Cache; }
@@ -236,10 +230,9 @@ namespace Common.LogicObject
         /// <summary>
         /// 網頁的共用元件
         /// </summary>
-        public PageCommon(HttpContext context, StateBag viewState)
+        public PageCommon(HttpContext context)
         {
             this.context = context;
-            this.viewState = viewState;
             logger = LogManager.GetLogger(this.GetType());
             isBackendPage = (this is BackendPageCommon);
         }

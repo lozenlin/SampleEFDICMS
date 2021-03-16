@@ -13,7 +13,7 @@ namespace Common.LogicObject
     public class AfmServicePageCommon : BackendPageCommon
     {
         public AfmServicePageCommon(HttpContext context, IEmployeeAuthorityDataAccess empAuthDao)
-            : base(context, null, empAuthDao)
+            : base(context, empAuthDao)
         {
         }
 

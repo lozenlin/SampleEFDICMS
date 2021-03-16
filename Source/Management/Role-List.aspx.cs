@@ -18,7 +18,7 @@ public partial class Role_List : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new RoleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new RoleCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 

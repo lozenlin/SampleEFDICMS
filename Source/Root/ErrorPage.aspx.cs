@@ -12,7 +12,7 @@ public partial class ErrorPage : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new PageCommon(this.Context, this.ViewState);
+        c = new PageCommon(this.Context);
         c.InitialLoggerOfUI(this.GetType());
     }
 

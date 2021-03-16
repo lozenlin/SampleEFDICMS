@@ -19,8 +19,8 @@ namespace Common.LogicObject
     /// </summary>
     public abstract class FileDownloadCommon : PageCommon
     {
-        public FileDownloadCommon(HttpContext context, StateBag viewState)
-            : base(context, viewState)
+        public FileDownloadCommon(HttpContext context)
+            : base(context)
         {
         }
 
@@ -501,8 +501,8 @@ namespace Common.LogicObject
     public class AttDownloadCommon : FileDownloadCommon
     {
         protected ArticlePublisherLogic artPub;
-        public AttDownloadCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
-            : base(context, viewState)
+        public AttDownloadCommon(HttpContext context, ArticlePublisherLogic artPub)
+            : base(context)
         {
             this.artPub = artPub;
 
@@ -544,8 +544,8 @@ namespace Common.LogicObject
     /// </summary>
     public class AttViewDownloadCommon : AttDownloadCommon
     {
-        public AttViewDownloadCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
-            : base(context, viewState, artPub)
+        public AttViewDownloadCommon(HttpContext context, ArticlePublisherLogic artPub)
+            : base(context, artPub)
         {
             isSaveAs = false;
             enabledPicResize = true;
@@ -582,8 +582,8 @@ namespace Common.LogicObject
     {
         protected ArticlePublisherLogic artPub;
 
-        public ArtPicDownloadCommon(HttpContext context, StateBag viewState, ArticlePublisherLogic artPub)
-            : base(context, viewState)
+        public ArtPicDownloadCommon(HttpContext context, ArticlePublisherLogic artPub)
+            : base(context)
         {
             this.artPub = artPub;
 

@@ -89,7 +89,7 @@ namespace MyGlobal
 
             try
             {
-                PageCommon c = new PageCommon(Context, null);
+                PageCommon c = new PageCommon(Context);
 
                 //一律用 qsLangNo 處理後的值來重設語系
                 string cultureName = new LangManager().GetCultureName(c.qsLangNo.ToString());

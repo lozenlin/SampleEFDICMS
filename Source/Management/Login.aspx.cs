@@ -24,7 +24,7 @@ public partial class Login : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new LoginCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new LoginCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         c.InitialLoggerOfUI(this.GetType());
         empAuth = new EmployeeAuthorityLogic(null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 

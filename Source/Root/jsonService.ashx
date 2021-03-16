@@ -42,7 +42,7 @@ public class jsonService : IHttpHandler, IRequiresSessionState
     public void ProcessRequest(HttpContext context)
     {
         artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new OtherArticlePageCommon(context, null, artPub);
+        c = new OtherArticlePageCommon(context, artPub);
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;

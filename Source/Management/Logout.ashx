@@ -10,7 +10,7 @@ public class Logout : IHttpHandler, System.Web.SessionState.IRequiresSessionStat
 
     public void ProcessRequest(HttpContext context)
     {
-        LoginCommonOfBackend c = new LoginCommonOfBackend(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        LoginCommonOfBackend c = new LoginCommonOfBackend(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
         EmployeeAuthorityLogic empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
         //新增後端操作記錄

@@ -15,7 +15,7 @@ public class captch : IHttpHandler, IRequiresSessionState
 {
     public void ProcessRequest(HttpContext context)
     {
-        BackendPageCommon c = new BackendPageCommon(context, null, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        BackendPageCommon c = new BackendPageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
 
         string captchaCode = Common.Utility.StringUtility.GenerateCaptchaCode(5);
         // save into session

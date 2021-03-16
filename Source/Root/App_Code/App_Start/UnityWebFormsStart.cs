@@ -45,7 +45,6 @@ namespace ASP.App_Start
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>();
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>();
 			container.RegisterType<ArticlePublisherLogic>();
-			container.RegisterInstance<StateBag>(new StateBag());
 			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
 			container.RegisterType<OtherArticlePageCommon>();
 			container.RegisterType<FrontendPageCommon>();

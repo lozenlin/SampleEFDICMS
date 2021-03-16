@@ -12,7 +12,7 @@ public partial class Dashboard : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        c = new BackendPageCommon(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
     }
 
     protected void Page_Load(object sender, EventArgs e)

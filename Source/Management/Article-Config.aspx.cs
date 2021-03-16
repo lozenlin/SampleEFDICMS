@@ -19,7 +19,7 @@ public partial class Article_Config : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
+        c = new ArticleCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
             new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
 

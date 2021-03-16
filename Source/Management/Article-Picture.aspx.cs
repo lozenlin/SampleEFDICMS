@@ -16,7 +16,7 @@ public partial class Article_Picture : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticlePictureCommonOfBackend(this.Context, this.ViewState, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
+        c = new ArticlePictureCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
             new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
         c.InitialLoggerOfUI(this.GetType());
 
