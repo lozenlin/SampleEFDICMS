@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using Unity;
 using Unity.Injection;
+using Unity.Lifetime;
 using Unity.Registration;
 using UnityFive.WebForms;
 
@@ -41,22 +42,29 @@ namespace ASP.App_Start
 
 			// TODO: Add any dependencies needed here
 			// Common components of:
-			// Index
-			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
+			// all
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>();
+			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>();
-			container.RegisterType<ArticlePublisherLogic>();
+			// Index, jsonService, Sitemap
 			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
+			container.RegisterType<ArticlePublisherLogic>(new HierarchicalLifetimeManager());
 			container.RegisterType<OtherArticlePageCommon>();
 
-			// Article, MasterArticle
+			// Article, MasterArticle, ListBlocks, ListItemsThumb, wucBreadcrumb
 			container.RegisterType<FrontendPageCommon>();
 
-			// wucSearchCondition
+			// wucSearchCondition, wucSearchConditionPost, Search-Result, ToSearchResult
 			container.RegisterType<SearchPageCommon>();
 
 			// FileAtt
 			container.RegisterType<AttDownloadCommon>();
+
+			// FileArtPic
+			container.RegisterType<ArtPicDownloadCommon>();
+
+			// FileAttView
+			container.RegisterType<AttViewDownloadCommon>();
 
 			// Global
 			container.RegisterType<ParamFilterClient>();

@@ -11,9 +11,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Search_Result : FrontendBasePage
 {
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public SearchPageCommon SearchPageCommonIn { get; set; }
+
     protected SearchPageCommon c;
     protected ArticlePublisherLogic artPub;
     protected IMasterArticleSettings masterSettings;
@@ -22,8 +28,14 @@ public partial class Search_Result : FrontendBasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new SearchPageCommon(this.Context, artPub);
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (SearchPageCommonIn == null)
+            throw new ArgumentException("SearchPageCommonIn");
+
+        this.artPub = ArticlePublisherLogicIn;
+        this.c = SearchPageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData())

@@ -3,17 +3,24 @@
 using System;
 using System.Web;
 using Common.LogicObject;
+using Unity.Attributes;
 
 /// <summary>
 /// 網頁照片下載
 /// </summary>
 public class FileArtPic : IHttpHandler
 {
+    [Dependency]
+    public ArtPicDownloadCommon ArtPicDownloadCommonIn { get; set; }
+
     protected ArtPicDownloadCommon c;
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new ArtPicDownloadCommon(context, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        if (ArtPicDownloadCommonIn == null)
+            throw new ArgumentException("ArtPicDownloadCommonIn");
+
+        this.c = ArtPicDownloadCommonIn;
 
         //使用 Client Cache
         context.Response.Cache.SetCacheability(HttpCacheability.Private);    // Private:Client, Public:Server+Proxy+Client, Server:Client No-Cache

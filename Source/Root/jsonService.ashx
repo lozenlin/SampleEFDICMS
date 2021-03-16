@@ -6,9 +6,15 @@ using Common.LogicObject;
 using System.Web.SessionState;
 using Newtonsoft.Json;
 using JsonService;
+using Unity.Attributes;
 
 public class jsonService : IHttpHandler, IRequiresSessionState
 {
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public OtherArticlePageCommon OtherArticlePageCommonIn { get; set; }
+
     protected OtherArticlePageCommon c;
     protected ArticlePublisherLogic artPub;
     protected HttpContext context;
@@ -41,8 +47,14 @@ public class jsonService : IHttpHandler, IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new OtherArticlePageCommon(context, artPub);
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (OtherArticlePageCommonIn == null)
+            throw new ArgumentException("OtherArticlePageCommonIn");
+
+        this.artPub = ArticlePublisherLogicIn;
+        this.c = OtherArticlePageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;

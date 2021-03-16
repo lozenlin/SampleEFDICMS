@@ -8,9 +8,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class UserControls_wucBreadcrumb : System.Web.UI.UserControl
 {
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public FrontendPageCommon FrontendPageCommonIn { get; set; }
+
     protected FrontendPageCommon c;
     protected ArticlePublisherLogic artPub;
     protected FrontendBasePage basePage;
@@ -53,16 +59,22 @@ public partial class UserControls_wucBreadcrumb : System.Web.UI.UserControl
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new FrontendPageCommon(this.Context, artPub);
-        c.InitialLoggerOfUI(this.GetType());
-
         basePage = (FrontendBasePage)this.Page;
         articleData = basePage.GetArticleData();
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (FrontendPageCommonIn == null)
+            throw new ArgumentException("FrontendPageCommonIn");
+
+        this.artPub = ArticlePublisherLogicIn;
+        this.c = FrontendPageCommonIn;
+        c.InitialLoggerOfUI(this.GetType());
+
         if (!IsPostBack)
         {
             DisplayBreadcrumb();

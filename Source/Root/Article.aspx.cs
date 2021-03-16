@@ -11,6 +11,8 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Unity.Attributes;
+using UnityFive.WebForms;
+using Unity;
 
 public partial class Article : FrontendBasePage
 {
@@ -103,6 +105,11 @@ public partial class Article : FrontendBasePage
                 else
                 {
                     Control ctl = LoadControl("~/LayoutControls/" + articleData.ControlName + ".ascx");
+
+                    // Injecting into dynamic User Controls
+                    IUnityContainer container = this.Context.GetChildContainer();
+                    container.BuildUp(ctl.GetType(), ctl);
+
                     ControlArea.Controls.Add(ctl);
                 }
                 break;

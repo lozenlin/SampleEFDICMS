@@ -3,9 +3,13 @@
 using System;
 using System.Web;
 using Common.LogicObject;
+using Unity.Attributes;
 
 public class ToSearchResult : IHttpHandler
 {
+    [Dependency]
+    public SearchPageCommon SearchPageCommonIn { get; set; }
+
     protected SearchPageCommon c;
     protected HttpContext context;
 
@@ -30,7 +34,10 @@ public class ToSearchResult : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new SearchPageCommon(context, new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        if (SearchPageCommonIn == null)
+            throw new ArgumentException("SearchPageCommonIn");
+
+        this.c = SearchPageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;

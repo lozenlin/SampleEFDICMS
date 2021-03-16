@@ -9,9 +9,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Sitemap : FrontendBasePage
 {
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public OtherArticlePageCommon OtherArticlePageCommonIn { get; set; }
+
     protected OtherArticlePageCommon c;
     protected ArticlePublisherLogic artPub;
     protected IMasterArticleSettings masterSettings;
@@ -20,8 +26,14 @@ public partial class Sitemap : FrontendBasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c = new OtherArticlePageCommon(this.Context, artPub);
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (OtherArticlePageCommonIn == null)
+            throw new ArgumentException("OtherArticlePageCommonIn");
+
+        this.artPub = ArticlePublisherLogicIn;
+        this.c = OtherArticlePageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         if (!c.RetrieveArticleIdAndData())
