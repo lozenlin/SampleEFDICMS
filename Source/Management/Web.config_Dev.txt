@@ -62,7 +62,11 @@
       </system.Web>
   -->
   <system.web>
-    <compilation debug="true" targetFramework="4.5"/>
+    <compilation debug="true" targetFramework="4.5">
+      <assemblies>
+        <add assembly="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+      </assemblies>
+    </compilation>
     <!--
         <customErrors mode="RemoteOnly" defaultRedirect="GenericErrPage.htm">
             <error statusCode="403" redirect="NoAccess.htm" />
