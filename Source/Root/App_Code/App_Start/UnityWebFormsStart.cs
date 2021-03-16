@@ -37,8 +37,10 @@ namespace ASP.App_Start
 		/// <param name="container">Instance of the container to populate.</param>
 		private static void RegisterDependencies( IUnityContainer container )
 		{
+			// 2021/03/15, lozenlin, add, here is kind of Composition Root
+
 			// TODO: Add any dependencies needed here
-			// Common components of: Index
+			// Common components of: Index, Article
 			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>();
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>();
