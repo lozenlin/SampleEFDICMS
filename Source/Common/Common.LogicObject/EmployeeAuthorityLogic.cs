@@ -559,14 +559,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            Employee entity = empAuthDao.GetEmptyEntity<Employee>(new EmployeeRequiredPropValues()
-            {
-                EmpId = param.EmpId,
-                EmpAccount = "",
-                EmpPassword = "",
-                IsAccessDenied = !param.IsAccessDenied,
-                PasswordHashed = !param.PasswordHashed
-            });
+            Employee entity = empAuthDao.Get<Employee>(param.EmpId);
 
             entity.EmpPassword = param.EmpPassword;
             entity.EmpName = param.EmpName;
@@ -896,12 +889,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            Operations entity = empAuthDao.GetEmptyEntity<Operations>(new OperationsRequiredPropValues()
-            {
-                OpId = param.OpId,
-                IsNewWindow = !param.IsNewWindow,
-                IsHideSelf = !param.IsHideSelf
-            });
+            Operations entity = empAuthDao.Get<Operations>(param.OpId);
 
             entity.OpId = param.OpId;
             entity.OpSubject = param.OpSubject;
@@ -1043,11 +1031,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            EmployeeRole entity = empAuthDao.GetEmptyEntity<EmployeeRole>(new EmployeeRoleRequiredPropValues()
-            {
-                RoleId = param.RoleId,
-                RoleName = ""
-            });
+            EmployeeRole entity = empAuthDao.Get<EmployeeRole>(param.RoleId);
 
             entity.RoleDisplayName = param.RoleDisplayName;
             entity.SortNo = param.SortNo;
@@ -1190,11 +1174,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            Department entity = empAuthDao.GetEmptyEntity<Department>(new DepartmentRequiredPropValues()
-            {
-                DeptId = param.DeptId,
-                DeptName = ""
-            });
+            Department entity = empAuthDao.Get<Department>(param.DeptId);
 
             entity.DeptName = param.DeptName;
             entity.SortNo = param.SortNo;

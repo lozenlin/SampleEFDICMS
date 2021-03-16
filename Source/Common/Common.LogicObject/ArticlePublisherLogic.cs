@@ -213,21 +213,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            Article entity = artPubDao.GetEmptyEntity<Article>(new ArticleRequiredPropValues()
-            {
-                ArticleId = param.ArticleId,
-                IsHideSelf = !param.IsHideSelf,
-                IsHideChild = !param.IsHideChild,
-                DontDelete = !param.DontDelete,
-                SubjectAtBannerArea = !param.SubjectAtBannerArea,
-                IsShowInUnitArea = !param.IsShowInUnitArea,
-                IsShowInSitemap = !param.IsShowInSitemap,
-                IsSortDescOfFrontStage = !param.IsSortDescOfFrontStage,
-                IsListAreaShowInFrontStage = !param.IsListAreaShowInFrontStage,
-                IsAttAreaShowInFrontStage = !param.IsAttAreaShowInFrontStage,
-                IsPicAreaShowInFrontStage = !param.IsPicAreaShowInFrontStage,
-                IsVideoAreaShowInFrontStage = !param.IsVideoAreaShowInFrontStage
-            });
+            Article entity = artPubDao.Get<Article>(param.ArticleId);
 
             entity.ArticleAlias = param.ArticleAlias;
             entity.BannerPicFileName = param.BannerPicFileName;
@@ -278,12 +264,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            ArticleMultiLang entity = artPubDao.GetEmptyEntity<ArticleMultiLang>(new ArticleMultiLangRequiredPropValues()
-            {
-                ArticleId = param.ArticleId,
-                CultureName = param.CultureName,
-                IsShowInLang = !param.IsShowInLang
-            });
+            ArticleMultiLang entity = artPubDao.Get<ArticleMultiLang>(param.ArticleId, param.CultureName);
 
             entity.ArticleSubject = param.ArticleSubject;
             entity.ArticleContext = param.ArticleContext;
@@ -627,11 +608,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            AttachFile entity = artPubDao.GetEmptyEntity<AttachFile>(new AttachFileRequiredPropValues()
-            {
-                AttId = param.AttId,
-                DontDelete = !param.DontDelete
-            });
+            AttachFile entity = artPubDao.Get<AttachFile>(param.AttId);
 
             entity.FilePath = param.FilePath;
             entity.FileSavedName = param.FileSavedName;
@@ -655,12 +632,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            AttachFileMultiLang entity = artPubDao.GetEmptyEntity<AttachFileMultiLang>(new AttachFileMultiLangRequiredPropValues()
-            {
-                AttId = param.AttId,
-                CultureName = param.CultureName,
-                IsShowInLang = !param.IsShowInLang
-            });
+            AttachFileMultiLang entity = artPubDao.Get<AttachFileMultiLang>(param.AttId, param.CultureName);
 
             entity.AttSubject = param.AttSubject;
             entity.IsShowInLang = param.IsShowInLang;
@@ -869,10 +841,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            ArticlePicture entity = artPubDao.GetEmptyEntity<ArticlePicture>(new ArticlePictureRequiredPropValues()
-            {
-                PicId = param.PicId
-            });
+            ArticlePicture entity = artPubDao.Get<ArticlePicture>(param.PicId);
 
             entity.FileSavedName = param.FileSavedName;
             entity.FileSize = param.FileSize;
@@ -894,12 +863,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            ArticlePictureMultiLang entity = artPubDao.GetEmptyEntity<ArticlePictureMultiLang>(new ArticlePictureMultiLangRequiredPropValues()
-            {
-                PicId = param.PicId,
-                CultureName = param.CultureName,
-                IsShowInLang = !param.IsShowInLang
-            });
+            ArticlePictureMultiLang entity = artPubDao.Get<ArticlePictureMultiLang>(param.PicId, param.CultureName);
 
             entity.PicSubject = param.PicSubject;
             entity.IsShowInLang = param.IsShowInLang;
@@ -1039,10 +1003,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            ArticleVideo entity = artPubDao.GetEmptyEntity<ArticleVideo>(new ArticleVideoRequiredPropValues()
-            {
-                VidId = param.VidId
-            });
+            ArticleVideo entity = artPubDao.Get<ArticleVideo>(param.VidId);
 
             entity.SortNo = param.SortNo;
             entity.VidLinkUrl = param.VidLinkUrl;
@@ -1063,12 +1024,7 @@ namespace Common.LogicObject
         {
             bool result = false;
 
-            ArticleVideoMultiLang entity = artPubDao.GetEmptyEntity<ArticleVideoMultiLang>(new ArticleVideoMultiLangRequiredPropValues()
-            {
-                VidId = param.VidId,
-                CultureName = param.CultureName,
-                IsShowInLang = !param.IsShowInLang
-            });
+            ArticleVideoMultiLang entity = artPubDao.Get<ArticleVideoMultiLang>(param.VidId, param.CultureName);
 
             entity.VidSubject = param.VidSubject;
             entity.VidDesc = param.VidDesc;
