@@ -7,9 +7,13 @@ using Common.LogicObject;
 using Newtonsoft.Json;
 using Common.Utility;
 using System.Configuration;
+using Unity.Attributes;
 
 public class GetCurrentAccount : IHttpHandler, IRequiresSessionState
 {
+    [Dependency]
+    public SsoAuthenticatorCommon SsoAuthenticatorCommonIn { get; set; }
+
     protected SsoAuthenticatorCommon c;
     protected HttpContext context;
 
@@ -53,7 +57,10 @@ public class GetCurrentAccount : IHttpHandler, IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new SsoAuthenticatorCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (SsoAuthenticatorCommonIn == null)
+            throw new ArgumentException("SsoAuthenticatorCommonIn");
+
+        this.c = SsoAuthenticatorCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;
@@ -154,7 +161,7 @@ public class GetCurrentAccount : IHttpHandler, IRequiresSessionState
             c.LoggerOfUI.Error("", ex);
             throw new Exception("Generate result failed.");
         }
-        
+
         string websiteUrl = ConfigurationManager.AppSettings["WebsiteUrl"];
         string url = websiteUrl + "/" + pageName + "?preview=" + Server.UrlEncode(previewToken) + "&l=" + c.qsLangNo;
         Response.Redirect(url);

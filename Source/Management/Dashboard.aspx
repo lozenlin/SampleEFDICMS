@@ -58,6 +58,16 @@
                         <small><asp:Literal ID="ltrDataAccessVersion" runat="server"></asp:Literal></small>
                     </td>
                 </tr>
+                <tr>
+                    <th><small>Common.Data.Domain Ver.</small></th>
+                    <td>
+                        <small><asp:Literal ID="ltrDataDomainVersion" runat="server"></asp:Literal></small>
+                    </td>
+                    <th><small></small></th>
+                    <td>
+                        <small></small>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

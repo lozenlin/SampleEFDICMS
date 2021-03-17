@@ -10,10 +10,19 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Operation_Node : BasePage
 {
+    [Dependency]
+    public OperationCommonOfBackend OperationCommonOfBackendIn { get; set; }
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected OperationCommonOfBackend c;
+    protected ArticlePublisherLogic artPub;
     protected EmployeeAuthorityLogic empAuth;
     private IHeadUpDisplay hud = null;
 
@@ -24,11 +33,23 @@ public partial class Operation_Node : BasePage
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new OperationCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (OperationCommonOfBackendIn == null)
+            throw new ArgumentException("OperationCommonOfBackendIn");
+
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = OperationCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItem(c.qsId.ToString(), "");
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.artPub = ArticlePublisherLogicIn;
+
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.InitialAuthorizationResultOfTopPage();
 
         hud = Master.GetHeadUpDisplay();
@@ -69,7 +90,7 @@ public partial class Operation_Node : BasePage
                 if (Master.FlagValue == "Config")
                 {
                     DisplayOperation();
-                    Master.RefreshOpMenu();
+                    Master.RefreshOpMenu(empAuth, artPub, c);
                 }
 
                 Master.FlagValue = "";
@@ -364,7 +385,7 @@ public partial class Operation_Node : BasePage
         if (result)
         {
             DisplaySubitems();
-            Master.RefreshOpMenu();
+            Master.RefreshOpMenu(empAuth, artPub, c);
         }
     }
 

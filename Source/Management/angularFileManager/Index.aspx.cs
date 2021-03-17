@@ -5,15 +5,22 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class angularFileManager_Index : System.Web.UI.Page
 {
+    [Dependency]
+    public BackendPageCommon BackendPageCommonIn { get; set; }
+
     protected BackendPageCommon c;
     protected string afmLang = "en";
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (BackendPageCommonIn == null)
+            throw new ArgumentException("BackendPageCommonIn");
+
+        this.c = BackendPageCommonIn;
 
         afmLang = c.seCultureNameOfBackend;
 

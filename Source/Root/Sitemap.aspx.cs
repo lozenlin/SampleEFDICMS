@@ -136,6 +136,9 @@ public partial class Sitemap : FrontendBasePage
 
             System.Reflection.Assembly asmUtility = System.Reflection.Assembly.Load("Common.Utility");
             ltrUtilityVersion.Text = asmUtility.GetName().Version.ToString();
+
+            System.Reflection.Assembly asmDataDomain = System.Reflection.Assembly.Load("Common.Data.Domain");
+            ltrDataDomainVersion.Text = asmDataDomain.GetName().Version.ToString();
         }
         catch { }
     }

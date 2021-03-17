@@ -69,6 +69,12 @@
                             <asp:Literal ID="ltrUtilityVersion" runat="server"></asp:Literal>
                         </td>
                     </tr>
+                    <tr>
+                        <th>Common.Data.Domain Ver.</th>
+                        <td>
+                            <asp:Literal ID="ltrDataDomainVersion" runat="server"></asp:Literal>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

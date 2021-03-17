@@ -6,9 +6,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Pick_LayoutControl : System.Web.UI.Page
 {
+    [Dependency]
+    public ArticleCommonOfBackend ArticleCommonOfBackendIn { get; set; }
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected ArticleCommonOfBackend c;
     protected ArticlePublisherLogic artPub;
     protected EmployeeAuthorityLogic empAuth;
@@ -17,13 +25,23 @@ public partial class Pick_LayoutControl : System.Web.UI.Page
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new ArticleCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess(),
-            new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess()));
+        if (ArticleCommonOfBackendIn == null)
+            throw new ArgumentException("ArticleCommonOfBackendIn");
+
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = ArticleCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
 
-        artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.artPub = ArticlePublisherLogicIn;
+        artPub.SetAuthenticationConditionProvider(c);
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.SetCustomEmployeeAuthorizationResult(artPub);
         empAuth.InitialAuthorizationResultOfSubPages();
     }

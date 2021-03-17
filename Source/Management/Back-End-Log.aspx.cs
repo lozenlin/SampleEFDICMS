@@ -51,7 +51,7 @@ public partial class Back_End_Log : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        hud.RebuildBreadcrumbAndUpdateHead(c.GetOpIdOfPage());
+        hud.RebuildBreadcrumbAndUpdateHead(c.GetOpIdOfPage(), empAuth);
         Title = hud.GetHeadText() + " - " + Title;
 
         if (!IsPostBack)

@@ -9,9 +9,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class MasterMain : System.Web.UI.MasterPage
 {
+    [Dependency]
+    public BackendPageCommon BackendPageCommonIn { get; set; }
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected BackendPageCommon c;
     protected ArticlePublisherLogic artPub;
     protected EmployeeAuthorityLogic empAuth;
@@ -31,17 +39,28 @@ public partial class MasterMain : System.Web.UI.MasterPage
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c.InitialLoggerOfUI(this.GetType());
-        artPub = new ArticlePublisherLogic(c, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-
         Page.Title = Resources.Lang.BackStageName;
         Page.MaintainScrollPositionOnPostBack = true;
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (BackendPageCommonIn == null)
+            throw new ArgumentException("BackendPageCommonIn");
+
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = BackendPageCommonIn;
+        c.InitialLoggerOfUI(this.GetType());
+        this.artPub = ArticlePublisherLogicIn;
+        artPub.SetAuthenticationConditionProvider(c);
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
+
         if (c.seLoginEmpData.EmpAccount == null)
         {
             ShowErrorMsg(Resources.Lang.ErrMsg_LostSessionState);
@@ -343,8 +362,32 @@ public partial class MasterMain : System.Web.UI.MasterPage
         }
     }
 
-    public void RefreshOpMenu()
+    public void RefreshOpMenu(EmployeeAuthorityLogic _empAuth, ArticlePublisherLogic _artPub, BackendPageCommon _c)
     {
+        if (_empAuth == null)
+            throw new ArgumentException("_empAuth");
+
+        if (_artPub == null)
+            throw new ArgumentException("_artPub");
+
+        if (_c == null)
+            throw new ArgumentException("_c");
+
+        if (this.empAuth == null)
+        {
+            this.empAuth = _empAuth;
+        }
+
+        if(this.artPub == null)
+        {
+            this.artPub = _artPub;
+        }
+
+        if (this.c == null)
+        {
+            this.c = _c;
+        }
+
         DisplayOpMenu();
     }
 

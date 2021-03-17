@@ -7,12 +7,18 @@ using System.Web.SessionState;
 using Newtonsoft.Json;
 using System.IO;
 using AfmService;
+using Unity.Attributes;
 
 /// <summary>
 /// angular-FileManager Service
 /// </summary>
 public class afmService : IHttpHandler, IRequiresSessionState
 {
+    [Dependency]
+    public AfmServicePageCommon AfmServicePageCommonIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected AfmServicePageCommon c;
     protected HttpContext context;
     protected EmployeeAuthorityLogic empAuth;
@@ -45,9 +51,16 @@ public class afmService : IHttpHandler, IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new AfmServicePageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (AfmServicePageCommonIn == null)
+            throw new ArgumentException("AfmServicePageCommonIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = AfmServicePageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
 
         this.context = context;
         AfmResult afmResult = null;
@@ -86,7 +99,7 @@ public class afmService : IHttpHandler, IRequiresSessionState
                     c.seLastPath = afmRequest.path;
                 }
             }
-            
+
             IAfmServiceHandler handler = AfmServiceHandlerFactory.GetHandler(context, afmRequest, c, empAuth);
 
             if (handler == null)

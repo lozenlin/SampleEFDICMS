@@ -97,7 +97,7 @@ public partial class Article_Node : BasePage
                 if (Master.FlagValue == "Config")
                 {
                     DisplaySubitems();
-                    Master.RefreshOpMenu();
+                    Master.RefreshOpMenu(empAuth, artPub, c);
                 }
                 else if (Master.FlagValue == "Attach")
                 {
@@ -767,7 +767,7 @@ public partial class Article_Node : BasePage
         if (result)
         {
             DisplayArticle();
-            Master.RefreshOpMenu();
+            Master.RefreshOpMenu(empAuth, artPub, c);
         }
     }
 

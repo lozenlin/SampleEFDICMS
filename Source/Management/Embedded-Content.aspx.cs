@@ -5,20 +5,33 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class Embedded_Content : BasePage
 {
+    [Dependency]
+    public EmbeddedContentCommonOfBackend EmbeddedContentCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected EmbeddedContentCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
     private IHeadUpDisplay hud = null;
 
     protected void Page_PreInit(object sender, EventArgs e)
     {
-        c = new EmbeddedContentCommonOfBackend(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (EmbeddedContentCommonOfBackendIn == null)
+            throw new ArgumentException("EmbeddedContentCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = EmbeddedContentCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
         c.SelectMenuItemToThisPage();
 
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
         empAuth.InitialAuthorizationResultOfTopPage();
 
         hud = Master.GetHeadUpDisplay();
@@ -27,7 +40,7 @@ public partial class Embedded_Content : BasePage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        hud.RebuildBreadcrumbAndUpdateHead(c.GetOpIdOfPage());
+        hud.RebuildBreadcrumbAndUpdateHead(c.GetOpIdOfPage(), empAuth);
         Title = hud.GetHeadText() + " - " + Title;
 
         if (!IsPostBack)

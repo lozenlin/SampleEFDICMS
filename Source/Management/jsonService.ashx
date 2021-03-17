@@ -6,9 +6,17 @@ using Common.LogicObject;
 using System.Web.SessionState;
 using Newtonsoft.Json;
 using JsonService;
+using Unity.Attributes;
 
 public class jsonService : IHttpHandler, IRequiresSessionState
 {
+    [Dependency]
+    public RoleCommonOfBackend RoleCommonOfBackendIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+    [Dependency]
+    public ArticlePublisherLogic ArticlePublisherLogicIn { get; set; }
+
     protected RoleCommonOfBackend c;
     protected EmployeeAuthorityLogic empAuth;
     protected ArticlePublisherLogic artPub;
@@ -42,10 +50,20 @@ public class jsonService : IHttpHandler, IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new RoleCommonOfBackend(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (RoleCommonOfBackendIn == null)
+            throw new ArgumentException("RoleCommonOfBackendIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        if (ArticlePublisherLogicIn == null)
+            throw new ArgumentException("ArticlePublisherLogicIn");
+
+        this.c = RoleCommonOfBackendIn;
         c.InitialLoggerOfUI(this.GetType());
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        artPub = new ArticlePublisherLogic(null, new Common.DataAccess.EF.ArticlePublisherDataAccess(), new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
+        this.artPub = ArticlePublisherLogicIn;
 
         this.context = context;
 

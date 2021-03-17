@@ -6,9 +6,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class MasterConfig : System.Web.UI.MasterPage
 {
+    [Dependency]
+    public BackendPageCommon BackendPageCommonIn { get; set; }
+
     protected BackendPageCommon c;
 
     #region Public properties
@@ -32,14 +36,16 @@ public partial class MasterConfig : System.Web.UI.MasterPage
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c.InitialLoggerOfUI(this.GetType());
-
         Page.MaintainScrollPositionOnPostBack = true;
     }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (BackendPageCommonIn == null)
+            throw new ArgumentException("BackendPageCommonIn");
+
+        this.c = BackendPageCommonIn;
+        c.InitialLoggerOfUI(this.GetType());
 
     }
 

@@ -45,19 +45,19 @@ namespace ASP.App_Start
 			container.RegisterType<IEmployeeAuthorityDataAccess, EmployeeAuthorityDataAccess>(new HierarchicalLifetimeManager());
 			container.RegisterType<IArticlePublisherDataAccess, ArticlePublisherDataAccess>(new HierarchicalLifetimeManager());
 			container.RegisterType<IAuthenticationConditionProvider, NullAuthenticationConditionProvider>();
-			// captcha, Dashboard
+			// captcha, Dashboard, angularFileManager/Index, MasterLogin, MasterMain, MasterConfig, wucHeadUpDisplay
 			container.RegisterType<HttpContext>(new InjectionFactory(c => HttpContext.Current));
 			container.RegisterType<EmployeeAuthorityLogic>(new HierarchicalLifetimeManager());
 			container.RegisterType<ArticlePublisherLogic>(new HierarchicalLifetimeManager());
-			container.RegisterType<BackendPageCommon>();
+			container.RegisterType<BackendPageCommon>(new HierarchicalLifetimeManager());
 
 			// Login, Psw-Change, Psw-Require, Logout
-			container.RegisterType<LoginCommonOfBackend>();
+			container.RegisterType<LoginCommonOfBackend>(new HierarchicalLifetimeManager());
 
 			// Account-List, Account-Config
 			container.RegisterType<AccountCommonOfBackend>(new HierarchicalLifetimeManager());
 
-			// Role-LIst, Role-Config, Role-Privilege
+			// Role-LIst, Role-Config, Role-Privilege, jsonService
 			container.RegisterType<RoleCommonOfBackend>(new HierarchicalLifetimeManager());
 
 			// Department-List, Department-Config
@@ -66,7 +66,7 @@ namespace ASP.App_Start
 			// Back-End-Log
 			container.RegisterType<BackEndLogCommonOfBackend>(new HierarchicalLifetimeManager());
 
-			// Article-Node, Article-Config
+			// Article-Node, Article-Config, Pick-CustomWebProgram, Pick-LayoutControl
 			container.RegisterType<ArticleCommonOfBackend>(new HierarchicalLifetimeManager());
 
 			// Article-Attach
@@ -77,6 +77,27 @@ namespace ASP.App_Start
 
 			// Article-Video
 			container.RegisterType<ArticleVideoCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Operation-Node, Operation-Config
+			container.RegisterType<OperationCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// Embedded-Content
+			container.RegisterType<EmbeddedContentCommonOfBackend>(new HierarchicalLifetimeManager());
+
+			// AfmDownload, afmService
+			container.RegisterType<AfmServicePageCommon>(new HierarchicalLifetimeManager());
+
+			// FileAtt
+			container.RegisterType<AttDownloadCommon>(new HierarchicalLifetimeManager());
+
+			// FileArtPic
+			container.RegisterType<ArtPicDownloadCommon>(new HierarchicalLifetimeManager());
+
+			// FileAttView
+			container.RegisterType<AttViewDownloadCommon>(new HierarchicalLifetimeManager());
+
+			// GetCurrentAccount
+			container.RegisterType<SsoAuthenticatorCommon>(new HierarchicalLifetimeManager());
 
 			// Global
 			container.RegisterType<ParamFilterClient>();

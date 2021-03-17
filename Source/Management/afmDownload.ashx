@@ -9,9 +9,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Web.Caching;
+using Unity.Attributes;
 
 public class afmDownload : IHttpHandler, IRequiresSessionState
 {
+    [Dependency]
+    public AfmServicePageCommon AfmServicePageCommonIn { get; set; }
+
     protected AfmServicePageCommon c;
     protected HttpContext context;
 
@@ -46,7 +50,10 @@ public class afmDownload : IHttpHandler, IRequiresSessionState
 
     public void ProcessRequest(HttpContext context)
     {
-        c = new AfmServicePageCommon(context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
+        if (AfmServicePageCommonIn == null)
+            throw new ArgumentException("AfmServicePageCommonIn");
+
+        this.c = AfmServicePageCommonIn;
         c.InitialLoggerOfUI(this.GetType());
 
         this.context = context;
@@ -104,7 +111,7 @@ public class afmDownload : IHttpHandler, IRequiresSessionState
             //檢查快取
             bool useCacheFunction = true;
             string cacheKey = string.Format("{0}:lt{1}:pa{2}:th{3}",
-                Request.AppRelativeCurrentExecutionFilePath, c.qsListType, c.qsPath, 
+                Request.AppRelativeCurrentExecutionFilePath, c.qsListType, c.qsPath,
                 c.qsThumb);
             Size picFitSize = new Size(120, 120);
             Size destSize = picFitSize;
@@ -169,7 +176,7 @@ public class afmDownload : IHttpHandler, IRequiresSessionState
                 bytes = new byte[ms.Length];
                 ms.Read(bytes, 0, bytes.Length);
                 ms.Close();
-                
+
                 //加入快取
                 if (useCacheFunction)
                 {
@@ -190,7 +197,7 @@ public class afmDownload : IHttpHandler, IRequiresSessionState
         Response.Cache.VaryByParams["path"] = true;
         Response.Cache.VaryByParams["thumb"] = true;
         Response.Cache.SetExpires(DateTime.Now.AddYears(1));    // for Client
-        
+
         Response.ContentType = contentType;
         Response.HeaderEncoding = System.Text.Encoding.GetEncoding("big5");
         Response.AddHeader("Content-Disposition", "attachment; filename=" + fi.Name);
@@ -203,7 +210,7 @@ public class afmDownload : IHttpHandler, IRequiresSessionState
         {
             Response.WriteFile(fileFullName);
         }
-        
+
         Response.End();
     }
 

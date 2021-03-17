@@ -6,9 +6,15 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Unity.Attributes;
 
 public partial class UserControls_wucHeadUpDisplay : System.Web.UI.UserControl, IHeadUpDisplay
 {
+    [Dependency]
+    public BackendPageCommon BackendPageCommonIn { get; set; }
+    [Dependency]
+    public EmployeeAuthorityLogic EmployeeAuthorityLogicIn { get; set; }
+
     protected BackendPageCommon c;
     protected EmployeeAuthorityLogic empAuth;
 
@@ -16,15 +22,6 @@ public partial class UserControls_wucHeadUpDisplay : System.Web.UI.UserControl, 
 
     protected void Page_Init(object sender, EventArgs e)
     {
-        c = new BackendPageCommon(this.Context, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-        c.InitialLoggerOfUI(this.GetType());
-        empAuth = new EmployeeAuthorityLogic(c, new Common.DataAccess.EF.EmployeeAuthorityDataAccess());
-
-        if (c.seCultureNameOfBackend == "en")
-        {
-            useEnglishSubject = true;
-        }
-
         if (!IsPostBack)
         {
             LoadUIData();
@@ -33,6 +30,22 @@ public partial class UserControls_wucHeadUpDisplay : System.Web.UI.UserControl, 
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (BackendPageCommonIn == null)
+            throw new ArgumentException("BackendPageCommonIn");
+
+        if (EmployeeAuthorityLogicIn == null)
+            throw new ArgumentException("EmployeeAuthorityLogicIn");
+
+        this.c = BackendPageCommonIn;
+        c.InitialLoggerOfUI(this.GetType());
+        this.empAuth = EmployeeAuthorityLogicIn;
+        empAuth.SetAuthenticationConditionProvider(c);
+
+        if (c.seCultureNameOfBackend == "en")
+        {
+            useEnglishSubject = true;
+        }
+
         if (!IsPostBack)
         {
         }
@@ -263,8 +276,13 @@ public partial class UserControls_wucHeadUpDisplay : System.Web.UI.UserControl, 
     /// <summary>
     /// e.g., Home / OpSubject
     /// </summary>
-    public bool RebuildBreadcrumbAndUpdateHead(int opId)
+    public bool RebuildBreadcrumbAndUpdateHead(int opId, EmployeeAuthorityLogic _empAuth)
     {
+        if(this.empAuth == null)
+        {
+            this.empAuth = _empAuth;
+        }
+
         OperationHtmlAnchorData anchorData = empAuth.GetOperationHtmlAnchorData(opId, useEnglishSubject);
 
         if (anchorData == null)
