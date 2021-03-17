@@ -686,7 +686,7 @@ namespace Common.DataAccess.EF
                 cmsCtx.Database.ExecuteSqlCommand("delete from dbo.EmployeeRoleOperationsDesc where OpId=@p0", opId);
 
                 // main data
-                Operations entity = new Operations() { OpId = opId };
+                Operations entity = Get<Operations>(opId);
                 cmsCtx.Entry<Operations>(entity).State = EntityState.Deleted;
                 cmsCtx.SaveChanges();
 

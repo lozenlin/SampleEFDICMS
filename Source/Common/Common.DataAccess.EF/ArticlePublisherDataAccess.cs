@@ -1383,7 +1383,7 @@ where exists(
                 cmsCtx.Database.ExecuteSqlCommand("delete from dbo.AttachFileMultiLang where AttId=@p0", attId);
 
                 // delete main data
-                AttachFile entity = new AttachFile() { AttId = attId };
+                AttachFile entity = Get<AttachFile>(attId);
                 cmsCtx.Entry<AttachFile>(entity).State = EntityState.Deleted;
                 cmsCtx.SaveChanges();
 
@@ -1592,7 +1592,7 @@ where exists(
                 cmsCtx.Database.ExecuteSqlCommand("delete from dbo.ArticlePictureMultiLang where PicId=@p0", picId);
 
                 // delete main data
-                ArticlePicture entity = new ArticlePicture() { PicId = picId };
+                ArticlePicture entity = Get<ArticlePicture>(picId);
                 cmsCtx.Entry<ArticlePicture>(entity).State = EntityState.Deleted;
                 cmsCtx.SaveChanges();
 
